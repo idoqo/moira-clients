@@ -1,0 +1,424 @@
+openapi: 3.0.0
+info:
+  description: This is an API description for Moira Alert project. Please check https://github.com/moira-alert
+  license:
+    name: MIT
+  title: Moira Alert
+  version: 2.5.1.47
+servers:
+- description: Localhost server
+  url: http://localhost:8080/api
+tags:
+- description: Runtime configuration of the API
+  name: config
+- description: Triggers Collection Methods
+  name: triggers
+- description: One Trigger Methods
+  name: trigger
+paths:
+  /config:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Configuration fetched successfully.
+      summary: Get available configuration
+      tags:
+      - config
+  /trigger:
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                desc:
+                  description: Trigger description
+                  example: Dice roll trigger
+                  type: string
+                error_value:
+                  description: Target value at which error will be fired
+                  example: 7
+                  type: number
+                expression:
+                  description: Expression that will be evaluated
+                  example: 't1 > 6 ? ERROR : (t1 > 4)? WARN : OK'
+                  type: string
+                id:
+                  type: string
+                is_remote:
+                  description: Which storage to use local or remote
+                  example: false
+                  type: boolean
+                mute_new_metrics:
+                  example: true
+                  type: boolean
+                name:
+                  description: Trigger name
+                  example: Dice Roll
+                  type: string
+                patterns:
+                  description: Array of possible patterns to check values in simple
+                    mode
+                  example:
+                  - local.dice.roll
+                  items:
+                    type: string
+                  type: array
+                sched:
+                  $ref: '#/components/schemas/_trigger_sched'
+                tags:
+                  description: Array of tags associated with this trigger
+                  example:
+                  - test
+                  items:
+                    type: string
+                  type: array
+                targets:
+                  description: Array of targets associated with this trigger
+                  items:
+                    type: string
+                  type: array
+                throttling:
+                  description: Quantity of events before throttling will be enabled
+                  type: integer
+                trigger_type:
+                  enum:
+                  - rising
+                  - falling
+                  - expression
+                  type: string
+                ttl:
+                  type: integer
+                ttl_state:
+                  type: string
+                warn_value:
+                  description: Target value at which warning will be fired
+                  example: 5
+                  type: number
+                alone_metrics:
+                  description: An array of targets which have only one metric
+                  example:
+                  - t1
+                  - t2
+                  items:
+                    type: string
+                  type: array
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: Trigger created
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+          description: Invalid input
+      summary: Create new trigger
+      tags:
+      - triggers
+  /trigger/{triggerId}:
+    get:
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties: {}
+                type: object
+          description: Trigger data
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: Update existing trigger
+      tags:
+      - trigger
+    put:
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties: {}
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: Trigger updated
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+          description: Invalid input
+      summary: Update existing trigger
+      tags:
+      - trigger
+  /trigger/{triggerId}/render:
+    get:
+      parameters:
+      - description: The ID of updated target to print plot for
+        example: t1
+        explode: true
+        in: query
+        name: targetID
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The start period of metrics to get
+        example: -1hour
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The end period of metrics to get
+        example: now
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            image/png:
+              schema:
+                format: binary
+                type: string
+          description: Plot for trigger
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500_1'
+          description: Server error
+      summary: Get rendered plot for trigger
+      tags:
+      - trigger
+  /trigger/{triggerId}/metrics:
+    get:
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Metrics for trigger
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500_1'
+          description: Server error
+      summary: Get metrics associated with certain trigger
+      tags:
+      - trigger
+components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
+  schemas:
+    inline_response_500_1:
+      properties:
+        status:
+          example: Internal Server Error
+          type: string
+        error:
+          example: 'no points found to render trigger: 5A8AF369-86D2-44DD-B514-D47995ED6AF7'
+          type: string
+    inline_response_404:
+      properties:
+        status:
+          example: Resource not found
+          type: string
+        error:
+          example: trigger not found
+          type: string
+    _trigger_sched:
+      properties:
+        days:
+          items:
+            $ref: '#/components/schemas/_trigger_sched_days'
+          type: array
+        endOffset:
+          type: integer
+        startOffset:
+          type: integer
+        tzOffset:
+          type: integer
+    inline_response_200_1:
+      example:
+        id: trigger_id
+        message: trigger created
+      properties:
+        id:
+          example: trigger_id
+          type: string
+        message:
+          example: trigger created
+          type: string
+    inline_response_200_contacts:
+      example:
+        help: '@MoiraBot requires admin privileges on your target channel.'
+        label: Telegram
+        type: telegram
+      properties:
+        type:
+          description: The type of contact
+          example: telegram
+          type: string
+        label:
+          description: Human readable label of the contact
+          example: Telegram
+          type: string
+        help:
+          description: Help text relevant to the contact type
+          example: '@MoiraBot requires admin privileges on your target channel.'
+          type: string
+    inline_response_200:
+      example:
+        remoteAllowed: false
+        contacts:
+        - help: '@MoiraBot requires admin privileges on your target channel.'
+          label: Telegram
+          type: telegram
+        - help: '@MoiraBot requires admin privileges on your target channel.'
+          label: Telegram
+          type: telegram
+      properties:
+        remoteAllowed:
+          description: Flag for determining if Moira is accessible remotely.
+          example: false
+          type: boolean
+        contacts:
+          description: List of enabled contact types
+          items:
+            $ref: '#/components/schemas/inline_response_200_contacts'
+          type: array
+    inline_object:
+      additionalProperties: false
+      properties:
+        desc:
+          description: Trigger description
+          example: Dice roll trigger
+          type: string
+        error_value:
+          description: Target value at which error will be fired
+          example: 7
+          type: number
+        expression:
+          description: Expression that will be evaluated
+          example: 't1 > 6 ? ERROR : (t1 > 4)? WARN : OK'
+          type: string
+        id:
+          type: string
+        is_remote:
+          description: Which storage to use local or remote
+          example: false
+          type: boolean
+        mute_new_metrics:
+          example: true
+          type: boolean
+        name:
+          description: Trigger name
+          example: Dice Roll
+          type: string
+        patterns:
+          description: Array of possible patterns to check values in simple mode
+          example:
+          - local.dice.roll
+          items:
+            type: string
+          type: array
+        sched:
+          $ref: '#/components/schemas/_trigger_sched'
+        tags:
+          description: Array of tags associated with this trigger
+          example:
+          - test
+          items:
+            type: string
+          type: array
+        targets:
+          description: Array of targets associated with this trigger
+          items:
+            type: string
+          type: array
+        throttling:
+          description: Quantity of events before throttling will be enabled
+          type: integer
+        trigger_type:
+          enum:
+          - rising
+          - falling
+          - expression
+          type: string
+        ttl:
+          type: integer
+        ttl_state:
+          type: string
+        warn_value:
+          description: Target value at which warning will be fired
+          example: 5
+          type: number
+        alone_metrics:
+          description: An array of targets which have only one metric
+          example:
+          - t1
+          - t2
+          items:
+            type: string
+          type: array
+      type: object
+    _trigger_sched_days:
+      properties:
+        enabled:
+          type: boolean
+        name:
+          type: string
+    inline_response_500:
+      properties:
+        status:
+          example: Invalid request
+          type: string
+        error:
+          example: error_value is equal to warn_value, please set exactly one value
+          type: string
