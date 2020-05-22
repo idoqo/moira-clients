@@ -67,10 +67,10 @@ with openapi_client.ApiClient(configuration) as api_client:
     
     try:
         # Get available configuration
-        api_response = api_instance.config_get()
+        api_response = api_instance.get_config()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling ConfigApi->config_get: %s\n" % e)
+        print("Exception when calling ConfigApi->get_config: %s\n" % e)
     
 ```
 
@@ -80,25 +80,32 @@ All URIs are relative to *http://localhost:8080/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ConfigApi* | [**config_get**](docs/ConfigApi.md#config_get) | **GET** /config | Get available configuration
-*TriggerApi* | [**trigger_trigger_id_get**](docs/TriggerApi.md#trigger_trigger_id_get) | **GET** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**trigger_trigger_id_metrics_get**](docs/TriggerApi.md#trigger_trigger_id_metrics_get) | **GET** /trigger/{triggerId}/metrics | Get metrics associated with certain trigger
-*TriggerApi* | [**trigger_trigger_id_put**](docs/TriggerApi.md#trigger_trigger_id_put) | **PUT** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**trigger_trigger_id_render_get**](docs/TriggerApi.md#trigger_trigger_id_render_get) | **GET** /trigger/{triggerId}/render | Get rendered plot for trigger
-*TriggersApi* | [**trigger_put**](docs/TriggersApi.md#trigger_put) | **PUT** /trigger | Create new trigger
+*ConfigApi* | [**get_config**](docs/ConfigApi.md#get_config) | **GET** /config | Get available configuration
+*TriggerApi* | [**get_trigger**](docs/TriggerApi.md#get_trigger) | **GET** /trigger/{triggerID} | Get an existing trigger
+*TriggerApi* | [**get_trigger_metrics**](docs/TriggerApi.md#get_trigger_metrics) | **GET** /trigger/{triggerID}/metrics | Get metrics associated with certain trigger
+*TriggerApi* | [**get_trigger_plot**](docs/TriggerApi.md#get_trigger_plot) | **GET** /trigger/{triggerID}/render | Get rendered plot for trigger
+*TriggerApi* | [**update_trigger**](docs/TriggerApi.md#update_trigger) | **PUT** /trigger/{triggerID} | Update existing trigger
+*TriggersApi* | [**create_trigger**](docs/TriggersApi.md#create_trigger) | **PUT** /trigger | Create new trigger
+*UserApi* | [**get_user**](docs/UserApi.md#get_user) | **GET** /user | Gets the username of the authenticated user if it is available.
+*UserApi* | [**get_user_settings**](docs/UserApi.md#get_user_settings) | **GET** /user/settings | Get the user&#39;s contacts and subscriptions.
 
 
 ## Documentation For Models
 
- - [InlineObject](docs/InlineObject.md)
+ - [Contact](docs/Contact.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
+ - [InlineResponse2002](docs/InlineResponse2002.md)
  - [InlineResponse200Contacts](docs/InlineResponse200Contacts.md)
  - [InlineResponse404](docs/InlineResponse404.md)
  - [InlineResponse500](docs/InlineResponse500.md)
  - [InlineResponse5001](docs/InlineResponse5001.md)
- - [TriggerSched](docs/TriggerSched.md)
- - [TriggerSchedDays](docs/TriggerSchedDays.md)
+ - [Subscription](docs/Subscription.md)
+ - [SubscriptionPlotting](docs/SubscriptionPlotting.md)
+ - [SubscriptionSched](docs/SubscriptionSched.md)
+ - [SubscriptionSchedDays](docs/SubscriptionSchedDays.md)
+ - [Trigger](docs/Trigger.md)
+ - [User](docs/User.md)
 
 
 ## Documentation For Authorization

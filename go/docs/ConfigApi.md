@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ConfigGet**](ConfigApi.md#ConfigGet) | **Get** /config | Get available configuration
+[**GetConfig**](ConfigApi.md#GetConfig) | **Get** /config | Get available configuration
 
 
 
-## ConfigGet
+## GetConfig
 
-> InlineResponse200 ConfigGet(ctx, )
+> InlineResponse200 GetConfig(ctx, )
 
 Get available configuration
 

@@ -25,11 +25,11 @@ var (
 type ConfigApiService service
 
 /*
-ConfigGet Get available configuration
+GetConfig Get available configuration
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return InlineResponse200
 */
-func (a *ConfigApiService) ConfigGet(ctx _context.Context) (InlineResponse200, *_nethttp.Response, error) {
+func (a *ConfigApiService) GetConfig(ctx _context.Context) (InlineResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}

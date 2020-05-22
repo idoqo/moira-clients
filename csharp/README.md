@@ -83,12 +83,12 @@ namespace Example
             try
             {
                 // Get available configuration
-                InlineResponse200 result = apiInstance.ConfigGet();
+                InlineResponse200 result = apiInstance.GetConfig();
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling ConfigApi.ConfigGet: " + e.Message );
+                Debug.Print("Exception when calling ConfigApi.GetConfig: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -104,25 +104,32 @@ All URIs are relative to *http://localhost:8080/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ConfigApi* | [**ConfigGet**](docs/ConfigApi.md#configget) | **GET** /config | Get available configuration
-*TriggerApi* | [**TriggerTriggerIdGet**](docs/TriggerApi.md#triggertriggeridget) | **GET** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**TriggerTriggerIdMetricsGet**](docs/TriggerApi.md#triggertriggeridmetricsget) | **GET** /trigger/{triggerId}/metrics | Get metrics associated with certain trigger
-*TriggerApi* | [**TriggerTriggerIdPut**](docs/TriggerApi.md#triggertriggeridput) | **PUT** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**TriggerTriggerIdRenderGet**](docs/TriggerApi.md#triggertriggeridrenderget) | **GET** /trigger/{triggerId}/render | Get rendered plot for trigger
-*TriggersApi* | [**TriggerPut**](docs/TriggersApi.md#triggerput) | **PUT** /trigger | Create new trigger
+*ConfigApi* | [**GetConfig**](docs/ConfigApi.md#getconfig) | **GET** /config | Get available configuration
+*TriggerApi* | [**GetTrigger**](docs/TriggerApi.md#gettrigger) | **GET** /trigger/{triggerID} | Get an existing trigger
+*TriggerApi* | [**GetTriggerMetrics**](docs/TriggerApi.md#gettriggermetrics) | **GET** /trigger/{triggerID}/metrics | Get metrics associated with certain trigger
+*TriggerApi* | [**GetTriggerPlot**](docs/TriggerApi.md#gettriggerplot) | **GET** /trigger/{triggerID}/render | Get rendered plot for trigger
+*TriggerApi* | [**UpdateTrigger**](docs/TriggerApi.md#updatetrigger) | **PUT** /trigger/{triggerID} | Update existing trigger
+*TriggersApi* | [**CreateTrigger**](docs/TriggersApi.md#createtrigger) | **PUT** /trigger | Create new trigger
+*UserApi* | [**GetUser**](docs/UserApi.md#getuser) | **GET** /user | Gets the username of the authenticated user if it is available.
+*UserApi* | [**GetUserSettings**](docs/UserApi.md#getusersettings) | **GET** /user/settings | Get the user's contacts and subscriptions.
 
 
 ## Documentation for Models
 
- - [Model.InlineObject](docs/InlineObject.md)
+ - [Model.Contact](docs/Contact.md)
  - [Model.InlineResponse200](docs/InlineResponse200.md)
  - [Model.InlineResponse2001](docs/InlineResponse2001.md)
+ - [Model.InlineResponse2002](docs/InlineResponse2002.md)
  - [Model.InlineResponse200Contacts](docs/InlineResponse200Contacts.md)
  - [Model.InlineResponse404](docs/InlineResponse404.md)
  - [Model.InlineResponse500](docs/InlineResponse500.md)
  - [Model.InlineResponse5001](docs/InlineResponse5001.md)
- - [Model.TriggerSched](docs/TriggerSched.md)
- - [Model.TriggerSchedDays](docs/TriggerSchedDays.md)
+ - [Model.Subscription](docs/Subscription.md)
+ - [Model.SubscriptionPlotting](docs/SubscriptionPlotting.md)
+ - [Model.SubscriptionSched](docs/SubscriptionSched.md)
+ - [Model.SubscriptionSchedDays](docs/SubscriptionSchedDays.md)
+ - [Model.Trigger](docs/Trigger.md)
+ - [Model.User](docs/User.md)
 
 
 ## Documentation for Authorization

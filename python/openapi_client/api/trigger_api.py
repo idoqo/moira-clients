@@ -36,223 +36,16 @@ class TriggerApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def trigger_trigger_id_get(self, **kwargs):  # noqa: E501
-        """Update existing trigger  # noqa: E501
+    def get_trigger(self, trigger_id, **kwargs):  # noqa: E501
+        """Get an existing trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_get(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: object
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.trigger_trigger_id_get_with_http_info(**kwargs)  # noqa: E501
-
-    def trigger_trigger_id_get_with_http_info(self, **kwargs):  # noqa: E501
-        """Update existing trigger  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_get_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(object, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method trigger_trigger_id_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        return self.api_client.call_api(
-            '/trigger/{triggerId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='object',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def trigger_trigger_id_metrics_get(self, **kwargs):  # noqa: E501
-        """Get metrics associated with certain trigger  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_metrics_get(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.trigger_trigger_id_metrics_get_with_http_info(**kwargs)  # noqa: E501
-
-    def trigger_trigger_id_metrics_get_with_http_info(self, **kwargs):  # noqa: E501
-        """Get metrics associated with certain trigger  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_metrics_get_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method trigger_trigger_id_metrics_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        return self.api_client.call_api(
-            '/trigger/{triggerId}/metrics', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def trigger_trigger_id_put(self, trigger_id, body, **kwargs):  # noqa: E501
-        """Update existing trigger  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_put(trigger_id, body, async_req=True)
+        >>> thread = api.get_trigger(trigger_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str trigger_id: The ID of updated trigger (required)
-        :param object body: (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -260,24 +53,23 @@ class TriggerApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: InlineResponse2001
+        :return: Trigger
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.trigger_trigger_id_put_with_http_info(trigger_id, body, **kwargs)  # noqa: E501
+        return self.get_trigger_with_http_info(trigger_id, **kwargs)  # noqa: E501
 
-    def trigger_trigger_id_put_with_http_info(self, trigger_id, body, **kwargs):  # noqa: E501
-        """Update existing trigger  # noqa: E501
+    def get_trigger_with_http_info(self, trigger_id, **kwargs):  # noqa: E501
+        """Get an existing trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_put_with_http_info(trigger_id, body, async_req=True)
+        >>> thread = api.get_trigger_with_http_info(trigger_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str trigger_id: The ID of updated trigger (required)
-        :param object body: (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -287,7 +79,7 @@ class TriggerApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: tuple(InlineResponse2001, status_code(int), headers(HTTPHeaderDict))
+        :return: tuple(Trigger, status_code(int), headers(HTTPHeaderDict))
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -295,8 +87,7 @@ class TriggerApi(object):
         local_var_params = locals()
 
         all_params = [
-            'trigger_id',
-            'body'
+            'trigger_id'
         ]
         all_params.extend(
             [
@@ -311,18 +102,14 @@ class TriggerApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method trigger_trigger_id_put" % key
+                    " to method get_trigger" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'trigger_id' is set
         if self.api_client.client_side_validation and ('trigger_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['trigger_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `trigger_id` when calling `trigger_trigger_id_put`")  # noqa: E501
-        # verify the required parameter 'body' is set
-        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
-                                                        local_var_params['body'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `body` when calling `trigger_trigger_id_put`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger_id` when calling `get_trigger`")  # noqa: E501
 
         collection_formats = {}
 
@@ -338,28 +125,22 @@ class TriggerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/trigger/{triggerId}', 'PUT',
+            '/trigger/{triggerID}', 'GET',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='InlineResponse2001',  # noqa: E501
+            response_type='Trigger',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -367,15 +148,138 @@ class TriggerApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def trigger_trigger_id_render_get(self, **kwargs):  # noqa: E501
+    def get_trigger_metrics(self, trigger_id, **kwargs):  # noqa: E501
+        """Get metrics associated with certain trigger  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_trigger_metrics(trigger_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
+        :param str _from: The start period of metrics to get
+        :param str to: The end period of metrics to get
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: dict(str, list[object])
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_trigger_metrics_with_http_info(trigger_id, **kwargs)  # noqa: E501
+
+    def get_trigger_metrics_with_http_info(self, trigger_id, **kwargs):  # noqa: E501
+        """Get metrics associated with certain trigger  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_trigger_metrics_with_http_info(trigger_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
+        :param str _from: The start period of metrics to get
+        :param str to: The end period of metrics to get
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(dict(str, list[object]), status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'trigger_id',
+            '_from',
+            'to'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_trigger_metrics" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'trigger_id' is set
+        if self.api_client.client_side_validation and ('trigger_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['trigger_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger_id` when calling `get_trigger_metrics`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'trigger_id' in local_var_params:
+            path_params['triggerID'] = local_var_params['trigger_id']  # noqa: E501
+
+        query_params = []
+        if '_from' in local_var_params and local_var_params['_from'] is not None:  # noqa: E501
+            query_params.append(('from', local_var_params['_from']))  # noqa: E501
+        if 'to' in local_var_params and local_var_params['to'] is not None:  # noqa: E501
+            query_params.append(('to', local_var_params['to']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/trigger/{triggerID}/metrics', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='dict(str, list[object])',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_trigger_plot(self, trigger_id, **kwargs):  # noqa: E501
         """Get rendered plot for trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_render_get(async_req=True)
+        >>> thread = api.get_trigger_plot(trigger_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
         :param str target_id: The ID of updated target to print plot for
         :param str _from: The start period of metrics to get
         :param str to: The end period of metrics to get
@@ -391,17 +295,18 @@ class TriggerApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.trigger_trigger_id_render_get_with_http_info(**kwargs)  # noqa: E501
+        return self.get_trigger_plot_with_http_info(trigger_id, **kwargs)  # noqa: E501
 
-    def trigger_trigger_id_render_get_with_http_info(self, **kwargs):  # noqa: E501
+    def get_trigger_plot_with_http_info(self, trigger_id, **kwargs):  # noqa: E501
         """Get rendered plot for trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_trigger_id_render_get_with_http_info(async_req=True)
+        >>> thread = api.get_trigger_plot_with_http_info(trigger_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
         :param str target_id: The ID of updated target to print plot for
         :param str _from: The start period of metrics to get
         :param str to: The end period of metrics to get
@@ -422,6 +327,7 @@ class TriggerApi(object):
         local_var_params = locals()
 
         all_params = [
+            'trigger_id',
             'target_id',
             '_from',
             'to'
@@ -439,14 +345,20 @@ class TriggerApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method trigger_trigger_id_render_get" % key
+                    " to method get_trigger_plot" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
+        # verify the required parameter 'trigger_id' is set
+        if self.api_client.client_side_validation and ('trigger_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['trigger_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger_id` when calling `get_trigger_plot`")  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if 'trigger_id' in local_var_params:
+            path_params['triggerID'] = local_var_params['trigger_id']  # noqa: E501
 
         query_params = []
         if 'target_id' in local_var_params and local_var_params['target_id'] is not None:  # noqa: E501
@@ -470,7 +382,7 @@ class TriggerApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/trigger/{triggerId}/render', 'GET',
+            '/trigger/{triggerID}/render', 'GET',
             path_params,
             query_params,
             header_params,
@@ -478,6 +390,131 @@ class TriggerApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='file',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def update_trigger(self, trigger_id, trigger, **kwargs):  # noqa: E501
+        """Update existing trigger  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_trigger(trigger_id, trigger, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
+        :param Trigger trigger: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: InlineResponse2001
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_trigger_with_http_info(trigger_id, trigger, **kwargs)  # noqa: E501
+
+    def update_trigger_with_http_info(self, trigger_id, trigger, **kwargs):  # noqa: E501
+        """Update existing trigger  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_trigger_with_http_info(trigger_id, trigger, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str trigger_id: The ID of updated trigger (required)
+        :param Trigger trigger: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(InlineResponse2001, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'trigger_id',
+            'trigger'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_trigger" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'trigger_id' is set
+        if self.api_client.client_side_validation and ('trigger_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['trigger_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger_id` when calling `update_trigger`")  # noqa: E501
+        # verify the required parameter 'trigger' is set
+        if self.api_client.client_side_validation and ('trigger' not in local_var_params or  # noqa: E501
+                                                        local_var_params['trigger'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger` when calling `update_trigger`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'trigger_id' in local_var_params:
+            path_params['triggerID'] = local_var_params['trigger_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'trigger' in local_var_params:
+            body_params = local_var_params['trigger']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/trigger/{triggerID}', 'PUT',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='InlineResponse2001',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501

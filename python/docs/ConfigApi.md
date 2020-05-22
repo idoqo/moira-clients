@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**config_get**](ConfigApi.md#config_get) | **GET** /config | Get available configuration
+[**get_config**](ConfigApi.md#get_config) | **GET** /config | Get available configuration
 
 
-# **config_get**
-> InlineResponse200 config_get()
+# **get_config**
+> InlineResponse200 get_config()
 
 Get available configuration
 
@@ -34,10 +34,10 @@ with openapi_client.ApiClient() as api_client:
     
     try:
         # Get available configuration
-        api_response = api_instance.config_get()
+        api_response = api_instance.get_config()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling ConfigApi->config_get: %s\n" % e)
+        print("Exception when calling ConfigApi->get_config: %s\n" % e)
 ```
 
 ### Parameters

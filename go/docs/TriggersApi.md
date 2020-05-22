@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TriggerPut**](TriggersApi.md#TriggerPut) | **Put** /trigger | Create new trigger
+[**CreateTrigger**](TriggersApi.md#CreateTrigger) | **Put** /trigger | Create new trigger
 
 
 
-## TriggerPut
+## CreateTrigger
 
-> InlineResponse2001 TriggerPut(ctx, inlineObject)
+> InlineResponse2001 CreateTrigger(ctx, trigger)
 
 Create new trigger
 
@@ -20,7 +20,7 @@ Create new trigger
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**inlineObject** | [**InlineObject**](InlineObject.md)|  | 
+**trigger** | [**Trigger**](Trigger.md)|  | 
 
 ### Return type
 

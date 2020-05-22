@@ -14,9 +14,9 @@ import localVarRequest = require('request');
 import http = require('http');
 
 /* tslint:disable:no-unused-locals */
-import { InlineObject } from '../model/inlineObject';
 import { InlineResponse2001 } from '../model/inlineResponse2001';
 import { InlineResponse500 } from '../model/inlineResponse500';
+import { Trigger } from '../model/trigger';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
 
@@ -90,9 +90,9 @@ export class TriggersApi {
     /**
      * 
      * @summary Create new trigger
-     * @param inlineObject 
+     * @param trigger 
      */
-    public async triggerPut (inlineObject: InlineObject, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
+    public async createTrigger (trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
         const localVarPath = this.basePath + '/trigger';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -105,9 +105,9 @@ export class TriggersApi {
         }
         let localVarFormParams: any = {};
 
-        // verify required parameter 'inlineObject' is not null or undefined
-        if (inlineObject === null || inlineObject === undefined) {
-            throw new Error('Required parameter inlineObject was null or undefined when calling triggerPut.');
+        // verify required parameter 'trigger' is not null or undefined
+        if (trigger === null || trigger === undefined) {
+            throw new Error('Required parameter trigger was null or undefined when calling createTrigger.');
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -121,7 +121,7 @@ export class TriggersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(inlineObject, "InlineObject")
+            body: ObjectSerializer.serialize(trigger, "Trigger")
         };
 
         let authenticationPromise = Promise.resolve();

@@ -25,24 +25,26 @@ namespace Org.OpenAPITools.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Update existing trigger
+        /// Get an existing trigger
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        Object TriggerTriggerIdGet ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <returns>Trigger</returns>
+        Trigger GetTrigger (Guid triggerID);
 
         /// <summary>
-        /// Update existing trigger
+        /// Get an existing trigger
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> TriggerTriggerIdGetWithHttpInfo ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <returns>ApiResponse of Trigger</returns>
+        ApiResponse<Trigger> GetTriggerWithHttpInfo (Guid triggerID);
         /// <summary>
         /// Get metrics associated with certain trigger
         /// </summary>
@@ -50,8 +52,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns></returns>
-        void TriggerTriggerIdMetricsGet ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        Dictionary<string, List<Object>> GetTriggerMetrics (Guid triggerID, string from = default(string), string to = default(string));
 
         /// <summary>
         /// Get metrics associated with certain trigger
@@ -60,31 +65,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> TriggerTriggerIdMetricsGetWithHttpInfo ();
-        /// <summary>
-        /// Update existing trigger
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>InlineResponse2001</returns>
-        InlineResponse2001 TriggerTriggerIdPut (Guid triggerID, Object body);
-
-        /// <summary>
-        /// Update existing trigger
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        ApiResponse<InlineResponse2001> TriggerTriggerIdPutWithHttpInfo (Guid triggerID, Object body);
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>ApiResponse of Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        ApiResponse<Dictionary<string, List<Object>>> GetTriggerMetricsWithHttpInfo (Guid triggerID, string from = default(string), string to = default(string));
         /// <summary>
         /// Get rendered plot for trigger
         /// </summary>
@@ -92,11 +77,12 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>System.IO.Stream</returns>
-        System.IO.Stream TriggerTriggerIdRenderGet (string targetID = default(string), string from = default(string), string to = default(string));
+        System.IO.Stream GetTriggerPlot (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string));
 
         /// <summary>
         /// Get rendered plot for trigger
@@ -105,32 +91,58 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>ApiResponse of System.IO.Stream</returns>
-        ApiResponse<System.IO.Stream> TriggerTriggerIdRenderGetWithHttpInfo (string targetID = default(string), string from = default(string), string to = default(string));
+        ApiResponse<System.IO.Stream> GetTriggerPlotWithHttpInfo (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string));
+        /// <summary>
+        /// Update existing trigger
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>InlineResponse2001</returns>
+        InlineResponse2001 UpdateTrigger (Guid triggerID, Trigger trigger);
+
+        /// <summary>
+        /// Update existing trigger
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>ApiResponse of InlineResponse2001</returns>
+        ApiResponse<InlineResponse2001> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// Update existing trigger
+        /// Get an existing trigger
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> TriggerTriggerIdGetAsync ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <returns>Task of Trigger</returns>
+        System.Threading.Tasks.Task<Trigger> GetTriggerAsync (Guid triggerID);
 
         /// <summary>
-        /// Update existing trigger
+        /// Get an existing trigger
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> TriggerTriggerIdGetAsyncWithHttpInfo ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <returns>Task of ApiResponse (Trigger)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Trigger>> GetTriggerAsyncWithHttpInfo (Guid triggerID);
         /// <summary>
         /// Get metrics associated with certain trigger
         /// </summary>
@@ -138,8 +150,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task TriggerTriggerIdMetricsGetAsync ();
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Task of Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        System.Threading.Tasks.Task<Dictionary<string, List<Object>>> GetTriggerMetricsAsync (Guid triggerID, string from = default(string), string to = default(string));
 
         /// <summary>
         /// Get metrics associated with certain trigger
@@ -148,31 +163,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> TriggerTriggerIdMetricsGetAsyncWithHttpInfo ();
-        /// <summary>
-        /// Update existing trigger
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        System.Threading.Tasks.Task<InlineResponse2001> TriggerTriggerIdPutAsync (Guid triggerID, Object body);
-
-        /// <summary>
-        /// Update existing trigger
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> TriggerTriggerIdPutAsyncWithHttpInfo (Guid triggerID, Object body);
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Task of ApiResponse (Dictionary&lt;string, List&lt;Object&gt;&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Dictionary<string, List<Object>>>> GetTriggerMetricsAsyncWithHttpInfo (Guid triggerID, string from = default(string), string to = default(string));
         /// <summary>
         /// Get rendered plot for trigger
         /// </summary>
@@ -180,11 +175,12 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>Task of System.IO.Stream</returns>
-        System.Threading.Tasks.Task<System.IO.Stream> TriggerTriggerIdRenderGetAsync (string targetID = default(string), string from = default(string), string to = default(string));
+        System.Threading.Tasks.Task<System.IO.Stream> GetTriggerPlotAsync (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string));
 
         /// <summary>
         /// Get rendered plot for trigger
@@ -193,11 +189,35 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>Task of ApiResponse (System.IO.Stream)</returns>
-        System.Threading.Tasks.Task<ApiResponse<System.IO.Stream>> TriggerTriggerIdRenderGetAsyncWithHttpInfo (string targetID = default(string), string from = default(string), string to = default(string));
+        System.Threading.Tasks.Task<ApiResponse<System.IO.Stream>> GetTriggerPlotAsyncWithHttpInfo (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string));
+        /// <summary>
+        /// Update existing trigger
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>Task of InlineResponse2001</returns>
+        System.Threading.Tasks.Task<InlineResponse2001> UpdateTriggerAsync (Guid triggerID, Trigger trigger);
+
+        /// <summary>
+        /// Update existing trigger
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger);
         #endregion Asynchronous Operations
     }
 
@@ -310,275 +330,30 @@ namespace Org.OpenAPITools.Api
         }
 
         /// <summary>
-        /// Update existing trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        public Object TriggerTriggerIdGet ()
-        {
-             ApiResponse<Object> localVarResponse = TriggerTriggerIdGetWithHttpInfo();
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Update existing trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> TriggerTriggerIdGetWithHttpInfo ()
-        {
-
-            var localVarPath = "/trigger/{triggerId}";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("TriggerTriggerIdGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (Object) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
-        }
-
-        /// <summary>
-        /// Update existing trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> TriggerTriggerIdGetAsync ()
-        {
-             ApiResponse<Object> localVarResponse = await TriggerTriggerIdGetAsyncWithHttpInfo();
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Update existing trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> TriggerTriggerIdGetAsyncWithHttpInfo ()
-        {
-
-            var localVarPath = "/trigger/{triggerId}";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("TriggerTriggerIdGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (Object) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
-        }
-
-        /// <summary>
-        /// Get metrics associated with certain trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns></returns>
-        public void TriggerTriggerIdMetricsGet ()
-        {
-             TriggerTriggerIdMetricsGetWithHttpInfo();
-        }
-
-        /// <summary>
-        /// Get metrics associated with certain trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> TriggerTriggerIdMetricsGetWithHttpInfo ()
-        {
-
-            var localVarPath = "/trigger/{triggerId}/metrics";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("TriggerTriggerIdMetricsGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
-        }
-
-        /// <summary>
-        /// Get metrics associated with certain trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task TriggerTriggerIdMetricsGetAsync ()
-        {
-             await TriggerTriggerIdMetricsGetAsyncWithHttpInfo();
-
-        }
-
-        /// <summary>
-        /// Get metrics associated with certain trigger 
-        /// </summary>
-        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> TriggerTriggerIdMetricsGetAsyncWithHttpInfo ()
-        {
-
-            var localVarPath = "/trigger/{triggerId}/metrics";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("TriggerTriggerIdMetricsGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
-        }
-
-        /// <summary>
-        /// Update existing trigger 
+        /// Get an existing trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>InlineResponse2001</returns>
-        public InlineResponse2001 TriggerTriggerIdPut (Guid triggerID, Object body)
+        /// <returns>Trigger</returns>
+        public Trigger GetTrigger (Guid triggerID)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = TriggerTriggerIdPutWithHttpInfo(triggerID, body);
+             ApiResponse<Trigger> localVarResponse = GetTriggerWithHttpInfo(triggerID);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Update existing trigger 
+        /// Get an existing trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        public ApiResponse<InlineResponse2001> TriggerTriggerIdPutWithHttpInfo (Guid triggerID, Object body)
+        /// <returns>ApiResponse of Trigger</returns>
+        public ApiResponse<Trigger> GetTriggerWithHttpInfo (Guid triggerID)
         {
             // verify the required parameter 'triggerID' is set
             if (triggerID == null)
-                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->TriggerTriggerIdPut");
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling TriggerApi->TriggerTriggerIdPut");
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTrigger");
 
-            var localVarPath = "/trigger/{triggerId}";
+            var localVarPath = "/trigger/{triggerID}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -588,7 +363,6 @@ namespace Org.OpenAPITools.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "application/json"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -601,65 +375,52 @@ namespace Org.OpenAPITools.Api
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
-            if (body != null && body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
 
 
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerTriggerIdPut", localVarResponse);
+                Exception exception = ExceptionFactory("GetTrigger", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<Trigger>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (Trigger) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Trigger)));
         }
 
         /// <summary>
-        /// Update existing trigger 
+        /// Get an existing trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        public async System.Threading.Tasks.Task<InlineResponse2001> TriggerTriggerIdPutAsync (Guid triggerID, Object body)
+        /// <returns>Task of Trigger</returns>
+        public async System.Threading.Tasks.Task<Trigger> GetTriggerAsync (Guid triggerID)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = await TriggerTriggerIdPutAsyncWithHttpInfo(triggerID, body);
+             ApiResponse<Trigger> localVarResponse = await GetTriggerAsyncWithHttpInfo(triggerID);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Update existing trigger 
+        /// Get an existing trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
-        /// <param name="body"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> TriggerTriggerIdPutAsyncWithHttpInfo (Guid triggerID, Object body)
+        /// <returns>Task of ApiResponse (Trigger)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Trigger>> GetTriggerAsyncWithHttpInfo (Guid triggerID)
         {
             // verify the required parameter 'triggerID' is set
             if (triggerID == null)
-                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->TriggerTriggerIdPut");
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling TriggerApi->TriggerTriggerIdPut");
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTrigger");
 
-            var localVarPath = "/trigger/{triggerId}";
+            var localVarPath = "/trigger/{triggerID}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -669,7 +430,6 @@ namespace Org.OpenAPITools.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "application/json"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -682,45 +442,183 @@ namespace Org.OpenAPITools.Api
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
-            if (body != null && body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
 
 
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerTriggerIdPut", localVarResponse);
+                Exception exception = ExceptionFactory("GetTrigger", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<Trigger>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (Trigger) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Trigger)));
+        }
+
+        /// <summary>
+        /// Get metrics associated with certain trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        public Dictionary<string, List<Object>> GetTriggerMetrics (Guid triggerID, string from = default(string), string to = default(string))
+        {
+             ApiResponse<Dictionary<string, List<Object>>> localVarResponse = GetTriggerMetricsWithHttpInfo(triggerID, from, to);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get metrics associated with certain trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>ApiResponse of Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        public ApiResponse<Dictionary<string, List<Object>>> GetTriggerMetricsWithHttpInfo (Guid triggerID, string from = default(string), string to = default(string))
+        {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTriggerMetrics");
+
+            var localVarPath = "/trigger/{triggerID}/metrics";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
+            if (from != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "from", from)); // query parameter
+            if (to != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "to", to)); // query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("GetTriggerMetrics", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Dictionary<string, List<Object>>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (Dictionary<string, List<Object>>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Dictionary<string, List<Object>>)));
+        }
+
+        /// <summary>
+        /// Get metrics associated with certain trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Task of Dictionary&lt;string, List&lt;Object&gt;&gt;</returns>
+        public async System.Threading.Tasks.Task<Dictionary<string, List<Object>>> GetTriggerMetricsAsync (Guid triggerID, string from = default(string), string to = default(string))
+        {
+             ApiResponse<Dictionary<string, List<Object>>> localVarResponse = await GetTriggerMetricsAsyncWithHttpInfo(triggerID, from, to);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Get metrics associated with certain trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="from">The start period of metrics to get (optional)</param>
+        /// <param name="to">The end period of metrics to get (optional)</param>
+        /// <returns>Task of ApiResponse (Dictionary&lt;string, List&lt;Object&gt;&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Dictionary<string, List<Object>>>> GetTriggerMetricsAsyncWithHttpInfo (Guid triggerID, string from = default(string), string to = default(string))
+        {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTriggerMetrics");
+
+            var localVarPath = "/trigger/{triggerID}/metrics";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
+            if (from != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "from", from)); // query parameter
+            if (to != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "to", to)); // query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("GetTriggerMetrics", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Dictionary<string, List<Object>>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (Dictionary<string, List<Object>>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Dictionary<string, List<Object>>)));
         }
 
         /// <summary>
         /// Get rendered plot for trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>System.IO.Stream</returns>
-        public System.IO.Stream TriggerTriggerIdRenderGet (string targetID = default(string), string from = default(string), string to = default(string))
+        public System.IO.Stream GetTriggerPlot (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string))
         {
-             ApiResponse<System.IO.Stream> localVarResponse = TriggerTriggerIdRenderGetWithHttpInfo(targetID, from, to);
+             ApiResponse<System.IO.Stream> localVarResponse = GetTriggerPlotWithHttpInfo(triggerID, targetID, from, to);
              return localVarResponse.Data;
         }
 
@@ -728,14 +626,18 @@ namespace Org.OpenAPITools.Api
         /// Get rendered plot for trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>ApiResponse of System.IO.Stream</returns>
-        public ApiResponse<System.IO.Stream> TriggerTriggerIdRenderGetWithHttpInfo (string targetID = default(string), string from = default(string), string to = default(string))
+        public ApiResponse<System.IO.Stream> GetTriggerPlotWithHttpInfo (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string))
         {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTriggerPlot");
 
-            var localVarPath = "/trigger/{triggerId}/render";
+            var localVarPath = "/trigger/{triggerID}/render";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -757,6 +659,7 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
             if (targetID != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "targetID", targetID)); // query parameter
             if (from != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "from", from)); // query parameter
             if (to != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "to", to)); // query parameter
@@ -771,7 +674,7 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerTriggerIdRenderGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetTriggerPlot", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -784,13 +687,14 @@ namespace Org.OpenAPITools.Api
         /// Get rendered plot for trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>Task of System.IO.Stream</returns>
-        public async System.Threading.Tasks.Task<System.IO.Stream> TriggerTriggerIdRenderGetAsync (string targetID = default(string), string from = default(string), string to = default(string))
+        public async System.Threading.Tasks.Task<System.IO.Stream> GetTriggerPlotAsync (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string))
         {
-             ApiResponse<System.IO.Stream> localVarResponse = await TriggerTriggerIdRenderGetAsyncWithHttpInfo(targetID, from, to);
+             ApiResponse<System.IO.Stream> localVarResponse = await GetTriggerPlotAsyncWithHttpInfo(triggerID, targetID, from, to);
              return localVarResponse.Data;
 
         }
@@ -799,14 +703,18 @@ namespace Org.OpenAPITools.Api
         /// Get rendered plot for trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="targetID">The ID of updated target to print plot for (optional)</param>
         /// <param name="from">The start period of metrics to get (optional)</param>
         /// <param name="to">The end period of metrics to get (optional)</param>
         /// <returns>Task of ApiResponse (System.IO.Stream)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<System.IO.Stream>> TriggerTriggerIdRenderGetAsyncWithHttpInfo (string targetID = default(string), string from = default(string), string to = default(string))
+        public async System.Threading.Tasks.Task<ApiResponse<System.IO.Stream>> GetTriggerPlotAsyncWithHttpInfo (Guid triggerID, string targetID = default(string), string from = default(string), string to = default(string))
         {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->GetTriggerPlot");
 
-            var localVarPath = "/trigger/{triggerId}/render";
+            var localVarPath = "/trigger/{triggerID}/render";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -828,6 +736,7 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
             if (targetID != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "targetID", targetID)); // query parameter
             if (from != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "from", from)); // query parameter
             if (to != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "to", to)); // query parameter
@@ -842,13 +751,174 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerTriggerIdRenderGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetTriggerPlot", localVarResponse);
                 if (exception != null) throw exception;
             }
 
             return new ApiResponse<System.IO.Stream>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (System.IO.Stream) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(System.IO.Stream)));
+        }
+
+        /// <summary>
+        /// Update existing trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>InlineResponse2001</returns>
+        public InlineResponse2001 UpdateTrigger (Guid triggerID, Trigger trigger)
+        {
+             ApiResponse<InlineResponse2001> localVarResponse = UpdateTriggerWithHttpInfo(triggerID, trigger);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Update existing trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>ApiResponse of InlineResponse2001</returns>
+        public ApiResponse<InlineResponse2001> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger)
+        {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->UpdateTrigger");
+            // verify the required parameter 'trigger' is set
+            if (trigger == null)
+                throw new ApiException(400, "Missing required parameter 'trigger' when calling TriggerApi->UpdateTrigger");
+
+            var localVarPath = "/trigger/{triggerID}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
+            if (trigger != null && trigger.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(trigger); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = trigger; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("UpdateTrigger", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+        }
+
+        /// <summary>
+        /// Update existing trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>Task of InlineResponse2001</returns>
+        public async System.Threading.Tasks.Task<InlineResponse2001> UpdateTriggerAsync (Guid triggerID, Trigger trigger)
+        {
+             ApiResponse<InlineResponse2001> localVarResponse = await UpdateTriggerAsyncWithHttpInfo(triggerID, trigger);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Update existing trigger 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="triggerID">The ID of updated trigger</param>
+        /// <param name="trigger"></param>
+        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger)
+        {
+            // verify the required parameter 'triggerID' is set
+            if (triggerID == null)
+                throw new ApiException(400, "Missing required parameter 'triggerID' when calling TriggerApi->UpdateTrigger");
+            // verify the required parameter 'trigger' is set
+            if (trigger == null)
+                throw new ApiException(400, "Missing required parameter 'trigger' when calling TriggerApi->UpdateTrigger");
+
+            var localVarPath = "/trigger/{triggerID}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (triggerID != null) localVarPathParams.Add("triggerID", this.Configuration.ApiClient.ParameterToString(triggerID)); // path parameter
+            if (trigger != null && trigger.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(trigger); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = trigger; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("UpdateTrigger", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
         }
 
     }

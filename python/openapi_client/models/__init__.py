@@ -14,12 +14,17 @@
 from __future__ import absolute_import
 
 # import models into model package
-from openapi_client.models.inline_object import InlineObject
+from openapi_client.models.contact import Contact
 from openapi_client.models.inline_response200 import InlineResponse200
 from openapi_client.models.inline_response2001 import InlineResponse2001
+from openapi_client.models.inline_response2002 import InlineResponse2002
 from openapi_client.models.inline_response200_contacts import InlineResponse200Contacts
 from openapi_client.models.inline_response404 import InlineResponse404
 from openapi_client.models.inline_response500 import InlineResponse500
 from openapi_client.models.inline_response5001 import InlineResponse5001
-from openapi_client.models.trigger_sched import TriggerSched
-from openapi_client.models.trigger_sched_days import TriggerSchedDays
+from openapi_client.models.subscription import Subscription
+from openapi_client.models.subscription_plotting import SubscriptionPlotting
+from openapi_client.models.subscription_sched import SubscriptionSched
+from openapi_client.models.subscription_sched_days import SubscriptionSchedDays
+from openapi_client.models.trigger import Trigger
+from openapi_client.models.user import User

@@ -15,8 +15,8 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
-	"os"
 	"github.com/antihax/optional"
+	"os"
 )
 
 // Linger please
@@ -28,22 +28,25 @@ var (
 type TriggerApiService service
 
 /*
-TriggerTriggerIdGet Update existing trigger
+GetTrigger Get an existing trigger
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return map[string]interface{}
+ * @param triggerID The ID of updated trigger
+@return Trigger
 */
-func (a *TriggerApiService) TriggerTriggerIdGet(ctx _context.Context) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *TriggerApiService) GetTrigger(ctx _context.Context, triggerID string) (Trigger, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  Trigger
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerId}"
+	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerID"+"}", _neturl.QueryEscape(parameterToString(triggerID, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -110,25 +113,45 @@ func (a *TriggerApiService) TriggerTriggerIdGet(ctx _context.Context) (map[strin
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// GetTriggerMetricsOpts Optional parameters for the method 'GetTriggerMetrics'
+type GetTriggerMetricsOpts struct {
+    From optional.String
+    To optional.String
+}
+
 /*
-TriggerTriggerIdMetricsGet Get metrics associated with certain trigger
+GetTriggerMetrics Get metrics associated with certain trigger
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param triggerID The ID of updated trigger
+ * @param optional nil or *GetTriggerMetricsOpts - Optional Parameters:
+ * @param "From" (optional.String) -  The start period of metrics to get
+ * @param "To" (optional.String) -  The end period of metrics to get
+@return map[string][]map[string]interface{}
 */
-func (a *TriggerApiService) TriggerTriggerIdMetricsGet(ctx _context.Context) (*_nethttp.Response, error) {
+func (a *TriggerApiService) GetTriggerMetrics(ctx _context.Context, triggerID string, localVarOptionals *GetTriggerMetricsOpts) (map[string][]map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarReturnValue  map[string][]map[string]interface{}
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerId}/metrics"
+	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerID}/metrics"
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerID"+"}", _neturl.QueryEscape(parameterToString(triggerID, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.From.IsSet() {
+		localVarQueryParams.Add("from", parameterToString(localVarOptionals.From.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.To.IsSet() {
+		localVarQueryParams.Add("to", parameterToString(localVarOptionals.To.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -146,86 +169,6 @@ func (a *TriggerApiService) TriggerTriggerIdMetricsGet(ctx _context.Context) (*_
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v InlineResponse5001
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-/*
-TriggerTriggerIdPut Update existing trigger
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param triggerID The ID of updated trigger
- * @param body
-@return InlineResponse2001
-*/
-func (a *TriggerApiService) TriggerTriggerIdPut(ctx _context.Context, triggerID string, body map[string]interface{}) (InlineResponse2001, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2001
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"triggerID"+"}", _neturl.QueryEscape(parameterToString(triggerID, "")) , -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = &body
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -247,8 +190,8 @@ func (a *TriggerApiService) TriggerTriggerIdPut(ctx _context.Context, triggerID 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InlineResponse500
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v InlineResponse5001
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -271,23 +214,24 @@ func (a *TriggerApiService) TriggerTriggerIdPut(ctx _context.Context, triggerID 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-// TriggerTriggerIdRenderGetOpts Optional parameters for the method 'TriggerTriggerIdRenderGet'
-type TriggerTriggerIdRenderGetOpts struct {
+// GetTriggerPlotOpts Optional parameters for the method 'GetTriggerPlot'
+type GetTriggerPlotOpts struct {
     TargetID optional.String
     From optional.String
     To optional.String
 }
 
 /*
-TriggerTriggerIdRenderGet Get rendered plot for trigger
+GetTriggerPlot Get rendered plot for trigger
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *TriggerTriggerIdRenderGetOpts - Optional Parameters:
+ * @param triggerID The ID of updated trigger
+ * @param optional nil or *GetTriggerPlotOpts - Optional Parameters:
  * @param "TargetID" (optional.String) -  The ID of updated target to print plot for
  * @param "From" (optional.String) -  The start period of metrics to get
  * @param "To" (optional.String) -  The end period of metrics to get
 @return *os.File
 */
-func (a *TriggerApiService) TriggerTriggerIdRenderGet(ctx _context.Context, localVarOptionals *TriggerTriggerIdRenderGetOpts) (*os.File, *_nethttp.Response, error) {
+func (a *TriggerApiService) GetTriggerPlot(ctx _context.Context, triggerID string, localVarOptionals *GetTriggerPlotOpts) (*os.File, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -298,7 +242,9 @@ func (a *TriggerApiService) TriggerTriggerIdRenderGet(ctx _context.Context, loca
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerId}/render"
+	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerID}/render"
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerID"+"}", _neturl.QueryEscape(parameterToString(triggerID, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -352,6 +298,95 @@ func (a *TriggerApiService) TriggerTriggerIdRenderGet(ctx _context.Context, loca
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v InlineResponse5001
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+/*
+UpdateTrigger Update existing trigger
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param triggerID The ID of updated trigger
+ * @param trigger
+@return InlineResponse2001
+*/
+func (a *TriggerApiService) UpdateTrigger(ctx _context.Context, triggerID string, trigger Trigger) (InlineResponse2001, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  InlineResponse2001
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/trigger/{triggerID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerID"+"}", _neturl.QueryEscape(parameterToString(triggerID, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = &trigger
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InlineResponse500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

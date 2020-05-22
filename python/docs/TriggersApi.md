@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**trigger_put**](TriggersApi.md#trigger_put) | **PUT** /trigger | Create new trigger
+[**create_trigger**](TriggersApi.md#create_trigger) | **PUT** /trigger | Create new trigger
 
 
-# **trigger_put**
-> InlineResponse2001 trigger_put(inline_object)
+# **create_trigger**
+> InlineResponse2001 create_trigger(trigger)
 
 Create new trigger
 
@@ -31,21 +31,21 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.TriggersApi(api_client)
-    inline_object = openapi_client.InlineObject() # InlineObject | 
+    trigger = openapi_client.Trigger() # Trigger | 
 
     try:
         # Create new trigger
-        api_response = api_instance.trigger_put(inline_object)
+        api_response = api_instance.create_trigger(trigger)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling TriggersApi->trigger_put: %s\n" % e)
+        print("Exception when calling TriggersApi->create_trigger: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inline_object** | [**InlineObject**](InlineObject.md)|  | 
+ **trigger** | [**Trigger**](Trigger.md)|  | 
 
 ### Return type
 

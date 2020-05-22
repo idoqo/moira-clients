@@ -36,12 +36,12 @@ class ConfigApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def config_get(self, **kwargs):  # noqa: E501
+    def get_config(self, **kwargs):  # noqa: E501
         """Get available configuration  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.config_get(async_req=True)
+        >>> thread = api.get_config(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
@@ -57,14 +57,14 @@ class ConfigApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.config_get_with_http_info(**kwargs)  # noqa: E501
+        return self.get_config_with_http_info(**kwargs)  # noqa: E501
 
-    def config_get_with_http_info(self, **kwargs):  # noqa: E501
+    def get_config_with_http_info(self, **kwargs):  # noqa: E501
         """Get available configuration  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.config_get_with_http_info(async_req=True)
+        >>> thread = api.get_config_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
@@ -99,7 +99,7 @@ class ConfigApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method config_get" % key
+                    " to method get_config" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']

@@ -4,6 +4,8 @@ export * from './triggerApi';
 import { TriggerApi } from './triggerApi';
 export * from './triggersApi';
 import { TriggersApi } from './triggersApi';
+export * from './userApi';
+import { UserApi } from './userApi';
 import * as fs from 'fs';
 import * as http from 'http';
 
@@ -24,4 +26,4 @@ export interface RequestDetailedFile {
 
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
-export const APIS = [ConfigApi, TriggerApi, TriggersApi];
+export const APIS = [ConfigApi, TriggerApi, TriggersApi, UserApi];

@@ -32,7 +32,7 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>InlineResponse200</returns>
-        InlineResponse200 ConfigGet ();
+        InlineResponse200 GetConfig ();
 
         /// <summary>
         /// Get available configuration
@@ -42,7 +42,7 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of InlineResponse200</returns>
-        ApiResponse<InlineResponse200> ConfigGetWithHttpInfo ();
+        ApiResponse<InlineResponse200> GetConfigWithHttpInfo ();
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -53,7 +53,7 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of InlineResponse200</returns>
-        System.Threading.Tasks.Task<InlineResponse200> ConfigGetAsync ();
+        System.Threading.Tasks.Task<InlineResponse200> GetConfigAsync ();
 
         /// <summary>
         /// Get available configuration
@@ -63,7 +63,7 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> ConfigGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> GetConfigAsyncWithHttpInfo ();
         #endregion Asynchronous Operations
     }
 
@@ -180,9 +180,9 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>InlineResponse200</returns>
-        public InlineResponse200 ConfigGet ()
+        public InlineResponse200 GetConfig ()
         {
-             ApiResponse<InlineResponse200> localVarResponse = ConfigGetWithHttpInfo();
+             ApiResponse<InlineResponse200> localVarResponse = GetConfigWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -191,7 +191,7 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of InlineResponse200</returns>
-        public ApiResponse<InlineResponse200> ConfigGetWithHttpInfo ()
+        public ApiResponse<InlineResponse200> GetConfigWithHttpInfo ()
         {
 
             var localVarPath = "/config";
@@ -226,7 +226,7 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ConfigGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetConfig", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -240,9 +240,9 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of InlineResponse200</returns>
-        public async System.Threading.Tasks.Task<InlineResponse200> ConfigGetAsync ()
+        public async System.Threading.Tasks.Task<InlineResponse200> GetConfigAsync ()
         {
-             ApiResponse<InlineResponse200> localVarResponse = await ConfigGetAsyncWithHttpInfo();
+             ApiResponse<InlineResponse200> localVarResponse = await GetConfigAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -252,7 +252,7 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> ConfigGetAsyncWithHttpInfo ()
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> GetConfigAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/config";
@@ -287,7 +287,7 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ConfigGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetConfig", localVarResponse);
                 if (exception != null) throw exception;
             }
 

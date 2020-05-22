@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ConfigGet**](ConfigApi.md#configget) | **GET** /config | Get available configuration
+[**GetConfig**](ConfigApi.md#getconfig) | **GET** /config | Get available configuration
 
 
 
-## ConfigGet
+## GetConfig
 
-> InlineResponse200 ConfigGet ()
+> InlineResponse200 GetConfig ()
 
 Get available configuration
 
@@ -25,7 +25,7 @@ using Org.OpenAPITools.Model;
 
 namespace Example
 {
-    public class ConfigGetExample
+    public class GetConfigExample
     {
         public static void Main()
         {
@@ -35,12 +35,12 @@ namespace Example
             try
             {
                 // Get available configuration
-                InlineResponse200 result = apiInstance.ConfigGet();
+                InlineResponse200 result = apiInstance.GetConfig();
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling ConfigApi.ConfigGet: " + e.Message );
+                Debug.Print("Exception when calling ConfigApi.GetConfig: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }

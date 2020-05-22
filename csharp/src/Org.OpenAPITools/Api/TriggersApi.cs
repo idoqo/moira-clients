@@ -31,9 +31,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>InlineResponse2001</returns>
-        InlineResponse2001 TriggerPut (InlineObject inlineObject);
+        InlineResponse2001 CreateTrigger (Trigger trigger);
 
         /// <summary>
         /// Create new trigger
@@ -42,9 +42,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>ApiResponse of InlineResponse2001</returns>
-        ApiResponse<InlineResponse2001> TriggerPutWithHttpInfo (InlineObject inlineObject);
+        ApiResponse<InlineResponse2001> CreateTriggerWithHttpInfo (Trigger trigger);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -54,9 +54,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>Task of InlineResponse2001</returns>
-        System.Threading.Tasks.Task<InlineResponse2001> TriggerPutAsync (InlineObject inlineObject);
+        System.Threading.Tasks.Task<InlineResponse2001> CreateTriggerAsync (Trigger trigger);
 
         /// <summary>
         /// Create new trigger
@@ -65,9 +65,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> TriggerPutAsyncWithHttpInfo (InlineObject inlineObject);
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> CreateTriggerAsyncWithHttpInfo (Trigger trigger);
         #endregion Asynchronous Operations
     }
 
@@ -183,11 +183,11 @@ namespace Org.OpenAPITools.Api
         /// Create new trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>InlineResponse2001</returns>
-        public InlineResponse2001 TriggerPut (InlineObject inlineObject)
+        public InlineResponse2001 CreateTrigger (Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = TriggerPutWithHttpInfo(inlineObject);
+             ApiResponse<InlineResponse2001> localVarResponse = CreateTriggerWithHttpInfo(trigger);
              return localVarResponse.Data;
         }
 
@@ -195,13 +195,13 @@ namespace Org.OpenAPITools.Api
         /// Create new trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>ApiResponse of InlineResponse2001</returns>
-        public ApiResponse<InlineResponse2001> TriggerPutWithHttpInfo (InlineObject inlineObject)
+        public ApiResponse<InlineResponse2001> CreateTriggerWithHttpInfo (Trigger trigger)
         {
-            // verify the required parameter 'inlineObject' is set
-            if (inlineObject == null)
-                throw new ApiException(400, "Missing required parameter 'inlineObject' when calling TriggersApi->TriggerPut");
+            // verify the required parameter 'trigger' is set
+            if (trigger == null)
+                throw new ApiException(400, "Missing required parameter 'trigger' when calling TriggersApi->CreateTrigger");
 
             var localVarPath = "/trigger";
             var localVarPathParams = new Dictionary<String, String>();
@@ -225,13 +225,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (inlineObject != null && inlineObject.GetType() != typeof(byte[]))
+            if (trigger != null && trigger.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(inlineObject); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(trigger); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = inlineObject; // byte array
+                localVarPostBody = trigger; // byte array
             }
 
 
@@ -244,7 +244,7 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerPut", localVarResponse);
+                Exception exception = ExceptionFactory("CreateTrigger", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -257,11 +257,11 @@ namespace Org.OpenAPITools.Api
         /// Create new trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>Task of InlineResponse2001</returns>
-        public async System.Threading.Tasks.Task<InlineResponse2001> TriggerPutAsync (InlineObject inlineObject)
+        public async System.Threading.Tasks.Task<InlineResponse2001> CreateTriggerAsync (Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = await TriggerPutAsyncWithHttpInfo(inlineObject);
+             ApiResponse<InlineResponse2001> localVarResponse = await CreateTriggerAsyncWithHttpInfo(trigger);
              return localVarResponse.Data;
 
         }
@@ -270,13 +270,13 @@ namespace Org.OpenAPITools.Api
         /// Create new trigger 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inlineObject"></param>
+        /// <param name="trigger"></param>
         /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> TriggerPutAsyncWithHttpInfo (InlineObject inlineObject)
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> CreateTriggerAsyncWithHttpInfo (Trigger trigger)
         {
-            // verify the required parameter 'inlineObject' is set
-            if (inlineObject == null)
-                throw new ApiException(400, "Missing required parameter 'inlineObject' when calling TriggersApi->TriggerPut");
+            // verify the required parameter 'trigger' is set
+            if (trigger == null)
+                throw new ApiException(400, "Missing required parameter 'trigger' when calling TriggersApi->CreateTrigger");
 
             var localVarPath = "/trigger";
             var localVarPathParams = new Dictionary<String, String>();
@@ -300,13 +300,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (inlineObject != null && inlineObject.GetType() != typeof(byte[]))
+            if (trigger != null && trigger.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(inlineObject); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(trigger); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = inlineObject; // byte array
+                localVarPostBody = trigger; // byte array
             }
 
 
@@ -319,7 +319,7 @@ namespace Org.OpenAPITools.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("TriggerPut", localVarResponse);
+                Exception exception = ExceptionFactory("CreateTrigger", localVarResponse);
                 if (exception != null) throw exception;
             }
 

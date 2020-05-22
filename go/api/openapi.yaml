@@ -18,6 +18,7 @@ tags:
 paths:
   /config:
     get:
+      operationId: GetConfig
       responses:
         "200":
           content:
@@ -30,86 +31,12 @@ paths:
       - config
   /trigger:
     put:
+      operationId: CreateTrigger
       requestBody:
-        $ref: '#/components/requestBodies/inline_object'
         content:
           application/json:
             schema:
-              additionalProperties: false
-              properties:
-                desc:
-                  description: Trigger description
-                  example: Dice roll trigger
-                  type: string
-                error_value:
-                  description: Target value at which error will be fired
-                  example: 7
-                  type: number
-                expression:
-                  description: Expression that will be evaluated
-                  example: 't1 > 6 ? ERROR : (t1 > 4)? WARN : OK'
-                  type: string
-                id:
-                  type: string
-                is_remote:
-                  description: Which storage to use local or remote
-                  example: false
-                  type: boolean
-                mute_new_metrics:
-                  example: true
-                  type: boolean
-                name:
-                  description: Trigger name
-                  example: Dice Roll
-                  type: string
-                patterns:
-                  description: Array of possible patterns to check values in simple
-                    mode
-                  example:
-                  - local.dice.roll
-                  items:
-                    type: string
-                  type: array
-                sched:
-                  $ref: '#/components/schemas/_trigger_sched'
-                tags:
-                  description: Array of tags associated with this trigger
-                  example:
-                  - test
-                  items:
-                    type: string
-                  type: array
-                targets:
-                  description: Array of targets associated with this trigger
-                  items:
-                    type: string
-                  type: array
-                throttling:
-                  description: Quantity of events before throttling will be enabled
-                  type: integer
-                trigger_type:
-                  enum:
-                  - rising
-                  - falling
-                  - expression
-                  type: string
-                ttl:
-                  type: integer
-                ttl_state:
-                  type: string
-                warn_value:
-                  description: Target value at which warning will be fired
-                  example: 5
-                  type: number
-                alone_metrics:
-                  description: An array of targets which have only one metric
-                  example:
-                  - t1
-                  - t2
-                  items:
-                    type: string
-                  type: array
-              type: object
+              $ref: '#/components/schemas/Trigger'
         required: true
       responses:
         "200":
@@ -127,16 +54,26 @@ paths:
       summary: Create new trigger
       tags:
       - triggers
-  /trigger/{triggerId}:
+  /trigger/{triggerID}:
     get:
-      parameters: []
+      operationId: GetTrigger
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                properties: {}
-                type: object
+                $ref: '#/components/schemas/Trigger'
           description: Trigger data
         "404":
           content:
@@ -144,10 +81,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/inline_response_404'
           description: Trigger not found
-      summary: Update existing trigger
+      summary: Get an existing trigger
       tags:
       - trigger
     put:
+      operationId: UpdateTrigger
       parameters:
       - description: The ID of updated trigger
         example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
@@ -163,9 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              additionalProperties: false
-              properties: {}
-              type: object
+              $ref: '#/components/schemas/Trigger'
         required: true
       responses:
         "200":
@@ -183,9 +119,20 @@ paths:
       summary: Update existing trigger
       tags:
       - trigger
-  /trigger/{triggerId}/render:
+  /trigger/{triggerID}/render:
     get:
+      operationId: GetTriggerPlot
       parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: The ID of updated target to print plot for
         example: t1
         explode: true
@@ -230,13 +177,56 @@ paths:
       summary: Get rendered plot for trigger
       tags:
       - trigger
-  /trigger/{triggerId}/metrics:
+  /trigger/{triggerID}/metrics:
     get:
-      parameters: []
+      operationId: GetTriggerMetrics
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The start period of metrics to get
+        example: -1hour
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The end period of metrics to get
+        example: now
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
-            application/json: {}
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    additionalProperties: false
+                    properties:
+                      step:
+                        type: integer
+                      ts:
+                        type: integer
+                      value:
+                        type: number
+                    type: object
+                  type: array
+                type: object
           description: Metrics for trigger
         "500":
           content:
@@ -247,54 +237,232 @@ paths:
       summary: Get metrics associated with certain trigger
       tags:
       - trigger
+  /user:
+    get:
+      operationId: GetUser
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User name fetched successfully.
+      summary: Gets the username of the authenticated user if it is available.
+      tags:
+      - user
+  /user/settings:
+    get:
+      operationId: GetUserSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+          description: Settings fetched successfully.
+      summary: Get the user's contacts and subscriptions.
+      tags:
+      - user
 components:
-  requestBodies:
-    inline_object:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_object'
+  parameters:
+    triggerID:
+      description: The ID of updated trigger
+      example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+      explode: false
+      in: path
+      name: triggerID
       required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    targetID:
+      description: The ID of updated target to print plot for
+      example: t1
+      explode: true
+      in: query
+      name: targetID
+      required: false
+      schema:
+        type: string
+      style: form
+    from:
+      description: The start period of metrics to get
+      example: -1hour
+      explode: true
+      in: query
+      name: from
+      required: false
+      schema:
+        type: string
+      style: form
+    to:
+      description: The end period of metrics to get
+      example: now
+      explode: true
+      in: query
+      name: to
+      required: false
+      schema:
+        type: string
+      style: form
   schemas:
-    inline_response_500_1:
-      properties:
-        status:
-          example: Internal Server Error
-          type: string
-        error:
-          example: 'no points found to render trigger: 5A8AF369-86D2-44DD-B514-D47995ED6AF7'
-          type: string
-    inline_response_404:
-      properties:
-        status:
-          example: Resource not found
-          type: string
-        error:
-          example: trigger not found
-          type: string
-    _trigger_sched:
-      properties:
-        days:
-          items:
-            $ref: '#/components/schemas/_trigger_sched_days'
-          type: array
-        endOffset:
-          type: integer
-        startOffset:
-          type: integer
-        tzOffset:
-          type: integer
-    inline_response_200_1:
+    User:
+      additionalProperties: false
       example:
-        id: trigger_id
-        message: trigger created
+        login: petr
+      properties:
+        login:
+          description: Username of the authenticated user. Blank if not available.
+          example: petr
+          type: string
+      type: object
+    Contact:
+      additionalProperties: false
+      example:
+        id: id
+        type: type
+        value: value
+        user: user
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        id:
+          type: string
+        user:
+          type: string
+      type: object
+    Subscription:
+      additionalProperties: false
+      example:
+        ignore_warnings: true
+        throttling: true
+        ignore_recoverings: true
+        sched:
+          endOffset: 2
+          startOffset: 5
+          tzOffset: 5
+          days:
+          - name: name
+            enabled: true
+          - name: name
+            enabled: true
+        any_tags: true
+        plotting:
+          theme: theme
+          enabled: true
+        id: id
+        user: user
+        contacts:
+        - contacts
+        - contacts
+        enabled: true
+        tags:
+        - tags
+        - tags
+      properties:
+        contacts:
+          items:
+            type: string
+          type: array
+        tags:
+          items:
+            type: string
+          type: array
+        sched:
+          $ref: '#/components/schemas/Subscription_sched'
+        plotting:
+          $ref: '#/components/schemas/Subscription_plotting'
+        id:
+          type: string
+        enabled:
+          type: boolean
+        any_tags:
+          type: boolean
+        ignore_warnings:
+          type: boolean
+        ignore_recoverings:
+          type: boolean
+        throttling:
+          type: boolean
+        user:
+          type: string
+      type: object
+    Trigger:
+      additionalProperties: false
+      example:
+        error_value: 6.027456183070403
+        expression: expression
+        trigger_type: trigger_type
+        patterns:
+        - patterns
+        - patterns
+        is_remote: true
+        mute_new_metrics: true
+        ttl_state: ttl_state
+        targets:
+        - targets
+        - targets
+        ttl: 1
+        tags:
+        - tags
+        - tags
+        throttling: 7
+        sched:
+          endOffset: 2
+          startOffset: 5
+          tzOffset: 5
+          days:
+          - name: name
+            enabled: true
+          - name: name
+            enabled: true
+        warn_value: 0.8008281904610115
+        name: name
+        id: id
+        desc: desc
       properties:
         id:
-          example: trigger_id
           type: string
-        message:
-          example: trigger created
+        name:
           type: string
+        desc:
+          type: string
+        targets:
+          items:
+            type: string
+          type: array
+        warn_value:
+          type: number
+        error_value:
+          type: number
+        trigger_type:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        ttl_state:
+          type: string
+        ttl:
+          type: integer
+        sched:
+          $ref: '#/components/schemas/Subscription_sched'
+        expression:
+          type: string
+        patterns:
+          items:
+            type: string
+          type: array
+        is_remote:
+          type: boolean
+        mute_new_metrics:
+          type: boolean
+        throttling:
+          type: integer
+      type: object
     inline_response_200_contacts:
       example:
         help: '@MoiraBot requires admin privileges on your target channel.'
@@ -333,86 +501,16 @@ components:
           items:
             $ref: '#/components/schemas/inline_response_200_contacts'
           type: array
-    inline_object:
-      additionalProperties: false
+    inline_response_200_1:
+      example:
+        id: trigger_id
+        message: trigger created
       properties:
-        desc:
-          description: Trigger description
-          example: Dice roll trigger
-          type: string
-        error_value:
-          description: Target value at which error will be fired
-          example: 7
-          type: number
-        expression:
-          description: Expression that will be evaluated
-          example: 't1 > 6 ? ERROR : (t1 > 4)? WARN : OK'
-          type: string
         id:
+          example: trigger_id
           type: string
-        is_remote:
-          description: Which storage to use local or remote
-          example: false
-          type: boolean
-        mute_new_metrics:
-          example: true
-          type: boolean
-        name:
-          description: Trigger name
-          example: Dice Roll
-          type: string
-        patterns:
-          description: Array of possible patterns to check values in simple mode
-          example:
-          - local.dice.roll
-          items:
-            type: string
-          type: array
-        sched:
-          $ref: '#/components/schemas/_trigger_sched'
-        tags:
-          description: Array of tags associated with this trigger
-          example:
-          - test
-          items:
-            type: string
-          type: array
-        targets:
-          description: Array of targets associated with this trigger
-          items:
-            type: string
-          type: array
-        throttling:
-          description: Quantity of events before throttling will be enabled
-          type: integer
-        trigger_type:
-          enum:
-          - rising
-          - falling
-          - expression
-          type: string
-        ttl:
-          type: integer
-        ttl_state:
-          type: string
-        warn_value:
-          description: Target value at which warning will be fired
-          example: 5
-          type: number
-        alone_metrics:
-          description: An array of targets which have only one metric
-          example:
-          - t1
-          - t2
-          items:
-            type: string
-          type: array
-      type: object
-    _trigger_sched_days:
-      properties:
-        enabled:
-          type: boolean
-        name:
+        message:
+          example: trigger created
           type: string
     inline_response_500:
       properties:
@@ -421,4 +519,137 @@ components:
           type: string
         error:
           example: error_value is equal to warn_value, please set exactly one value
+          type: string
+    inline_response_404:
+      properties:
+        status:
+          example: Resource not found
+          type: string
+        error:
+          example: trigger not found
+          type: string
+    inline_response_500_1:
+      properties:
+        status:
+          example: Internal Server Error
+          type: string
+        error:
+          example: 'no points found to render trigger: 5A8AF369-86D2-44DD-B514-D47995ED6AF7'
+          type: string
+    inline_response_200_2:
+      example:
+        subscriptions:
+        - ignore_warnings: true
+          throttling: true
+          ignore_recoverings: true
+          sched:
+            endOffset: 2
+            startOffset: 5
+            tzOffset: 5
+            days:
+            - name: name
+              enabled: true
+            - name: name
+              enabled: true
+          any_tags: true
+          plotting:
+            theme: theme
+            enabled: true
+          id: id
+          user: user
+          contacts:
+          - contacts
+          - contacts
+          enabled: true
+          tags:
+          - tags
+          - tags
+        - ignore_warnings: true
+          throttling: true
+          ignore_recoverings: true
+          sched:
+            endOffset: 2
+            startOffset: 5
+            tzOffset: 5
+            days:
+            - name: name
+              enabled: true
+            - name: name
+              enabled: true
+          any_tags: true
+          plotting:
+            theme: theme
+            enabled: true
+          id: id
+          user: user
+          contacts:
+          - contacts
+          - contacts
+          enabled: true
+          tags:
+          - tags
+          - tags
+        login: petr
+        contacts:
+        - id: id
+          type: type
+          value: value
+          user: user
+        - id: id
+          type: type
+          value: value
+          user: user
+      properties:
+        login:
+          description: username of the authenticated user.
+          example: petr
+          type: string
+        contacts:
+          description: user's contacts
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+        subscriptions:
+          description: user's subscriptions
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+    Subscription_sched_days:
+      example:
+        name: name
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        name:
+          type: string
+    Subscription_sched:
+      example:
+        endOffset: 2
+        startOffset: 5
+        tzOffset: 5
+        days:
+        - name: name
+          enabled: true
+        - name: name
+          enabled: true
+      properties:
+        days:
+          items:
+            $ref: '#/components/schemas/Subscription_sched_days'
+          type: array
+        tzOffset:
+          type: integer
+        startOffset:
+          type: integer
+        endOffset:
+          type: integer
+    Subscription_plotting:
+      example:
+        theme: theme
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        theme:
           type: string

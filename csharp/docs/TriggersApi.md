@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TriggerPut**](TriggersApi.md#triggerput) | **PUT** /trigger | Create new trigger
+[**CreateTrigger**](TriggersApi.md#createtrigger) | **PUT** /trigger | Create new trigger
 
 
 
-## TriggerPut
+## CreateTrigger
 
-> InlineResponse2001 TriggerPut (InlineObject inlineObject)
+> InlineResponse2001 CreateTrigger (Trigger trigger)
 
 Create new trigger
 
@@ -25,23 +25,23 @@ using Org.OpenAPITools.Model;
 
 namespace Example
 {
-    public class TriggerPutExample
+    public class CreateTriggerExample
     {
         public static void Main()
         {
             Configuration.Default.BasePath = "http://localhost:8080/api";
             var apiInstance = new TriggersApi(Configuration.Default);
-            var inlineObject = new InlineObject(); // InlineObject | 
+            var trigger = new Trigger(); // Trigger | 
 
             try
             {
                 // Create new trigger
-                InlineResponse2001 result = apiInstance.TriggerPut(inlineObject);
+                InlineResponse2001 result = apiInstance.CreateTrigger(trigger);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling TriggersApi.TriggerPut: " + e.Message );
+                Debug.Print("Exception when calling TriggersApi.CreateTrigger: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -55,7 +55,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**InlineObject**](InlineObject.md)|  | 
+ **trigger** | [**Trigger**](Trigger.md)|  | 
 
 ### Return type
 

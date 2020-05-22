@@ -18,6 +18,7 @@ import { InlineResponse2001 } from '../model/inlineResponse2001';
 import { InlineResponse404 } from '../model/inlineResponse404';
 import { InlineResponse500 } from '../model/inlineResponse500';
 import { InlineResponse5001 } from '../model/inlineResponse5001';
+import { Trigger } from '../model/trigger';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
 
@@ -90,135 +91,11 @@ export class TriggerApi {
 
     /**
      * 
-     * @summary Update existing trigger
-     */
-    public async triggerTriggerIdGet (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: object;  }> {
-        const localVarPath = this.basePath + '/trigger/{triggerId}';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
-        const produces = ['application/json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        } else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams: any = {};
-
-        (<any>Object).assign(localVarHeaderParams, options.headers);
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        let authenticationPromise = Promise.resolve();
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    (<any>localVarRequestOptions).formData = localVarFormParams;
-                } else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
-            }
-            return new Promise<{ response: http.ClientResponse; body: object;  }>((resolve, reject) => {
-                localVarRequest(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        body = ObjectSerializer.deserialize(body, "object");
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
-                        } else {
-                            reject(new HttpError(response, body, response.statusCode));
-                        }
-                    }
-                });
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Get metrics associated with certain trigger
-     */
-    public async triggerTriggerIdMetricsGet (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body?: any;  }> {
-        const localVarPath = this.basePath + '/trigger/{triggerId}/metrics';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
-        const produces = ['application/json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        } else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams: any = {};
-
-        (<any>Object).assign(localVarHeaderParams, options.headers);
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        let authenticationPromise = Promise.resolve();
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    (<any>localVarRequestOptions).formData = localVarFormParams;
-                } else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
-            }
-            return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-                localVarRequest(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
-                        } else {
-                            reject(new HttpError(response, body, response.statusCode));
-                        }
-                    }
-                });
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Update existing trigger
+     * @summary Get an existing trigger
      * @param triggerID The ID of updated trigger
-     * @param body 
      */
-    public async triggerTriggerIdPut (triggerID: string, body: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
-        const localVarPath = this.basePath + '/trigger/{triggerId}'
+    public async getTrigger (triggerID: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: Trigger;  }> {
+        const localVarPath = this.basePath + '/trigger/{triggerID}'
             .replace('{' + 'triggerID' + '}', encodeURIComponent(String(triggerID)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -233,12 +110,7 @@ export class TriggerApi {
 
         // verify required parameter 'triggerID' is not null or undefined
         if (triggerID === null || triggerID === undefined) {
-            throw new Error('Required parameter triggerID was null or undefined when calling triggerTriggerIdPut.');
-        }
-
-        // verify required parameter 'body' is not null or undefined
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling triggerTriggerIdPut.');
+            throw new Error('Required parameter triggerID was null or undefined when calling getTrigger.');
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -246,13 +118,12 @@ export class TriggerApi {
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PUT',
+            method: 'GET',
             qs: localVarQueryParameters,
             headers: localVarHeaderParams,
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(body, "object")
         };
 
         let authenticationPromise = Promise.resolve();
@@ -271,12 +142,91 @@ export class TriggerApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }>((resolve, reject) => {
+            return new Promise<{ response: http.ClientResponse; body: Trigger;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
-                        body = ObjectSerializer.deserialize(body, "InlineResponse2001");
+                        body = ObjectSerializer.deserialize(body, "Trigger");
+                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            resolve({ response: response, body: body });
+                        } else {
+                            reject(new HttpError(response, body, response.statusCode));
+                        }
+                    }
+                });
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get metrics associated with certain trigger
+     * @param triggerID The ID of updated trigger
+     * @param from The start period of metrics to get
+     * @param to The end period of metrics to get
+     */
+    public async getTriggerMetrics (triggerID: string, from?: string, to?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: { [key: string]: Array<object>; };  }> {
+        const localVarPath = this.basePath + '/trigger/{triggerID}/metrics'
+            .replace('{' + 'triggerID' + '}', encodeURIComponent(String(triggerID)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
+        const produces = ['application/json'];
+        // give precedence to 'application/json'
+        if (produces.indexOf('application/json') >= 0) {
+            localVarHeaderParams.Accept = 'application/json';
+        } else {
+            localVarHeaderParams.Accept = produces.join(',');
+        }
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'triggerID' is not null or undefined
+        if (triggerID === null || triggerID === undefined) {
+            throw new Error('Required parameter triggerID was null or undefined when calling getTriggerMetrics.');
+        }
+
+        if (from !== undefined) {
+            localVarQueryParameters['from'] = ObjectSerializer.serialize(from, "string");
+        }
+
+        if (to !== undefined) {
+            localVarQueryParameters['to'] = ObjectSerializer.serialize(to, "string");
+        }
+
+        (<any>Object).assign(localVarHeaderParams, options.headers);
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        let authenticationPromise = Promise.resolve();
+        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+
+        let interceptorPromise = authenticationPromise;
+        for (const interceptor of this.interceptors) {
+            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+        }
+
+        return interceptorPromise.then(() => {
+            if (Object.keys(localVarFormParams).length) {
+                if (localVarUseFormData) {
+                    (<any>localVarRequestOptions).formData = localVarFormParams;
+                } else {
+                    localVarRequestOptions.form = localVarFormParams;
+                }
+            }
+            return new Promise<{ response: http.ClientResponse; body: { [key: string]: Array<object>; };  }>((resolve, reject) => {
+                localVarRequest(localVarRequestOptions, (error, response, body) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        body = ObjectSerializer.deserialize(body, "{ [key: string]: Array<object>; }");
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                             resolve({ response: response, body: body });
                         } else {
@@ -290,12 +240,14 @@ export class TriggerApi {
     /**
      * 
      * @summary Get rendered plot for trigger
+     * @param triggerID The ID of updated trigger
      * @param targetID The ID of updated target to print plot for
      * @param from The start period of metrics to get
      * @param to The end period of metrics to get
      */
-    public async triggerTriggerIdRenderGet (targetID?: string, from?: string, to?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: Buffer;  }> {
-        const localVarPath = this.basePath + '/trigger/{triggerId}/render';
+    public async getTriggerPlot (triggerID: string, targetID?: string, from?: string, to?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: Buffer;  }> {
+        const localVarPath = this.basePath + '/trigger/{triggerID}/render'
+            .replace('{' + 'triggerID' + '}', encodeURIComponent(String(triggerID)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
         const produces = ['image/png', 'application/json'];
@@ -306,6 +258,11 @@ export class TriggerApi {
             localVarHeaderParams.Accept = produces.join(',');
         }
         let localVarFormParams: any = {};
+
+        // verify required parameter 'triggerID' is not null or undefined
+        if (triggerID === null || triggerID === undefined) {
+            throw new Error('Required parameter triggerID was null or undefined when calling getTriggerPlot.');
+        }
 
         if (targetID !== undefined) {
             localVarQueryParameters['targetID'] = ObjectSerializer.serialize(targetID, "string");
@@ -354,6 +311,82 @@ export class TriggerApi {
                         reject(error);
                     } else {
                         body = ObjectSerializer.deserialize(body, "Buffer");
+                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            resolve({ response: response, body: body });
+                        } else {
+                            reject(new HttpError(response, body, response.statusCode));
+                        }
+                    }
+                });
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Update existing trigger
+     * @param triggerID The ID of updated trigger
+     * @param trigger 
+     */
+    public async updateTrigger (triggerID: string, trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
+        const localVarPath = this.basePath + '/trigger/{triggerID}'
+            .replace('{' + 'triggerID' + '}', encodeURIComponent(String(triggerID)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
+        const produces = ['application/json'];
+        // give precedence to 'application/json'
+        if (produces.indexOf('application/json') >= 0) {
+            localVarHeaderParams.Accept = 'application/json';
+        } else {
+            localVarHeaderParams.Accept = produces.join(',');
+        }
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'triggerID' is not null or undefined
+        if (triggerID === null || triggerID === undefined) {
+            throw new Error('Required parameter triggerID was null or undefined when calling updateTrigger.');
+        }
+
+        // verify required parameter 'trigger' is not null or undefined
+        if (trigger === null || trigger === undefined) {
+            throw new Error('Required parameter trigger was null or undefined when calling updateTrigger.');
+        }
+
+        (<any>Object).assign(localVarHeaderParams, options.headers);
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(trigger, "Trigger")
+        };
+
+        let authenticationPromise = Promise.resolve();
+        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+
+        let interceptorPromise = authenticationPromise;
+        for (const interceptor of this.interceptors) {
+            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+        }
+
+        return interceptorPromise.then(() => {
+            if (Object.keys(localVarFormParams).length) {
+                if (localVarUseFormData) {
+                    (<any>localVarRequestOptions).formData = localVarFormParams;
+                } else {
+                    localVarRequestOptions.form = localVarFormParams;
+                }
+            }
+            return new Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }>((resolve, reject) => {
+                localVarRequest(localVarRequestOptions, (error, response, body) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        body = ObjectSerializer.deserialize(body, "InlineResponse2001");
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                             resolve({ response: response, body: body });
                         } else {

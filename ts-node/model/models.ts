@@ -1,24 +1,34 @@
-export * from './inlineObject';
+export * from './contact';
 export * from './inlineResponse200';
 export * from './inlineResponse2001';
+export * from './inlineResponse2002';
 export * from './inlineResponse200Contacts';
 export * from './inlineResponse404';
 export * from './inlineResponse500';
 export * from './inlineResponse5001';
-export * from './triggerSched';
-export * from './triggerSchedDays';
+export * from './subscription';
+export * from './subscriptionPlotting';
+export * from './subscriptionSched';
+export * from './subscriptionSchedDays';
+export * from './trigger';
+export * from './user';
 
 import localVarRequest = require('request');
 
-import { InlineObject } from './inlineObject';
+import { Contact } from './contact';
 import { InlineResponse200 } from './inlineResponse200';
 import { InlineResponse2001 } from './inlineResponse2001';
+import { InlineResponse2002 } from './inlineResponse2002';
 import { InlineResponse200Contacts } from './inlineResponse200Contacts';
 import { InlineResponse404 } from './inlineResponse404';
 import { InlineResponse500 } from './inlineResponse500';
 import { InlineResponse5001 } from './inlineResponse5001';
-import { TriggerSched } from './triggerSched';
-import { TriggerSchedDays } from './triggerSchedDays';
+import { Subscription } from './subscription';
+import { SubscriptionPlotting } from './subscriptionPlotting';
+import { SubscriptionSched } from './subscriptionSched';
+import { SubscriptionSchedDays } from './subscriptionSchedDays';
+import { Trigger } from './trigger';
+import { User } from './user';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -33,19 +43,23 @@ let primitives = [
                  ];
 
 let enumsMap: {[index: string]: any} = {
-        "InlineObject.TriggerTypeEnum": InlineObject.TriggerTypeEnum,
 }
 
 let typeMap: {[index: string]: any} = {
-    "InlineObject": InlineObject,
+    "Contact": Contact,
     "InlineResponse200": InlineResponse200,
     "InlineResponse2001": InlineResponse2001,
+    "InlineResponse2002": InlineResponse2002,
     "InlineResponse200Contacts": InlineResponse200Contacts,
     "InlineResponse404": InlineResponse404,
     "InlineResponse500": InlineResponse500,
     "InlineResponse5001": InlineResponse5001,
-    "TriggerSched": TriggerSched,
-    "TriggerSchedDays": TriggerSchedDays,
+    "Subscription": Subscription,
+    "SubscriptionPlotting": SubscriptionPlotting,
+    "SubscriptionSched": SubscriptionSched,
+    "SubscriptionSchedDays": SubscriptionSchedDays,
+    "Trigger": Trigger,
+    "User": User,
 }
 
 export class ObjectSerializer {

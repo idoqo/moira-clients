@@ -32,25 +32,32 @@ All URIs are relative to *http://localhost:8080/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ConfigApi* | [**ConfigGet**](docs/ConfigApi.md#configget) | **Get** /config | Get available configuration
-*TriggerApi* | [**TriggerTriggerIdGet**](docs/TriggerApi.md#triggertriggeridget) | **Get** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**TriggerTriggerIdMetricsGet**](docs/TriggerApi.md#triggertriggeridmetricsget) | **Get** /trigger/{triggerId}/metrics | Get metrics associated with certain trigger
-*TriggerApi* | [**TriggerTriggerIdPut**](docs/TriggerApi.md#triggertriggeridput) | **Put** /trigger/{triggerId} | Update existing trigger
-*TriggerApi* | [**TriggerTriggerIdRenderGet**](docs/TriggerApi.md#triggertriggeridrenderget) | **Get** /trigger/{triggerId}/render | Get rendered plot for trigger
-*TriggersApi* | [**TriggerPut**](docs/TriggersApi.md#triggerput) | **Put** /trigger | Create new trigger
+*ConfigApi* | [**GetConfig**](docs/ConfigApi.md#getconfig) | **Get** /config | Get available configuration
+*TriggerApi* | [**GetTrigger**](docs/TriggerApi.md#gettrigger) | **Get** /trigger/{triggerID} | Get an existing trigger
+*TriggerApi* | [**GetTriggerMetrics**](docs/TriggerApi.md#gettriggermetrics) | **Get** /trigger/{triggerID}/metrics | Get metrics associated with certain trigger
+*TriggerApi* | [**GetTriggerPlot**](docs/TriggerApi.md#gettriggerplot) | **Get** /trigger/{triggerID}/render | Get rendered plot for trigger
+*TriggerApi* | [**UpdateTrigger**](docs/TriggerApi.md#updatetrigger) | **Put** /trigger/{triggerID} | Update existing trigger
+*TriggersApi* | [**CreateTrigger**](docs/TriggersApi.md#createtrigger) | **Put** /trigger | Create new trigger
+*UserApi* | [**GetUser**](docs/UserApi.md#getuser) | **Get** /user | Gets the username of the authenticated user if it is available.
+*UserApi* | [**GetUserSettings**](docs/UserApi.md#getusersettings) | **Get** /user/settings | Get the user&#39;s contacts and subscriptions.
 
 
 ## Documentation For Models
 
- - [InlineObject](docs/InlineObject.md)
+ - [Contact](docs/Contact.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
+ - [InlineResponse2002](docs/InlineResponse2002.md)
  - [InlineResponse200Contacts](docs/InlineResponse200Contacts.md)
  - [InlineResponse404](docs/InlineResponse404.md)
  - [InlineResponse500](docs/InlineResponse500.md)
  - [InlineResponse5001](docs/InlineResponse5001.md)
- - [TriggerSched](docs/TriggerSched.md)
- - [TriggerSchedDays](docs/TriggerSchedDays.md)
+ - [Subscription](docs/Subscription.md)
+ - [SubscriptionPlotting](docs/SubscriptionPlotting.md)
+ - [SubscriptionSched](docs/SubscriptionSched.md)
+ - [SubscriptionSchedDays](docs/SubscriptionSchedDays.md)
+ - [Trigger](docs/Trigger.md)
+ - [User](docs/User.md)
 
 
 ## Documentation For Authorization

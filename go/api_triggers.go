@@ -25,12 +25,12 @@ var (
 type TriggersApiService service
 
 /*
-TriggerPut Create new trigger
+CreateTrigger Create new trigger
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param inlineObject
+ * @param trigger
 @return InlineResponse2001
 */
-func (a *TriggersApiService) TriggerPut(ctx _context.Context, inlineObject InlineObject) (InlineResponse2001, *_nethttp.Response, error) {
+func (a *TriggersApiService) CreateTrigger(ctx _context.Context, trigger Trigger) (InlineResponse2001, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -64,7 +64,7 @@ func (a *TriggersApiService) TriggerPut(ctx _context.Context, inlineObject Inlin
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &inlineObject
+	localVarPostBody = &trigger
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

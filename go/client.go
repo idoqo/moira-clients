@@ -53,6 +53,8 @@ type APIClient struct {
 	TriggerApi *TriggerApiService
 
 	TriggersApi *TriggersApiService
+
+	UserApi *UserApiService
 }
 
 type service struct {
@@ -74,6 +76,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ConfigApi = (*ConfigApiService)(&c.common)
 	c.TriggerApi = (*TriggerApiService)(&c.common)
 	c.TriggersApi = (*TriggersApiService)(&c.common)
+	c.UserApi = (*UserApiService)(&c.common)
 
 	return c
 }

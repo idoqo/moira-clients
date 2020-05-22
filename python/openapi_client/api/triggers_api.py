@@ -36,16 +36,16 @@ class TriggersApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def trigger_put(self, inline_object, **kwargs):  # noqa: E501
+    def create_trigger(self, trigger, **kwargs):  # noqa: E501
         """Create new trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_put(inline_object, async_req=True)
+        >>> thread = api.create_trigger(trigger, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param InlineObject inline_object: (required)
+        :param Trigger trigger: (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -58,18 +58,18 @@ class TriggersApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.trigger_put_with_http_info(inline_object, **kwargs)  # noqa: E501
+        return self.create_trigger_with_http_info(trigger, **kwargs)  # noqa: E501
 
-    def trigger_put_with_http_info(self, inline_object, **kwargs):  # noqa: E501
+    def create_trigger_with_http_info(self, trigger, **kwargs):  # noqa: E501
         """Create new trigger  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.trigger_put_with_http_info(inline_object, async_req=True)
+        >>> thread = api.create_trigger_with_http_info(trigger, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param InlineObject inline_object: (required)
+        :param Trigger trigger: (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -87,7 +87,7 @@ class TriggersApi(object):
         local_var_params = locals()
 
         all_params = [
-            'inline_object'
+            'trigger'
         ]
         all_params.extend(
             [
@@ -102,14 +102,14 @@ class TriggersApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method trigger_put" % key
+                    " to method create_trigger" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
-        # verify the required parameter 'inline_object' is set
-        if self.api_client.client_side_validation and ('inline_object' not in local_var_params or  # noqa: E501
-                                                        local_var_params['inline_object'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `inline_object` when calling `trigger_put`")  # noqa: E501
+        # verify the required parameter 'trigger' is set
+        if self.api_client.client_side_validation and ('trigger' not in local_var_params or  # noqa: E501
+                                                        local_var_params['trigger'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `trigger` when calling `create_trigger`")  # noqa: E501
 
         collection_formats = {}
 
@@ -123,8 +123,8 @@ class TriggersApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'inline_object' in local_var_params:
-            body_params = local_var_params['inline_object']
+        if 'trigger' in local_var_params:
+            body_params = local_var_params['trigger']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

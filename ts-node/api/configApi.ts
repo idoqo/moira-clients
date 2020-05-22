@@ -89,7 +89,7 @@ export class ConfigApi {
      * 
      * @summary Get available configuration
      */
-    public async configGet (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse200;  }> {
+    public async getConfig (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse200;  }> {
         const localVarPath = this.basePath + '/config';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
