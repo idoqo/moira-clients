@@ -18,6 +18,11 @@ __version__ = "1.0.0"
 
 # import apis into sdk package
 from openapi_client.api.config_api import ConfigApi
+from openapi_client.api.contact_api import ContactApi
+from openapi_client.api.contacts_api import ContactsApi
+from openapi_client.api.event_api import EventApi
+from openapi_client.api.health_api import HealthApi
+from openapi_client.api.pattern_api import PatternApi
 from openapi_client.api.trigger_api import TriggerApi
 from openapi_client.api.triggers_api import TriggersApi
 from openapi_client.api.user_api import UserApi
@@ -32,13 +37,22 @@ from openapi_client.exceptions import ApiKeyError
 from openapi_client.exceptions import ApiException
 # import models into sdk package
 from openapi_client.models.contact import Contact
+from openapi_client.models.contact_request import ContactRequest
+from openapi_client.models.event import Event
+from openapi_client.models.event_event_message import EventEventMessage
+from openapi_client.models.event_event_message_maintenance import EventEventMessageMaintenance
 from openapi_client.models.inline_response200 import InlineResponse200
 from openapi_client.models.inline_response2001 import InlineResponse2001
 from openapi_client.models.inline_response2002 import InlineResponse2002
+from openapi_client.models.inline_response2003 import InlineResponse2003
+from openapi_client.models.inline_response2003_list import InlineResponse2003List
+from openapi_client.models.inline_response2004 import InlineResponse2004
+from openapi_client.models.inline_response2005 import InlineResponse2005
 from openapi_client.models.inline_response200_contacts import InlineResponse200Contacts
+from openapi_client.models.inline_response400 import InlineResponse400
 from openapi_client.models.inline_response404 import InlineResponse404
 from openapi_client.models.inline_response500 import InlineResponse500
-from openapi_client.models.inline_response5001 import InlineResponse5001
+from openapi_client.models.notifier_state import NotifierState
 from openapi_client.models.subscription import Subscription
 from openapi_client.models.subscription_plotting import SubscriptionPlotting
 from openapi_client.models.subscription_sched import SubscriptionSched

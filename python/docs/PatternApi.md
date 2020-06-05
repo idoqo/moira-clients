@@ -1,17 +1,17 @@
-# openapi_client.UserApi
+# openapi_client.PatternApi
 
 All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_user**](UserApi.md#get_user) | **GET** /user | Gets the username of the authenticated user if it is available.
-[**get_user_settings**](UserApi.md#get_user_settings) | **GET** /user/settings | Get the user&#39;s contacts and subscriptions.
+[**delete_pattern**](PatternApi.md#delete_pattern) | **DELETE** /pattern/{pattern} | Deletes a Moira pattern
+[**get_all_patterns**](PatternApi.md#get_all_patterns) | **GET** /pattern | Get all patterns
 
 
-# **get_user**
-> User get_user()
+# **delete_pattern**
+> delete_pattern(pattern)
 
-Gets the username of the authenticated user if it is available.
+Deletes a Moira pattern
 
 ### Example
 
@@ -31,22 +31,25 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
-    
+    api_instance = openapi_client.PatternApi(api_client)
+    pattern = 'DevOps.my_server.hdd.freespace_mbytes' # str | Trigger pattern to operate on.
+
     try:
-        # Gets the username of the authenticated user if it is available.
-        api_response = api_instance.get_user()
-        pprint(api_response)
+        # Deletes a Moira pattern
+        api_instance.delete_pattern(pattern)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user: %s\n" % e)
+        print("Exception when calling PatternApi->delete_pattern: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pattern** | **str**| Trigger pattern to operate on. | 
 
 ### Return type
 
-[**User**](User.md)
+void (empty response body)
 
 ### Authorization
 
@@ -55,19 +58,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User name fetched successfully. |  -  |
+**200** | Pattern delete successfully |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_user_settings**
-> InlineResponse2005 get_user_settings()
+# **get_all_patterns**
+> InlineResponse2003 get_all_patterns()
 
-Get the user's contacts and subscriptions.
+Get all patterns
 
 ### Example
 
@@ -87,14 +90,14 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
+    api_instance = openapi_client.PatternApi(api_client)
     
     try:
-        # Get the user's contacts and subscriptions.
-        api_response = api_instance.get_user_settings()
+        # Get all patterns
+        api_response = api_instance.get_all_patterns()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user_settings: %s\n" % e)
+        print("Exception when calling PatternApi->get_all_patterns: %s\n" % e)
 ```
 
 ### Parameters
@@ -102,7 +105,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -111,12 +114,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: applicaton/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Settings fetched successfully. |  -  |
+**200** | Patterns fetched successfully |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

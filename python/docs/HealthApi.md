@@ -1,17 +1,17 @@
-# openapi_client.UserApi
+# openapi_client.HealthApi
 
 All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_user**](UserApi.md#get_user) | **GET** /user | Gets the username of the authenticated user if it is available.
-[**get_user_settings**](UserApi.md#get_user_settings) | **GET** /user/settings | Get the user&#39;s contacts and subscriptions.
+[**get_notifier_state**](HealthApi.md#get_notifier_state) | **GET** /health/notifier | Get notifier state
+[**update_notifier_state**](HealthApi.md#update_notifier_state) | **PUT** /health/notifier | Update notifier state
 
 
-# **get_user**
-> User get_user()
+# **get_notifier_state**
+> NotifierState get_notifier_state()
 
-Gets the username of the authenticated user if it is available.
+Get notifier state
 
 ### Example
 
@@ -31,14 +31,14 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
+    api_instance = openapi_client.HealthApi(api_client)
     
     try:
-        # Gets the username of the authenticated user if it is available.
-        api_response = api_instance.get_user()
+        # Get notifier state
+        api_response = api_instance.get_notifier_state()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user: %s\n" % e)
+        print("Exception when calling HealthApi->get_notifier_state: %s\n" % e)
 ```
 
 ### Parameters
@@ -46,7 +46,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**NotifierState**](NotifierState.md)
 
 ### Authorization
 
@@ -60,14 +60,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User name fetched successfully. |  -  |
+**200** | Notifier state retrieved |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_user_settings**
-> InlineResponse2005 get_user_settings()
+# **update_notifier_state**
+> NotifierState update_notifier_state(notifier_state)
 
-Get the user's contacts and subscriptions.
+Update notifier state
 
 ### Example
 
@@ -87,22 +87,26 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
-    
+    api_instance = openapi_client.HealthApi(api_client)
+    notifier_state = {"state":"ERROR","message":"Moira has been turned off for maintenance"} # NotifierState | 
+
     try:
-        # Get the user's contacts and subscriptions.
-        api_response = api_instance.get_user_settings()
+        # Update notifier state
+        api_response = api_instance.update_notifier_state(notifier_state)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user_settings: %s\n" % e)
+        print("Exception when calling HealthApi->update_notifier_state: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **notifier_state** | [**NotifierState**](NotifierState.md)|  | 
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**NotifierState**](NotifierState.md)
 
 ### Authorization
 
@@ -110,13 +114,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Settings fetched successfully. |  -  |
+**200** | Update state of the Moira service |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

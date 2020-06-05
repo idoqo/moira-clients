@@ -1,12 +1,10 @@
-# Contact
+# NotifierState
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the contact | [optional] 
-**user** | **str** | Username of the user who created the contact | [optional] 
-**type** | **str** |  | [optional] 
-**value** | **str** |  | [optional] 
+**state** | **str** | value for OK state | [optional] 
+**message** | **str** | Detailed description of the current state. This field is non-existent if the state is OK | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

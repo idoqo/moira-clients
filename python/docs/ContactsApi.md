@@ -1,17 +1,17 @@
-# openapi_client.UserApi
+# openapi_client.ContactsApi
 
 All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_user**](UserApi.md#get_user) | **GET** /user | Gets the username of the authenticated user if it is available.
-[**get_user_settings**](UserApi.md#get_user_settings) | **GET** /user/settings | Get the user&#39;s contacts and subscriptions.
+[**create_new_contact**](ContactsApi.md#create_new_contact) | **PUT** /contact | Creates a new contact notification for the current user.
+[**get_contacts**](ContactsApi.md#get_contacts) | **GET** /contact | Gets all Moira contacts.
 
 
-# **get_user**
-> User get_user()
+# **create_new_contact**
+> Contact create_new_contact(contact_request)
 
-Gets the username of the authenticated user if it is available.
+Creates a new contact notification for the current user.
 
 ### Example
 
@@ -31,22 +31,26 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
-    
+    api_instance = openapi_client.ContactsApi(api_client)
+    contact_request = openapi_client.ContactRequest() # ContactRequest | 
+
     try:
-        # Gets the username of the authenticated user if it is available.
-        api_response = api_instance.get_user()
+        # Creates a new contact notification for the current user.
+        api_response = api_instance.create_new_contact(contact_request)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user: %s\n" % e)
+        print("Exception when calling ContactsApi->create_new_contact: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contact_request** | [**ContactRequest**](ContactRequest.md)|  | 
 
 ### Return type
 
-[**User**](User.md)
+[**Contact**](Contact.md)
 
 ### Authorization
 
@@ -54,20 +58,21 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: applicaton/json, application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User name fetched successfully. |  -  |
+**200** | Contact created successfully. |  -  |
+**400** | Bad request from client |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_user_settings**
-> InlineResponse2005 get_user_settings()
+# **get_contacts**
+> InlineResponse2001 get_contacts()
 
-Get the user's contacts and subscriptions.
+Gets all Moira contacts.
 
 ### Example
 
@@ -87,14 +92,14 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
+    api_instance = openapi_client.ContactsApi(api_client)
     
     try:
-        # Get the user's contacts and subscriptions.
-        api_response = api_instance.get_user_settings()
+        # Gets all Moira contacts.
+        api_response = api_instance.get_contacts()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user_settings: %s\n" % e)
+        print("Exception when calling ContactsApi->get_contacts: %s\n" % e)
 ```
 
 ### Parameters
@@ -102,7 +107,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -116,7 +121,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Settings fetched successfully. |  -  |
+**200** | Contacts fetched successfully |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,10 +1,8 @@
-# Contact
+# ContactRequest
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the contact | [optional] 
-**user** | **str** | Username of the user who created the contact | [optional] 
 **type** | **str** |  | [optional] 
 **value** | **str** |  | [optional] 
 

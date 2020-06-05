@@ -33,103 +33,131 @@ class InlineResponse2002(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'login': 'str',
-        'contacts': 'list[Contact]',
-        'subscriptions': 'list[Subscription]'
+        'page': 'int',
+        'size': 'int',
+        'total': 'int',
+        'list': 'list[Event]'
     }
 
     attribute_map = {
-        'login': 'login',
-        'contacts': 'contacts',
-        'subscriptions': 'subscriptions'
+        'page': 'page',
+        'size': 'size',
+        'total': 'total',
+        'list': 'list'
     }
 
-    def __init__(self, login=None, contacts=None, subscriptions=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, page=None, size=None, total=None, list=None, local_vars_configuration=None):  # noqa: E501
         """InlineResponse2002 - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._login = None
-        self._contacts = None
-        self._subscriptions = None
+        self._page = None
+        self._size = None
+        self._total = None
+        self._list = None
         self.discriminator = None
 
-        if login is not None:
-            self.login = login
-        if contacts is not None:
-            self.contacts = contacts
-        if subscriptions is not None:
-            self.subscriptions = subscriptions
+        if page is not None:
+            self.page = page
+        if size is not None:
+            self.size = size
+        if total is not None:
+            self.total = total
+        if list is not None:
+            self.list = list
 
     @property
-    def login(self):
-        """Gets the login of this InlineResponse2002.  # noqa: E501
+    def page(self):
+        """Gets the page of this InlineResponse2002.  # noqa: E501
 
-        username of the authenticated user.  # noqa: E501
+        Current page being displayed. Pages are zero-indexed.  # noqa: E501
 
-        :return: The login of this InlineResponse2002.  # noqa: E501
-        :rtype: str
+        :return: The page of this InlineResponse2002.  # noqa: E501
+        :rtype: int
         """
-        return self._login
+        return self._page
 
-    @login.setter
-    def login(self, login):
-        """Sets the login of this InlineResponse2002.
+    @page.setter
+    def page(self, page):
+        """Sets the page of this InlineResponse2002.
 
-        username of the authenticated user.  # noqa: E501
+        Current page being displayed. Pages are zero-indexed.  # noqa: E501
 
-        :param login: The login of this InlineResponse2002.  # noqa: E501
-        :type: str
+        :param page: The page of this InlineResponse2002.  # noqa: E501
+        :type: int
         """
 
-        self._login = login
+        self._page = page
 
     @property
-    def contacts(self):
-        """Gets the contacts of this InlineResponse2002.  # noqa: E501
+    def size(self):
+        """Gets the size of this InlineResponse2002.  # noqa: E501
 
-        user's contacts  # noqa: E501
+        Maximum number of items displayed per page.  # noqa: E501
 
-        :return: The contacts of this InlineResponse2002.  # noqa: E501
-        :rtype: list[Contact]
+        :return: The size of this InlineResponse2002.  # noqa: E501
+        :rtype: int
         """
-        return self._contacts
+        return self._size
 
-    @contacts.setter
-    def contacts(self, contacts):
-        """Sets the contacts of this InlineResponse2002.
+    @size.setter
+    def size(self, size):
+        """Sets the size of this InlineResponse2002.
 
-        user's contacts  # noqa: E501
+        Maximum number of items displayed per page.  # noqa: E501
 
-        :param contacts: The contacts of this InlineResponse2002.  # noqa: E501
-        :type: list[Contact]
+        :param size: The size of this InlineResponse2002.  # noqa: E501
+        :type: int
         """
 
-        self._contacts = contacts
+        self._size = size
 
     @property
-    def subscriptions(self):
-        """Gets the subscriptions of this InlineResponse2002.  # noqa: E501
+    def total(self):
+        """Gets the total of this InlineResponse2002.  # noqa: E501
 
-        user's subscriptions  # noqa: E501
+        Total number of available events for the trigger  # noqa: E501
 
-        :return: The subscriptions of this InlineResponse2002.  # noqa: E501
-        :rtype: list[Subscription]
+        :return: The total of this InlineResponse2002.  # noqa: E501
+        :rtype: int
         """
-        return self._subscriptions
+        return self._total
 
-    @subscriptions.setter
-    def subscriptions(self, subscriptions):
-        """Sets the subscriptions of this InlineResponse2002.
+    @total.setter
+    def total(self, total):
+        """Sets the total of this InlineResponse2002.
 
-        user's subscriptions  # noqa: E501
+        Total number of available events for the trigger  # noqa: E501
 
-        :param subscriptions: The subscriptions of this InlineResponse2002.  # noqa: E501
-        :type: list[Subscription]
+        :param total: The total of this InlineResponse2002.  # noqa: E501
+        :type: int
         """
 
-        self._subscriptions = subscriptions
+        self._total = total
+
+    @property
+    def list(self):
+        """Gets the list of this InlineResponse2002.  # noqa: E501
+
+        List of trigger events  # noqa: E501
+
+        :return: The list of this InlineResponse2002.  # noqa: E501
+        :rtype: list[Event]
+        """
+        return self._list
+
+    @list.setter
+    def list(self, list):
+        """Sets the list of this InlineResponse2002.
+
+        List of trigger events  # noqa: E501
+
+        :param list: The list of this InlineResponse2002.  # noqa: E501
+        :type: list[Event]
+        """
+
+        self._list = list
 
     def to_dict(self):
         """Returns the model properties as a dict"""

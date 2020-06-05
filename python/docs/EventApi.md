@@ -1,17 +1,17 @@
-# openapi_client.UserApi
+# openapi_client.EventApi
 
 All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_user**](UserApi.md#get_user) | **GET** /user | Gets the username of the authenticated user if it is available.
-[**get_user_settings**](UserApi.md#get_user_settings) | **GET** /user/settings | Get the user&#39;s contacts and subscriptions.
+[**delete_events**](EventApi.md#delete_events) | **DELETE** /event/all | Deletes all notification events
+[**get_trigger_events**](EventApi.md#get_trigger_events) | **GET** /event/{triggerId} | Gets all trigger events for current page and their count
 
 
-# **get_user**
-> User get_user()
+# **delete_events**
+> delete_events()
 
-Gets the username of the authenticated user if it is available.
+Deletes all notification events
 
 ### Example
 
@@ -31,14 +31,13 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
+    api_instance = openapi_client.EventApi(api_client)
     
     try:
-        # Gets the username of the authenticated user if it is available.
-        api_response = api_instance.get_user()
-        pprint(api_response)
+        # Deletes all notification events
+        api_instance.delete_events()
     except ApiException as e:
-        print("Exception when calling UserApi->get_user: %s\n" % e)
+        print("Exception when calling EventApi->delete_events: %s\n" % e)
 ```
 
 ### Parameters
@@ -46,7 +45,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+void (empty response body)
 
 ### Authorization
 
@@ -55,19 +54,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User name fetched successfully. |  -  |
+**200** | Events removed successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_user_settings**
-> InlineResponse2005 get_user_settings()
+# **get_trigger_events**
+> InlineResponse2002 get_trigger_events(trigger_id, page=page, size=size)
 
-Get the user's contacts and subscriptions.
+Gets all trigger events for current page and their count
 
 ### Example
 
@@ -87,22 +86,30 @@ configuration = openapi_client.Configuration(
 # Enter a context with an instance of the API client
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UserApi(api_client)
-    
+    api_instance = openapi_client.EventApi(api_client)
+    trigger_id = '5A8AF369-86D2-44DD-B514-D47995ED6AF7' # str | The ID of updated trigger
+page = 1 # int | Defines the number of the displayed page. E.g, page=2 would display the 2nd page. (optional)
+size = 15 # int | Number of items to be displayed on one page. (optional)
+
     try:
-        # Get the user's contacts and subscriptions.
-        api_response = api_instance.get_user_settings()
+        # Gets all trigger events for current page and their count
+        api_response = api_instance.get_trigger_events(trigger_id, page=page, size=size)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling UserApi->get_user_settings: %s\n" % e)
+        print("Exception when calling EventApi->get_trigger_events: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **trigger_id** | [**str**](.md)| The ID of updated trigger | 
+ **page** | **int**| Defines the number of the displayed page. E.g, page&#x3D;2 would display the 2nd page. | [optional] 
+ **size** | **int**| Number of items to be displayed on one page. | [optional] 
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -116,7 +123,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Settings fetched successfully. |  -  |
+**200** | Events fetched successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
