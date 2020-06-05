@@ -50,8 +50,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>InlineResponse2002</returns>
-        InlineResponse2002 GetUserSettings ();
+        /// <returns>InlineResponse2005</returns>
+        InlineResponse2005 GetUserSettings ();
 
         /// <summary>
         /// Get the user&#39;s contacts and subscriptions.
@@ -60,8 +60,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of InlineResponse2002</returns>
-        ApiResponse<InlineResponse2002> GetUserSettingsWithHttpInfo ();
+        /// <returns>ApiResponse of InlineResponse2005</returns>
+        ApiResponse<InlineResponse2005> GetUserSettingsWithHttpInfo ();
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -90,8 +90,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of InlineResponse2002</returns>
-        System.Threading.Tasks.Task<InlineResponse2002> GetUserSettingsAsync ();
+        /// <returns>Task of InlineResponse2005</returns>
+        System.Threading.Tasks.Task<InlineResponse2005> GetUserSettingsAsync ();
 
         /// <summary>
         /// Get the user&#39;s contacts and subscriptions.
@@ -100,8 +100,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (InlineResponse2002)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse2002>> GetUserSettingsAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (InlineResponse2005)</returns>
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse2005>> GetUserSettingsAsyncWithHttpInfo ();
         #endregion Asynchronous Operations
     }
 
@@ -338,10 +338,10 @@ namespace Org.OpenAPITools.Api
         /// Get the user&#39;s contacts and subscriptions. 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>InlineResponse2002</returns>
-        public InlineResponse2002 GetUserSettings ()
+        /// <returns>InlineResponse2005</returns>
+        public InlineResponse2005 GetUserSettings ()
         {
-             ApiResponse<InlineResponse2002> localVarResponse = GetUserSettingsWithHttpInfo();
+             ApiResponse<InlineResponse2005> localVarResponse = GetUserSettingsWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -349,8 +349,8 @@ namespace Org.OpenAPITools.Api
         /// Get the user&#39;s contacts and subscriptions. 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of InlineResponse2002</returns>
-        public ApiResponse<InlineResponse2002> GetUserSettingsWithHttpInfo ()
+        /// <returns>ApiResponse of InlineResponse2005</returns>
+        public ApiResponse<InlineResponse2005> GetUserSettingsWithHttpInfo ()
         {
 
             var localVarPath = "/user/settings";
@@ -389,19 +389,19 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2002>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2005>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2002) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2002)));
+                (InlineResponse2005) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2005)));
         }
 
         /// <summary>
         /// Get the user&#39;s contacts and subscriptions. 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of InlineResponse2002</returns>
-        public async System.Threading.Tasks.Task<InlineResponse2002> GetUserSettingsAsync ()
+        /// <returns>Task of InlineResponse2005</returns>
+        public async System.Threading.Tasks.Task<InlineResponse2005> GetUserSettingsAsync ()
         {
-             ApiResponse<InlineResponse2002> localVarResponse = await GetUserSettingsAsyncWithHttpInfo();
+             ApiResponse<InlineResponse2005> localVarResponse = await GetUserSettingsAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -410,8 +410,8 @@ namespace Org.OpenAPITools.Api
         /// Get the user&#39;s contacts and subscriptions. 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (InlineResponse2002)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2002>> GetUserSettingsAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (InlineResponse2005)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2005>> GetUserSettingsAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/user/settings";
@@ -450,9 +450,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2002>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2005>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2002) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2002)));
+                (InlineResponse2005) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2005)));
         }
 
     }

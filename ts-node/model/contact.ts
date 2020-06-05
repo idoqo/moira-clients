@@ -13,24 +13,20 @@
 import { RequestFile } from '../api';
 
 export class Contact {
+    /**
+    * ID of the contact
+    */
+    'id'?: string;
+    /**
+    * Username of the user who created the contact
+    */
+    'user'?: string;
     'type'?: string;
     'value'?: string;
-    'id'?: string;
-    'user'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
-        },
-        {
-            "name": "value",
-            "baseName": "value",
-            "type": "string"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -39,6 +35,16 @@ export class Contact {
         {
             "name": "user",
             "baseName": "user",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "value",
+            "baseName": "value",
             "type": "string"
         }    ];
 

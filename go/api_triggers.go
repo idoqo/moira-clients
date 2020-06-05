@@ -28,16 +28,16 @@ type TriggersApiService service
 CreateTrigger Create new trigger
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param trigger
-@return InlineResponse2001
+@return InlineResponse2004
 */
-func (a *TriggersApiService) CreateTrigger(ctx _context.Context, trigger Trigger) (InlineResponse2001, *_nethttp.Response, error) {
+func (a *TriggersApiService) CreateTrigger(ctx _context.Context, trigger Trigger) (InlineResponse2004, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2001
+		localVarReturnValue  InlineResponse2004
 	)
 
 	// create path and map variables
@@ -86,8 +86,8 @@ func (a *TriggersApiService) CreateTrigger(ctx _context.Context, trigger Trigger
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v InlineResponse500
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InlineResponse400
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

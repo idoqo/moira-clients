@@ -33,18 +33,32 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Contact" /> class.
         /// </summary>
+        /// <param name="id">ID of the contact.</param>
+        /// <param name="user">Username of the user who created the contact.</param>
         /// <param name="type">type.</param>
         /// <param name="value">value.</param>
-        /// <param name="id">id.</param>
-        /// <param name="user">user.</param>
-        public Contact(string type = default(string), string value = default(string), string id = default(string), string user = default(string))
+        public Contact(string id = default(string), string user = default(string), string type = default(string), string value = default(string))
         {
-            this.Type = type;
-            this.Value = value;
             this.Id = id;
             this.User = user;
+            this.Type = type;
+            this.Value = value;
         }
         
+        /// <summary>
+        /// ID of the contact
+        /// </summary>
+        /// <value>ID of the contact</value>
+        [DataMember(Name="id", EmitDefaultValue=false)]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Username of the user who created the contact
+        /// </summary>
+        /// <value>Username of the user who created the contact</value>
+        [DataMember(Name="user", EmitDefaultValue=false)]
+        public string User { get; set; }
+
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
@@ -58,18 +72,6 @@ namespace Org.OpenAPITools.Model
         public string Value { get; set; }
 
         /// <summary>
-        /// Gets or Sets Id
-        /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets User
-        /// </summary>
-        [DataMember(Name="user", EmitDefaultValue=false)]
-        public string User { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -77,10 +79,10 @@ namespace Org.OpenAPITools.Model
         {
             var sb = new StringBuilder();
             sb.Append("class Contact {\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  User: ").Append(User).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -116,16 +118,6 @@ namespace Org.OpenAPITools.Model
 
             return 
                 (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && 
-                (
-                    this.Value == input.Value ||
-                    (this.Value != null &&
-                    this.Value.Equals(input.Value))
-                ) && 
-                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -134,6 +126,16 @@ namespace Org.OpenAPITools.Model
                     this.User == input.User ||
                     (this.User != null &&
                     this.User.Equals(input.User))
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Value == input.Value ||
+                    (this.Value != null &&
+                    this.Value.Equals(input.Value))
                 );
         }
 
@@ -146,14 +148,14 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
-                if (this.Value != null)
-                    hashCode = hashCode * 59 + this.Value.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.User != null)
                     hashCode = hashCode * 59 + this.User.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Value != null)
+                    hashCode = hashCode * 59 + this.Value.GetHashCode();
                 return hashCode;
             }
         }

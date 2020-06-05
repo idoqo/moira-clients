@@ -245,7 +245,7 @@ No authorization required
 
 ## UpdateTrigger
 
-> InlineResponse2001 UpdateTrigger (Guid triggerID, Trigger trigger)
+> InlineResponse2004 UpdateTrigger (Guid triggerID, Trigger trigger)
 
 Update existing trigger
 
@@ -272,7 +272,7 @@ namespace Example
             try
             {
                 // Update existing trigger
-                InlineResponse2001 result = apiInstance.UpdateTrigger(triggerID, trigger);
+                InlineResponse2004 result = apiInstance.UpdateTrigger(triggerID, trigger);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Trigger updated |  -  |
-| **400** | Invalid input |  -  |
+| **400** | Bad request from client |  -  |
 
 [[Back to top]](#)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

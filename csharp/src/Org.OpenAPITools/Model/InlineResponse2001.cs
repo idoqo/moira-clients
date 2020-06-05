@@ -33,25 +33,18 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InlineResponse2001" /> class.
         /// </summary>
-        /// <param name="id">id.</param>
-        /// <param name="message">message.</param>
-        public InlineResponse2001(string id = default(string), string message = default(string))
+        /// <param name="list">List of all the retrieved Moira contacts..</param>
+        public InlineResponse2001(List<Contact> list = default(List<Contact>))
         {
-            this.Id = id;
-            this.Message = message;
+            this.List = list;
         }
         
         /// <summary>
-        /// Gets or Sets Id
+        /// List of all the retrieved Moira contacts.
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Message
-        /// </summary>
-        [DataMember(Name="message", EmitDefaultValue=false)]
-        public string Message { get; set; }
+        /// <value>List of all the retrieved Moira contacts.</value>
+        [DataMember(Name="list", EmitDefaultValue=false)]
+        public List<Contact> List { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -61,8 +54,7 @@ namespace Org.OpenAPITools.Model
         {
             var sb = new StringBuilder();
             sb.Append("class InlineResponse2001 {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
+            sb.Append("  List: ").Append(List).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -98,14 +90,10 @@ namespace Org.OpenAPITools.Model
 
             return 
                 (
-                    this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
-                ) && 
-                (
-                    this.Message == input.Message ||
-                    (this.Message != null &&
-                    this.Message.Equals(input.Message))
+                    this.List == input.List ||
+                    this.List != null &&
+                    input.List != null &&
+                    this.List.SequenceEqual(input.List)
                 );
         }
 
@@ -118,10 +106,8 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Id != null)
-                    hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.Message != null)
-                    hashCode = hashCode * 59 + this.Message.GetHashCode();
+                if (this.List != null)
+                    hashCode = hashCode * 59 + this.List.GetHashCode();
                 return hashCode;
             }
         }

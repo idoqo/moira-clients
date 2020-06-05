@@ -10,6 +10,6 @@
 package openapi
 // InlineResponse2001 struct for InlineResponse2001
 type InlineResponse2001 struct {
-	Id string `json:"id,omitempty"`
-	Message string `json:"message,omitempty"`
+	// List of all the retrieved Moira contacts.
+	List []Contact `json:"list,omitempty"`
 }

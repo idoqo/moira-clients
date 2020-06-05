@@ -29,6 +29,246 @@ paths:
       summary: Get available configuration
       tags:
       - config
+  /contact:
+    get:
+      operationId: GetContacts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: Contacts fetched successfully
+      summary: Gets all Moira contacts.
+      tags:
+      - contacts
+    put:
+      operationId: CreateNewContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            applicaton/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: Contact created successfully.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad request from client
+      summary: Creates a new contact notification for the current user.
+      tags:
+      - contacts
+  /contact/{contactId}:
+    delete:
+      operationId: DeleteContact
+      parameters:
+      - description: The ID of the target contact
+        example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Contact has been deleted
+      summary: Deletes notification contact for the current user and remove the contact
+        ID from all subscriptions.
+      tags:
+      - contact
+    put:
+      operationId: UpdateContact
+      parameters:
+      - description: The ID of the target contact
+        example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: Contact has been updated
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad request from client
+      summary: Updates an existing notification contact to the values passed in the
+        request body.
+      tags:
+      - contact
+  /contact/{contactId}/test:
+    post:
+      operationId: TestContactNotification
+      parameters:
+      - description: The ID of the target contact
+        example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Test successful.
+      summary: Push a test notification to verify that the contact is properly set
+        up.
+      tags:
+      - contact
+  /event/all:
+    delete:
+      operationId: DeleteEvents
+      responses:
+        "200":
+          description: Events removed successfully.
+      summary: Deletes all notification events
+      tags:
+      - event
+  /event/{triggerId}:
+    get:
+      operationId: GetTriggerEvents
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Defines the number of the displayed page. E.g, page=2 would display
+          the 2nd page.
+        example: 1
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Number of items to be displayed on one page.
+        example: 15
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+          description: Events fetched successfully.
+      summary: Gets all trigger events for current page and their count
+      tags:
+      - event
+  /health/notifier:
+    get:
+      operationId: GetNotifierState
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotifierState'
+          description: Notifier state retrieved
+      summary: Get notifier state
+      tags:
+      - health
+    put:
+      operationId: UpdateNotifierState
+      requestBody:
+        content:
+          application/json:
+            examples:
+              error:
+                description: Put the service in an ERROR state
+                value:
+                  state: ERROR
+                  message: Moira has been turned off for maintenance
+              ok:
+                description: Put the service in an OK state
+                value:
+                  state: OK
+            schema:
+              $ref: '#/components/schemas/NotifierState'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotifierState'
+          description: Update state of the Moira service
+      summary: Update notifier state
+      tags:
+      - health
+  /pattern:
+    get:
+      operationId: GetAllPatterns
+      responses:
+        "200":
+          content:
+            applicaton/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+          description: Patterns fetched successfully
+      summary: Get all patterns
+      tags:
+      - pattern
+  /pattern/{pattern}:
+    delete:
+      operationId: DeletePattern
+      parameters:
+      - description: Trigger pattern to operate on.
+        example: DevOps.my_server.hdd.freespace_mbytes
+        explode: false
+        in: path
+        name: pattern
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Pattern delete successfully
+      summary: Deletes a Moira pattern
+      tags:
+      - pattern
   /trigger:
     put:
       operationId: CreateTrigger
@@ -43,14 +283,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/inline_response_200_4'
           description: Trigger created
-        "500":
+        "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
-          description: Invalid input
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad request from client
       summary: Create new trigger
       tags:
       - triggers
@@ -108,14 +348,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/inline_response_200_4'
           description: Trigger updated
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
-          description: Invalid input
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad request from client
       summary: Update existing trigger
       tags:
       - trigger
@@ -172,7 +412,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500_1'
+                $ref: '#/components/schemas/inline_response_500'
           description: Server error
       summary: Get rendered plot for trigger
       tags:
@@ -232,7 +472,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500_1'
+                $ref: '#/components/schemas/inline_response_500'
           description: Server error
       summary: Get metrics associated with certain trigger
       tags:
@@ -258,40 +498,61 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/inline_response_200_5'
           description: Settings fetched successfully.
       summary: Get the user's contacts and subscriptions.
       tags:
       - user
 components:
   parameters:
-    triggerID:
-      description: The ID of updated trigger
-      example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+    contactId:
+      description: The ID of the target contact
+      example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
       explode: false
       in: path
-      name: triggerID
+      name: contactId
       required: true
       schema:
         format: uuid
         type: string
       style: simple
-    targetID:
-      description: The ID of updated target to print plot for
-      example: t1
-      explode: true
-      in: query
-      name: targetID
-      required: false
-      schema:
-        type: string
-      style: form
     from:
       description: The start period of metrics to get
       example: -1hour
       explode: true
       in: query
       name: from
+      required: false
+      schema:
+        type: string
+      style: form
+    page:
+      description: Defines the number of the displayed page. E.g, page=2 would display
+        the 2nd page.
+      example: 1
+      explode: true
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+      style: form
+    size:
+      description: Number of items to be displayed on one page.
+      example: 15
+      explode: true
+      in: query
+      name: size
+      required: false
+      schema:
+        type: integer
+      style: form
+    targetID:
+      description: The ID of updated target to print plot for
+      example: t1
+      explode: true
+      in: query
+      name: targetID
       required: false
       schema:
         type: string
@@ -306,6 +567,46 @@ components:
       schema:
         type: string
       style: form
+    triggerID:
+      description: The ID of updated trigger
+      example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+      explode: false
+      in: path
+      name: triggerID
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    pattern:
+      description: Trigger pattern to operate on.
+      example: DevOps.my_server.hdd.freespace_mbytes
+      explode: false
+      in: path
+      name: pattern
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+      description: Bad request from client
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_404'
+      description: Trigger not found
+    ServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_500'
+      description: Server error
   schemas:
     User:
       additionalProperties: false
@@ -320,19 +621,91 @@ components:
     Contact:
       additionalProperties: false
       example:
-        id: id
-        type: type
-        value: value
+        id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+        type: mail
         user: user
+        value: devops@example.com
       properties:
-        type:
-          type: string
-        value:
-          type: string
         id:
+          description: ID of the contact
+          example: 1dd38765-c5be-418d-81fa-7a5f879c2315
           type: string
         user:
+          description: Username of the user who created the contact
           type: string
+        type:
+          example: mail
+          type: string
+        value:
+          example: devops@example.com
+          type: string
+      type: object
+    ContactRequest:
+      additionalProperties: false
+      example:
+        type: mail
+        value: devops@example.com
+      properties:
+        type:
+          example: mail
+          type: string
+        value:
+          example: devops@example.com
+          type: string
+      type: object
+    Event:
+      additionalProperties: false
+      example:
+        msg: msg
+        metric: carbon.agents.*.metricsReceived
+        contactId: contactId
+        sub_id: sub_id
+        trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+        old_state: ERROR
+        state: OK
+        event_message:
+          interval: 1
+          maintenance:
+            setup_time: 0
+            setup_user: setup_user
+            remove_user: remove_user
+            remove_time: 6
+        value: 70
+        trigger_event: true
+        timestamp: 1590741878
+      properties:
+        trigger_event:
+          type: boolean
+        timestamp:
+          example: 1590741878
+          type: integer
+        metric:
+          example: carbon.agents.*.metricsReceived
+          type: string
+        value:
+          example: 70
+          type: number
+        state:
+          description: State of the metric after the data point was recorded. Should
+            be one of OK, WARN, ERROR, NODATA, EXCEPTION or TEST.
+          example: OK
+          type: string
+        trigger_id:
+          example: 5ff37996-8927-4cab-8987-970e80d8e0a8
+          format: uuid
+          type: string
+        sub_id:
+          type: string
+        contactId:
+          type: string
+        old_state:
+          description: State of the metric before the data point was recorded.
+          example: ERROR
+          type: string
+        msg:
+          type: string
+        event_message:
+          $ref: '#/components/schemas/Event_event_message'
       type: object
     Subscription:
       additionalProperties: false
@@ -463,6 +836,19 @@ components:
         throttling:
           type: integer
       type: object
+    NotifierState:
+      example:
+        error:
+          state: OK
+      properties:
+        state:
+          description: value for OK state
+          type: string
+        message:
+          description: Detailed description of the current state. This field is non-existent
+            if the state is OK
+          type: string
+      type: object
     inline_response_200_contacts:
       example:
         help: '@MoiraBot requires admin privileges on your target channel.'
@@ -503,6 +889,114 @@ components:
           type: array
     inline_response_200_1:
       example:
+        list:
+        - id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+          type: mail
+          user: user
+          value: devops@example.com
+        - id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+          type: mail
+          user: user
+          value: devops@example.com
+      properties:
+        list:
+          description: List of all the retrieved Moira contacts.
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+    inline_response_400:
+      properties:
+        status:
+          description: The error status
+          example: Invalid request
+          type: string
+        error:
+          description: A bit more descriptive error message
+          type: string
+    inline_response_200_2:
+      example:
+        total: 10
+        size: 100
+        page: 0
+        list:
+        - msg: msg
+          metric: carbon.agents.*.metricsReceived
+          contactId: contactId
+          sub_id: sub_id
+          trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+          old_state: ERROR
+          state: OK
+          event_message:
+            interval: 1
+            maintenance:
+              setup_time: 0
+              setup_user: setup_user
+              remove_user: remove_user
+              remove_time: 6
+          value: 70
+          trigger_event: true
+          timestamp: 1590741878
+        - msg: msg
+          metric: carbon.agents.*.metricsReceived
+          contactId: contactId
+          sub_id: sub_id
+          trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+          old_state: ERROR
+          state: OK
+          event_message:
+            interval: 1
+            maintenance:
+              setup_time: 0
+              setup_user: setup_user
+              remove_user: remove_user
+              remove_time: 6
+          value: 70
+          trigger_event: true
+          timestamp: 1590741878
+      properties:
+        page:
+          description: Current page being displayed. Pages are zero-indexed.
+          example: 0
+          type: integer
+        size:
+          description: Maximum number of items displayed per page.
+          example: 100
+          type: integer
+        total:
+          description: Total number of available events for the trigger
+          example: 10
+          type: integer
+        list:
+          description: List of trigger events
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+    inline_response_200_3_list:
+      properties:
+        metrics:
+          example:
+          - DevOps.my_server.hdd.freespace_mbytes
+          - DevOps.my_server.hdd.usedspace_mbytes
+          - DevOps.my_server.db.*
+          items:
+            type: string
+          type: array
+        pattern:
+          example: Devops.my_server.*
+          type: string
+        triggers:
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+    inline_response_200_3:
+      properties:
+        list:
+          description: List of fetched patterns
+          items:
+            $ref: '#/components/schemas/inline_response_200_3_list'
+          type: array
+    inline_response_200_4:
+      example:
         id: trigger_id
         message: trigger created
       properties:
@@ -512,14 +1006,6 @@ components:
         message:
           example: trigger created
           type: string
-    inline_response_500:
-      properties:
-        status:
-          example: Invalid request
-          type: string
-        error:
-          example: error_value is equal to warn_value, please set exactly one value
-          type: string
     inline_response_404:
       properties:
         status:
@@ -528,7 +1014,7 @@ components:
         error:
           example: trigger not found
           type: string
-    inline_response_500_1:
+    inline_response_500:
       properties:
         status:
           example: Internal Server Error
@@ -536,7 +1022,7 @@ components:
         error:
           example: 'no points found to render trigger: 5A8AF369-86D2-44DD-B514-D47995ED6AF7'
           type: string
-    inline_response_200_2:
+    inline_response_200_5:
       example:
         subscriptions:
         - ignore_warnings: true
@@ -591,14 +1077,14 @@ components:
           - tags
         login: petr
         contacts:
-        - id: id
-          type: type
-          value: value
+        - id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+          type: mail
           user: user
-        - id: id
-          type: type
-          value: value
+          value: devops@example.com
+        - id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+          type: mail
           user: user
+          value: devops@example.com
       properties:
         login:
           description: username of the authenticated user.
@@ -614,6 +1100,34 @@ components:
           items:
             $ref: '#/components/schemas/Subscription'
           type: array
+    Event_event_message_maintenance:
+      example:
+        setup_time: 0
+        setup_user: setup_user
+        remove_user: remove_user
+        remove_time: 6
+      properties:
+        setup_user:
+          type: string
+        setup_time:
+          type: integer
+        remove_user:
+          type: string
+        remove_time:
+          type: integer
+    Event_event_message:
+      example:
+        interval: 1
+        maintenance:
+          setup_time: 0
+          setup_user: setup_user
+          remove_user: remove_user
+          remove_time: 6
+      properties:
+        maintenance:
+          $ref: '#/components/schemas/Event_event_message_maintenance'
+        interval:
+          type: integer
     Subscription_sched_days:
       example:
         name: name

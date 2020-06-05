@@ -14,10 +14,10 @@ import localVarRequest = require('request');
 import http = require('http');
 
 /* tslint:disable:no-unused-locals */
-import { InlineResponse2001 } from '../model/inlineResponse2001';
+import { InlineResponse2004 } from '../model/inlineResponse2004';
+import { InlineResponse400 } from '../model/inlineResponse400';
 import { InlineResponse404 } from '../model/inlineResponse404';
 import { InlineResponse500 } from '../model/inlineResponse500';
-import { InlineResponse5001 } from '../model/inlineResponse5001';
 import { Trigger } from '../model/trigger';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
@@ -327,7 +327,7 @@ export class TriggerApi {
      * @param triggerID The ID of updated trigger
      * @param trigger 
      */
-    public async updateTrigger (triggerID: string, trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
+    public async updateTrigger (triggerID: string, trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2004;  }> {
         const localVarPath = this.basePath + '/trigger/{triggerID}'
             .replace('{' + 'triggerID' + '}', encodeURIComponent(String(triggerID)));
         let localVarQueryParameters: any = {};
@@ -381,12 +381,12 @@ export class TriggerApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }>((resolve, reject) => {
+            return new Promise<{ response: http.ClientResponse; body: InlineResponse2004;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
-                        body = ObjectSerializer.deserialize(body, "InlineResponse2001");
+                        body = ObjectSerializer.deserialize(body, "InlineResponse2004");
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                             resolve({ response: response, body: body });
                         } else {

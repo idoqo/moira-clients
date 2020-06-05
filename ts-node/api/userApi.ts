@@ -14,7 +14,7 @@ import localVarRequest = require('request');
 import http = require('http');
 
 /* tslint:disable:no-unused-locals */
-import { InlineResponse2002 } from '../model/inlineResponse2002';
+import { InlineResponse2005 } from '../model/inlineResponse2005';
 import { User } from '../model/user';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
@@ -152,7 +152,7 @@ export class UserApi {
      * 
      * @summary Get the user\'s contacts and subscriptions.
      */
-    public async getUserSettings (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2002;  }> {
+    public async getUserSettings (options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2005;  }> {
         const localVarPath = this.basePath + '/user/settings';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -194,12 +194,12 @@ export class UserApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.ClientResponse; body: InlineResponse2002;  }>((resolve, reject) => {
+            return new Promise<{ response: http.ClientResponse; body: InlineResponse2005;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
-                        body = ObjectSerializer.deserialize(body, "InlineResponse2002");
+                        body = ObjectSerializer.deserialize(body, "InlineResponse2005");
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                             resolve({ response: response, body: body });
                         } else {

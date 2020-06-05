@@ -14,8 +14,8 @@ import localVarRequest = require('request');
 import http = require('http');
 
 /* tslint:disable:no-unused-locals */
-import { InlineResponse2001 } from '../model/inlineResponse2001';
-import { InlineResponse500 } from '../model/inlineResponse500';
+import { InlineResponse2004 } from '../model/inlineResponse2004';
+import { InlineResponse400 } from '../model/inlineResponse400';
 import { Trigger } from '../model/trigger';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
@@ -92,7 +92,7 @@ export class TriggersApi {
      * @summary Create new trigger
      * @param trigger 
      */
-    public async createTrigger (trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }> {
+    public async createTrigger (trigger: Trigger, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.ClientResponse; body: InlineResponse2004;  }> {
         const localVarPath = this.basePath + '/trigger';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -140,12 +140,12 @@ export class TriggersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.ClientResponse; body: InlineResponse2001;  }>((resolve, reject) => {
+            return new Promise<{ response: http.ClientResponse; body: InlineResponse2004;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
-                        body = ObjectSerializer.deserialize(body, "InlineResponse2001");
+                        body = ObjectSerializer.deserialize(body, "InlineResponse2004");
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                             resolve({ response: response, body: body });
                         } else {

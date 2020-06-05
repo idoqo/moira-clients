@@ -10,8 +10,10 @@
 package openapi
 // Contact struct for Contact
 type Contact struct {
+	// ID of the contact
+	Id string `json:"id,omitempty"`
+	// Username of the user who created the contact
+	User string `json:"user,omitempty"`
 	Type string `json:"type,omitempty"`
 	Value string `json:"value,omitempty"`
-	Id string `json:"id,omitempty"`
-	User string `json:"user,omitempty"`
 }

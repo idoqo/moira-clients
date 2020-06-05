@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateTrigger
 
-> InlineResponse2001 CreateTrigger(ctx, trigger)
+> InlineResponse2004 CreateTrigger(ctx, trigger)
 
 Create new trigger
 
@@ -24,7 +24,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](inline_response_200_1.md)
+[**InlineResponse2004**](inline_response_200_4.md)
 
 ### Authorization
 

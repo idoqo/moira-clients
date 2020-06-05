@@ -134,7 +134,7 @@ No authorization required
 
 ## UpdateTrigger
 
-> InlineResponse2001 UpdateTrigger(ctx, triggerID, trigger)
+> InlineResponse2004 UpdateTrigger(ctx, triggerID, trigger)
 
 Update existing trigger
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](inline_response_200_1.md)
+[**InlineResponse2004**](inline_response_200_4.md)
 
 ### Authorization
 

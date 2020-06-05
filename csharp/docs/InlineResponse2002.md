@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Login** | **string** | username of the authenticated user. | [optional] 
-**Contacts** | [**List&lt;Contact&gt;**](Contact.md) | user&#39;s contacts | [optional] 
-**Subscriptions** | [**List&lt;Subscription&gt;**](Subscription.md) | user&#39;s subscriptions | [optional] 
+**Page** | **int** | Current page being displayed. Pages are zero-indexed. | [optional] 
+**Size** | **int** | Maximum number of items displayed per page. | [optional] 
+**Total** | **int** | Total number of available events for the trigger | [optional] 
+**List** | [**List&lt;Event&gt;**](Event.md) | List of trigger events | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -10,10 +10,12 @@
 package openapi
 // InlineResponse2002 struct for InlineResponse2002
 type InlineResponse2002 struct {
-	// username of the authenticated user.
-	Login string `json:"login,omitempty"`
-	// user's contacts
-	Contacts []Contact `json:"contacts,omitempty"`
-	// user's subscriptions
-	Subscriptions []Subscription `json:"subscriptions,omitempty"`
+	// Current page being displayed. Pages are zero-indexed.
+	Page int32 `json:"page,omitempty"`
+	// Maximum number of items displayed per page.
+	Size int32 `json:"size,omitempty"`
+	// Total number of available events for the trigger
+	Total int32 `json:"total,omitempty"`
+	// List of trigger events
+	List []Event `json:"list,omitempty"`
 }

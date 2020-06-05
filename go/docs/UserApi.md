@@ -39,7 +39,7 @@ No authorization required
 
 ## GetUserSettings
 
-> InlineResponse2002 GetUserSettings(ctx, )
+> InlineResponse2005 GetUserSettings(ctx, )
 
 Get the user's contacts and subscriptions.
 
@@ -49,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2002**](inline_response_200_2.md)
+[**InlineResponse2005**](inline_response_200_5.md)
 
 ### Authorization
 

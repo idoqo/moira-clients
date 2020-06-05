@@ -106,8 +106,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>InlineResponse2001</returns>
-        InlineResponse2001 UpdateTrigger (Guid triggerID, Trigger trigger);
+        /// <returns>InlineResponse2004</returns>
+        InlineResponse2004 UpdateTrigger (Guid triggerID, Trigger trigger);
 
         /// <summary>
         /// Update existing trigger
@@ -118,8 +118,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        ApiResponse<InlineResponse2001> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger);
+        /// <returns>ApiResponse of InlineResponse2004</returns>
+        ApiResponse<InlineResponse2004> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -204,8 +204,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        System.Threading.Tasks.Task<InlineResponse2001> UpdateTriggerAsync (Guid triggerID, Trigger trigger);
+        /// <returns>Task of InlineResponse2004</returns>
+        System.Threading.Tasks.Task<InlineResponse2004> UpdateTriggerAsync (Guid triggerID, Trigger trigger);
 
         /// <summary>
         /// Update existing trigger
@@ -216,8 +216,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger);
+        /// <returns>Task of ApiResponse (InlineResponse2004)</returns>
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse2004>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger);
         #endregion Asynchronous Operations
     }
 
@@ -766,10 +766,10 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>InlineResponse2001</returns>
-        public InlineResponse2001 UpdateTrigger (Guid triggerID, Trigger trigger)
+        /// <returns>InlineResponse2004</returns>
+        public InlineResponse2004 UpdateTrigger (Guid triggerID, Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = UpdateTriggerWithHttpInfo(triggerID, trigger);
+             ApiResponse<InlineResponse2004> localVarResponse = UpdateTriggerWithHttpInfo(triggerID, trigger);
              return localVarResponse.Data;
         }
 
@@ -779,8 +779,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        public ApiResponse<InlineResponse2001> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger)
+        /// <returns>ApiResponse of InlineResponse2004</returns>
+        public ApiResponse<InlineResponse2004> UpdateTriggerWithHttpInfo (Guid triggerID, Trigger trigger)
         {
             // verify the required parameter 'triggerID' is set
             if (triggerID == null)
@@ -835,9 +835,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2004>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (InlineResponse2004) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2004)));
         }
 
         /// <summary>
@@ -846,10 +846,10 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        public async System.Threading.Tasks.Task<InlineResponse2001> UpdateTriggerAsync (Guid triggerID, Trigger trigger)
+        /// <returns>Task of InlineResponse2004</returns>
+        public async System.Threading.Tasks.Task<InlineResponse2004> UpdateTriggerAsync (Guid triggerID, Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = await UpdateTriggerAsyncWithHttpInfo(triggerID, trigger);
+             ApiResponse<InlineResponse2004> localVarResponse = await UpdateTriggerAsyncWithHttpInfo(triggerID, trigger);
              return localVarResponse.Data;
 
         }
@@ -860,8 +860,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="triggerID">The ID of updated trigger</param>
         /// <param name="trigger"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger)
+        /// <returns>Task of ApiResponse (InlineResponse2004)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2004>> UpdateTriggerAsyncWithHttpInfo (Guid triggerID, Trigger trigger)
         {
             // verify the required parameter 'triggerID' is set
             if (triggerID == null)
@@ -916,9 +916,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2004>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (InlineResponse2004) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2004)));
         }
 
     }

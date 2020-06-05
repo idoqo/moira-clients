@@ -32,8 +32,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>InlineResponse2001</returns>
-        InlineResponse2001 CreateTrigger (Trigger trigger);
+        /// <returns>InlineResponse2004</returns>
+        InlineResponse2004 CreateTrigger (Trigger trigger);
 
         /// <summary>
         /// Create new trigger
@@ -43,8 +43,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        ApiResponse<InlineResponse2001> CreateTriggerWithHttpInfo (Trigger trigger);
+        /// <returns>ApiResponse of InlineResponse2004</returns>
+        ApiResponse<InlineResponse2004> CreateTriggerWithHttpInfo (Trigger trigger);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -55,8 +55,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        System.Threading.Tasks.Task<InlineResponse2001> CreateTriggerAsync (Trigger trigger);
+        /// <returns>Task of InlineResponse2004</returns>
+        System.Threading.Tasks.Task<InlineResponse2004> CreateTriggerAsync (Trigger trigger);
 
         /// <summary>
         /// Create new trigger
@@ -66,8 +66,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> CreateTriggerAsyncWithHttpInfo (Trigger trigger);
+        /// <returns>Task of ApiResponse (InlineResponse2004)</returns>
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse2004>> CreateTriggerAsyncWithHttpInfo (Trigger trigger);
         #endregion Asynchronous Operations
     }
 
@@ -184,10 +184,10 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>InlineResponse2001</returns>
-        public InlineResponse2001 CreateTrigger (Trigger trigger)
+        /// <returns>InlineResponse2004</returns>
+        public InlineResponse2004 CreateTrigger (Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = CreateTriggerWithHttpInfo(trigger);
+             ApiResponse<InlineResponse2004> localVarResponse = CreateTriggerWithHttpInfo(trigger);
              return localVarResponse.Data;
         }
 
@@ -196,8 +196,8 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>ApiResponse of InlineResponse2001</returns>
-        public ApiResponse<InlineResponse2001> CreateTriggerWithHttpInfo (Trigger trigger)
+        /// <returns>ApiResponse of InlineResponse2004</returns>
+        public ApiResponse<InlineResponse2004> CreateTriggerWithHttpInfo (Trigger trigger)
         {
             // verify the required parameter 'trigger' is set
             if (trigger == null)
@@ -248,9 +248,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2004>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (InlineResponse2004) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2004)));
         }
 
         /// <summary>
@@ -258,10 +258,10 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>Task of InlineResponse2001</returns>
-        public async System.Threading.Tasks.Task<InlineResponse2001> CreateTriggerAsync (Trigger trigger)
+        /// <returns>Task of InlineResponse2004</returns>
+        public async System.Threading.Tasks.Task<InlineResponse2004> CreateTriggerAsync (Trigger trigger)
         {
-             ApiResponse<InlineResponse2001> localVarResponse = await CreateTriggerAsyncWithHttpInfo(trigger);
+             ApiResponse<InlineResponse2004> localVarResponse = await CreateTriggerAsyncWithHttpInfo(trigger);
              return localVarResponse.Data;
 
         }
@@ -271,8 +271,8 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="trigger"></param>
-        /// <returns>Task of ApiResponse (InlineResponse2001)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2001>> CreateTriggerAsyncWithHttpInfo (Trigger trigger)
+        /// <returns>Task of ApiResponse (InlineResponse2004)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<InlineResponse2004>> CreateTriggerAsyncWithHttpInfo (Trigger trigger)
         {
             // verify the required parameter 'trigger' is set
             if (trigger == null)
@@ -323,9 +323,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<InlineResponse2001>(localVarStatusCode,
+            return new ApiResponse<InlineResponse2004>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (InlineResponse2001) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2001)));
+                (InlineResponse2004) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(InlineResponse2004)));
         }
 
     }

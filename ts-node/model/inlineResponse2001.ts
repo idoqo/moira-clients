@@ -11,23 +11,21 @@
  */
 
 import { RequestFile } from '../api';
+import { Contact } from './contact';
 
 export class InlineResponse2001 {
-    'id'?: string;
-    'message'?: string;
+    /**
+    * List of all the retrieved Moira contacts.
+    */
+    'list'?: Array<Contact>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "message",
-            "baseName": "message",
-            "type": "string"
+            "name": "list",
+            "baseName": "list",
+            "type": "Array<Contact>"
         }    ];
 
     static getAttributeTypeMap() {

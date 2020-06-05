@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateTrigger
 
-> InlineResponse2001 CreateTrigger (Trigger trigger)
+> InlineResponse2004 CreateTrigger (Trigger trigger)
 
 Create new trigger
 
@@ -36,7 +36,7 @@ namespace Example
             try
             {
                 // Create new trigger
-                InlineResponse2001 result = apiInstance.CreateTrigger(trigger);
+                InlineResponse2004 result = apiInstance.CreateTrigger(trigger);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Trigger created |  -  |
-| **500** | Invalid input |  -  |
+| **400** | Bad request from client |  -  |
 
 [[Back to top]](#)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

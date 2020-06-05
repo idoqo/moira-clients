@@ -50,6 +50,16 @@ type APIClient struct {
 
 	ConfigApi *ConfigApiService
 
+	ContactApi *ContactApiService
+
+	ContactsApi *ContactsApiService
+
+	EventApi *EventApiService
+
+	HealthApi *HealthApiService
+
+	PatternApi *PatternApiService
+
 	TriggerApi *TriggerApiService
 
 	TriggersApi *TriggersApiService
@@ -74,6 +84,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.ConfigApi = (*ConfigApiService)(&c.common)
+	c.ContactApi = (*ContactApiService)(&c.common)
+	c.ContactsApi = (*ContactsApiService)(&c.common)
+	c.EventApi = (*EventApiService)(&c.common)
+	c.HealthApi = (*HealthApiService)(&c.common)
+	c.PatternApi = (*PatternApiService)(&c.common)
 	c.TriggerApi = (*TriggerApiService)(&c.common)
 	c.TriggersApi = (*TriggersApiService)(&c.common)
 	c.UserApi = (*UserApiService)(&c.common)

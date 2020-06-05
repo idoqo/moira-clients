@@ -105,6 +105,17 @@ All URIs are relative to *http://localhost:8080/api*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ConfigApi* | [**GetConfig**](docs/ConfigApi.md#getconfig) | **GET** /config | Get available configuration
+*ContactApi* | [**DeleteContact**](docs/ContactApi.md#deletecontact) | **DELETE** /contact/{contactId} | Deletes notification contact for the current user and remove the contact ID from all subscriptions.
+*ContactApi* | [**TestContactNotification**](docs/ContactApi.md#testcontactnotification) | **POST** /contact/{contactId}/test | Push a test notification to verify that the contact is properly set up.
+*ContactApi* | [**UpdateContact**](docs/ContactApi.md#updatecontact) | **PUT** /contact/{contactId} | Updates an existing notification contact to the values passed in the request body.
+*ContactsApi* | [**CreateNewContact**](docs/ContactsApi.md#createnewcontact) | **PUT** /contact | Creates a new contact notification for the current user.
+*ContactsApi* | [**GetContacts**](docs/ContactsApi.md#getcontacts) | **GET** /contact | Gets all Moira contacts.
+*EventApi* | [**DeleteEvents**](docs/EventApi.md#deleteevents) | **DELETE** /event/all | Deletes all notification events
+*EventApi* | [**GetTriggerEvents**](docs/EventApi.md#gettriggerevents) | **GET** /event/{triggerId} | Gets all trigger events for current page and their count
+*HealthApi* | [**GetNotifierState**](docs/HealthApi.md#getnotifierstate) | **GET** /health/notifier | Get notifier state
+*HealthApi* | [**UpdateNotifierState**](docs/HealthApi.md#updatenotifierstate) | **PUT** /health/notifier | Update notifier state
+*PatternApi* | [**DeletePattern**](docs/PatternApi.md#deletepattern) | **DELETE** /pattern/{pattern} | Deletes a Moira pattern
+*PatternApi* | [**GetAllPatterns**](docs/PatternApi.md#getallpatterns) | **GET** /pattern | Get all patterns
 *TriggerApi* | [**GetTrigger**](docs/TriggerApi.md#gettrigger) | **GET** /trigger/{triggerID} | Get an existing trigger
 *TriggerApi* | [**GetTriggerMetrics**](docs/TriggerApi.md#gettriggermetrics) | **GET** /trigger/{triggerID}/metrics | Get metrics associated with certain trigger
 *TriggerApi* | [**GetTriggerPlot**](docs/TriggerApi.md#gettriggerplot) | **GET** /trigger/{triggerID}/render | Get rendered plot for trigger
@@ -117,13 +128,22 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Model.Contact](docs/Contact.md)
+ - [Model.ContactRequest](docs/ContactRequest.md)
+ - [Model.Event](docs/Event.md)
+ - [Model.EventEventMessage](docs/EventEventMessage.md)
+ - [Model.EventEventMessageMaintenance](docs/EventEventMessageMaintenance.md)
  - [Model.InlineResponse200](docs/InlineResponse200.md)
  - [Model.InlineResponse2001](docs/InlineResponse2001.md)
  - [Model.InlineResponse2002](docs/InlineResponse2002.md)
+ - [Model.InlineResponse2003](docs/InlineResponse2003.md)
+ - [Model.InlineResponse2003List](docs/InlineResponse2003List.md)
+ - [Model.InlineResponse2004](docs/InlineResponse2004.md)
+ - [Model.InlineResponse2005](docs/InlineResponse2005.md)
  - [Model.InlineResponse200Contacts](docs/InlineResponse200Contacts.md)
+ - [Model.InlineResponse400](docs/InlineResponse400.md)
  - [Model.InlineResponse404](docs/InlineResponse404.md)
  - [Model.InlineResponse500](docs/InlineResponse500.md)
- - [Model.InlineResponse5001](docs/InlineResponse5001.md)
+ - [Model.NotifierState](docs/NotifierState.md)
  - [Model.Subscription](docs/Subscription.md)
  - [Model.SubscriptionPlotting](docs/SubscriptionPlotting.md)
  - [Model.SubscriptionSched](docs/SubscriptionSched.md)

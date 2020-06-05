@@ -101,16 +101,16 @@ func (a *UserApiService) GetUser(ctx _context.Context) (User, *_nethttp.Response
 /*
 GetUserSettings Get the user's contacts and subscriptions.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return InlineResponse2002
+@return InlineResponse2005
 */
-func (a *UserApiService) GetUserSettings(ctx _context.Context) (InlineResponse2002, *_nethttp.Response, error) {
+func (a *UserApiService) GetUserSettings(ctx _context.Context) (InlineResponse2005, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarReturnValue  InlineResponse2005
 	)
 
 	// create path and map variables

@@ -33,36 +33,45 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InlineResponse2002" /> class.
         /// </summary>
-        /// <param name="login">username of the authenticated user..</param>
-        /// <param name="contacts">user&#39;s contacts.</param>
-        /// <param name="subscriptions">user&#39;s subscriptions.</param>
-        public InlineResponse2002(string login = default(string), List<Contact> contacts = default(List<Contact>), List<Subscription> subscriptions = default(List<Subscription>))
+        /// <param name="page">Current page being displayed. Pages are zero-indexed..</param>
+        /// <param name="size">Maximum number of items displayed per page..</param>
+        /// <param name="total">Total number of available events for the trigger.</param>
+        /// <param name="list">List of trigger events.</param>
+        public InlineResponse2002(int page = default(int), int size = default(int), int total = default(int), List<Event> list = default(List<Event>))
         {
-            this.Login = login;
-            this.Contacts = contacts;
-            this.Subscriptions = subscriptions;
+            this.Page = page;
+            this.Size = size;
+            this.Total = total;
+            this.List = list;
         }
         
         /// <summary>
-        /// username of the authenticated user.
+        /// Current page being displayed. Pages are zero-indexed.
         /// </summary>
-        /// <value>username of the authenticated user.</value>
-        [DataMember(Name="login", EmitDefaultValue=false)]
-        public string Login { get; set; }
+        /// <value>Current page being displayed. Pages are zero-indexed.</value>
+        [DataMember(Name="page", EmitDefaultValue=false)]
+        public int Page { get; set; }
 
         /// <summary>
-        /// user&#39;s contacts
+        /// Maximum number of items displayed per page.
         /// </summary>
-        /// <value>user&#39;s contacts</value>
-        [DataMember(Name="contacts", EmitDefaultValue=false)]
-        public List<Contact> Contacts { get; set; }
+        /// <value>Maximum number of items displayed per page.</value>
+        [DataMember(Name="size", EmitDefaultValue=false)]
+        public int Size { get; set; }
 
         /// <summary>
-        /// user&#39;s subscriptions
+        /// Total number of available events for the trigger
         /// </summary>
-        /// <value>user&#39;s subscriptions</value>
-        [DataMember(Name="subscriptions", EmitDefaultValue=false)]
-        public List<Subscription> Subscriptions { get; set; }
+        /// <value>Total number of available events for the trigger</value>
+        [DataMember(Name="total", EmitDefaultValue=false)]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// List of trigger events
+        /// </summary>
+        /// <value>List of trigger events</value>
+        [DataMember(Name="list", EmitDefaultValue=false)]
+        public List<Event> List { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -72,9 +81,10 @@ namespace Org.OpenAPITools.Model
         {
             var sb = new StringBuilder();
             sb.Append("class InlineResponse2002 {\n");
-            sb.Append("  Login: ").Append(Login).Append("\n");
-            sb.Append("  Contacts: ").Append(Contacts).Append("\n");
-            sb.Append("  Subscriptions: ").Append(Subscriptions).Append("\n");
+            sb.Append("  Page: ").Append(Page).Append("\n");
+            sb.Append("  Size: ").Append(Size).Append("\n");
+            sb.Append("  Total: ").Append(Total).Append("\n");
+            sb.Append("  List: ").Append(List).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -110,21 +120,25 @@ namespace Org.OpenAPITools.Model
 
             return 
                 (
-                    this.Login == input.Login ||
-                    (this.Login != null &&
-                    this.Login.Equals(input.Login))
+                    this.Page == input.Page ||
+                    (this.Page != null &&
+                    this.Page.Equals(input.Page))
                 ) && 
                 (
-                    this.Contacts == input.Contacts ||
-                    this.Contacts != null &&
-                    input.Contacts != null &&
-                    this.Contacts.SequenceEqual(input.Contacts)
+                    this.Size == input.Size ||
+                    (this.Size != null &&
+                    this.Size.Equals(input.Size))
                 ) && 
                 (
-                    this.Subscriptions == input.Subscriptions ||
-                    this.Subscriptions != null &&
-                    input.Subscriptions != null &&
-                    this.Subscriptions.SequenceEqual(input.Subscriptions)
+                    this.Total == input.Total ||
+                    (this.Total != null &&
+                    this.Total.Equals(input.Total))
+                ) && 
+                (
+                    this.List == input.List ||
+                    this.List != null &&
+                    input.List != null &&
+                    this.List.SequenceEqual(input.List)
                 );
         }
 
@@ -137,12 +151,14 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Login != null)
-                    hashCode = hashCode * 59 + this.Login.GetHashCode();
-                if (this.Contacts != null)
-                    hashCode = hashCode * 59 + this.Contacts.GetHashCode();
-                if (this.Subscriptions != null)
-                    hashCode = hashCode * 59 + this.Subscriptions.GetHashCode();
+                if (this.Page != null)
+                    hashCode = hashCode * 59 + this.Page.GetHashCode();
+                if (this.Size != null)
+                    hashCode = hashCode * 59 + this.Size.GetHashCode();
+                if (this.Total != null)
+                    hashCode = hashCode * 59 + this.Total.GetHashCode();
+                if (this.List != null)
+                    hashCode = hashCode * 59 + this.List.GetHashCode();
                 return hashCode;
             }
         }

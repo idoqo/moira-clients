@@ -11,40 +11,48 @@
  */
 
 import { RequestFile } from '../api';
-import { Contact } from './contact';
-import { Subscription } from './subscription';
+import { Event } from './event';
 
 export class InlineResponse2002 {
     /**
-    * username of the authenticated user.
+    * Current page being displayed. Pages are zero-indexed.
     */
-    'login'?: string;
+    'page'?: number;
     /**
-    * user\'s contacts
+    * Maximum number of items displayed per page.
     */
-    'contacts'?: Array<Contact>;
+    'size'?: number;
     /**
-    * user\'s subscriptions
+    * Total number of available events for the trigger
     */
-    'subscriptions'?: Array<Subscription>;
+    'total'?: number;
+    /**
+    * List of trigger events
+    */
+    'list'?: Array<Event>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "login",
-            "baseName": "login",
-            "type": "string"
+            "name": "page",
+            "baseName": "page",
+            "type": "number"
         },
         {
-            "name": "contacts",
-            "baseName": "contacts",
-            "type": "Array<Contact>"
+            "name": "size",
+            "baseName": "size",
+            "type": "number"
         },
         {
-            "name": "subscriptions",
-            "baseName": "subscriptions",
-            "type": "Array<Subscription>"
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "list",
+            "baseName": "list",
+            "type": "Array<Event>"
         }    ];
 
     static getAttributeTypeMap() {

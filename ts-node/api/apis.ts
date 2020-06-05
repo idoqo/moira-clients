@@ -1,5 +1,15 @@
 export * from './configApi';
 import { ConfigApi } from './configApi';
+export * from './contactApi';
+import { ContactApi } from './contactApi';
+export * from './contactsApi';
+import { ContactsApi } from './contactsApi';
+export * from './eventApi';
+import { EventApi } from './eventApi';
+export * from './healthApi';
+import { HealthApi } from './healthApi';
+export * from './patternApi';
+import { PatternApi } from './patternApi';
 export * from './triggerApi';
 import { TriggerApi } from './triggerApi';
 export * from './triggersApi';
@@ -26,4 +36,4 @@ export interface RequestDetailedFile {
 
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
-export const APIS = [ConfigApi, TriggerApi, TriggersApi, UserApi];
+export const APIS = [ConfigApi, ContactApi, ContactsApi, EventApi, HealthApi, PatternApi, TriggerApi, TriggersApi, UserApi];

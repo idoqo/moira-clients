@@ -1,11 +1,20 @@
 export * from './contact';
+export * from './contactRequest';
+export * from './event';
+export * from './eventEventMessage';
+export * from './eventEventMessageMaintenance';
 export * from './inlineResponse200';
 export * from './inlineResponse2001';
 export * from './inlineResponse2002';
+export * from './inlineResponse2003';
+export * from './inlineResponse2003List';
+export * from './inlineResponse2004';
+export * from './inlineResponse2005';
 export * from './inlineResponse200Contacts';
+export * from './inlineResponse400';
 export * from './inlineResponse404';
 export * from './inlineResponse500';
-export * from './inlineResponse5001';
+export * from './notifierState';
 export * from './subscription';
 export * from './subscriptionPlotting';
 export * from './subscriptionSched';
@@ -16,13 +25,22 @@ export * from './user';
 import localVarRequest = require('request');
 
 import { Contact } from './contact';
+import { ContactRequest } from './contactRequest';
+import { Event } from './event';
+import { EventEventMessage } from './eventEventMessage';
+import { EventEventMessageMaintenance } from './eventEventMessageMaintenance';
 import { InlineResponse200 } from './inlineResponse200';
 import { InlineResponse2001 } from './inlineResponse2001';
 import { InlineResponse2002 } from './inlineResponse2002';
+import { InlineResponse2003 } from './inlineResponse2003';
+import { InlineResponse2003List } from './inlineResponse2003List';
+import { InlineResponse2004 } from './inlineResponse2004';
+import { InlineResponse2005 } from './inlineResponse2005';
 import { InlineResponse200Contacts } from './inlineResponse200Contacts';
+import { InlineResponse400 } from './inlineResponse400';
 import { InlineResponse404 } from './inlineResponse404';
 import { InlineResponse500 } from './inlineResponse500';
-import { InlineResponse5001 } from './inlineResponse5001';
+import { NotifierState } from './notifierState';
 import { Subscription } from './subscription';
 import { SubscriptionPlotting } from './subscriptionPlotting';
 import { SubscriptionSched } from './subscriptionSched';
@@ -47,13 +65,22 @@ let enumsMap: {[index: string]: any} = {
 
 let typeMap: {[index: string]: any} = {
     "Contact": Contact,
+    "ContactRequest": ContactRequest,
+    "Event": Event,
+    "EventEventMessage": EventEventMessage,
+    "EventEventMessageMaintenance": EventEventMessageMaintenance,
     "InlineResponse200": InlineResponse200,
     "InlineResponse2001": InlineResponse2001,
     "InlineResponse2002": InlineResponse2002,
+    "InlineResponse2003": InlineResponse2003,
+    "InlineResponse2003List": InlineResponse2003List,
+    "InlineResponse2004": InlineResponse2004,
+    "InlineResponse2005": InlineResponse2005,
     "InlineResponse200Contacts": InlineResponse200Contacts,
+    "InlineResponse400": InlineResponse400,
     "InlineResponse404": InlineResponse404,
     "InlineResponse500": InlineResponse500,
-    "InlineResponse5001": InlineResponse5001,
+    "NotifierState": NotifierState,
     "Subscription": Subscription,
     "SubscriptionPlotting": SubscriptionPlotting,
     "SubscriptionSched": SubscriptionSched,
