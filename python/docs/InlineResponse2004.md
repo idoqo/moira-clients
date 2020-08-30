@@ -3,8 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**message** | **str** |  | [optional] 
+**list** | [**list[InlineResponse2004List]**](InlineResponse2004List.md) | List of fetched patterns | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

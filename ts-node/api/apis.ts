@@ -2,18 +2,20 @@ export * from './configApi';
 import { ConfigApi } from './configApi';
 export * from './contactApi';
 import { ContactApi } from './contactApi';
-export * from './contactsApi';
-import { ContactsApi } from './contactsApi';
 export * from './eventApi';
 import { EventApi } from './eventApi';
 export * from './healthApi';
 import { HealthApi } from './healthApi';
+export * from './notificationsApi';
+import { NotificationsApi } from './notificationsApi';
 export * from './patternApi';
 import { PatternApi } from './patternApi';
+export * from './subscriptionApi';
+import { SubscriptionApi } from './subscriptionApi';
+export * from './tagApi';
+import { TagApi } from './tagApi';
 export * from './triggerApi';
 import { TriggerApi } from './triggerApi';
-export * from './triggersApi';
-import { TriggersApi } from './triggersApi';
 export * from './userApi';
 import { UserApi } from './userApi';
 import * as fs from 'fs';
@@ -36,4 +38,4 @@ export interface RequestDetailedFile {
 
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
-export const APIS = [ConfigApi, ContactApi, ContactsApi, EventApi, HealthApi, PatternApi, TriggerApi, TriggersApi, UserApi];
+export const APIS = [ConfigApi, ContactApi, EventApi, HealthApi, NotificationsApi, PatternApi, SubscriptionApi, TagApi, TriggerApi, UserApi];

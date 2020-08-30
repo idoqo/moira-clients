@@ -88,7 +88,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.HealthApi(api_client)
-    notifier_state = {"state":"ERROR","message":"Moira has been turned off for maintenance"} # NotifierState | 
+    notifier_state = {"state":"OK","message":""} # NotifierState | 
 
     try:
         # Update notifier state
@@ -115,12 +115,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: application/json, text/html, 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Update state of the Moira service |  -  |
+**400** | Bad request from client |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

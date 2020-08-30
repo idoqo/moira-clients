@@ -1,51 +1,79 @@
 export * from './contact';
 export * from './contactRequest';
+export * from './errorBadRequest';
 export * from './event';
 export * from './eventEventMessage';
 export * from './eventEventMessageMaintenance';
 export * from './inlineResponse200';
 export * from './inlineResponse2001';
+export * from './inlineResponse20010';
+export * from './inlineResponse20011';
+export * from './inlineResponse20012';
 export * from './inlineResponse2002';
 export * from './inlineResponse2003';
-export * from './inlineResponse2003List';
 export * from './inlineResponse2004';
+export * from './inlineResponse2004List';
 export * from './inlineResponse2005';
+export * from './inlineResponse2006';
+export * from './inlineResponse2007';
+export * from './inlineResponse2008';
+export * from './inlineResponse2009';
 export * from './inlineResponse200Contacts';
-export * from './inlineResponse400';
 export * from './inlineResponse404';
 export * from './inlineResponse500';
+export * from './maintenanceInfo';
+export * from './metricState';
+export * from './notificationsList';
+export * from './notificationsListList';
+export * from './notificationsListPlotting';
 export * from './notifierState';
 export * from './subscription';
 export * from './subscriptionPlotting';
 export * from './subscriptionSched';
 export * from './subscriptionSchedDays';
+export * from './tagStatistics';
 export * from './trigger';
+export * from './triggerCheck';
 export * from './user';
 
 import localVarRequest = require('request');
 
 import { Contact } from './contact';
 import { ContactRequest } from './contactRequest';
+import { ErrorBadRequest } from './errorBadRequest';
 import { Event } from './event';
 import { EventEventMessage } from './eventEventMessage';
 import { EventEventMessageMaintenance } from './eventEventMessageMaintenance';
 import { InlineResponse200 } from './inlineResponse200';
 import { InlineResponse2001 } from './inlineResponse2001';
+import { InlineResponse20010 } from './inlineResponse20010';
+import { InlineResponse20011 } from './inlineResponse20011';
+import { InlineResponse20012 } from './inlineResponse20012';
 import { InlineResponse2002 } from './inlineResponse2002';
 import { InlineResponse2003 } from './inlineResponse2003';
-import { InlineResponse2003List } from './inlineResponse2003List';
 import { InlineResponse2004 } from './inlineResponse2004';
+import { InlineResponse2004List } from './inlineResponse2004List';
 import { InlineResponse2005 } from './inlineResponse2005';
+import { InlineResponse2006 } from './inlineResponse2006';
+import { InlineResponse2007 } from './inlineResponse2007';
+import { InlineResponse2008 } from './inlineResponse2008';
+import { InlineResponse2009 } from './inlineResponse2009';
 import { InlineResponse200Contacts } from './inlineResponse200Contacts';
-import { InlineResponse400 } from './inlineResponse400';
 import { InlineResponse404 } from './inlineResponse404';
 import { InlineResponse500 } from './inlineResponse500';
+import { MaintenanceInfo } from './maintenanceInfo';
+import { MetricState } from './metricState';
+import { NotificationsList } from './notificationsList';
+import { NotificationsListList } from './notificationsListList';
+import { NotificationsListPlotting } from './notificationsListPlotting';
 import { NotifierState } from './notifierState';
 import { Subscription } from './subscription';
 import { SubscriptionPlotting } from './subscriptionPlotting';
 import { SubscriptionSched } from './subscriptionSched';
 import { SubscriptionSchedDays } from './subscriptionSchedDays';
+import { TagStatistics } from './tagStatistics';
 import { Trigger } from './trigger';
+import { TriggerCheck } from './triggerCheck';
 import { User } from './user';
 
 /* tslint:disable:no-unused-variable */
@@ -61,31 +89,49 @@ let primitives = [
                  ];
 
 let enumsMap: {[index: string]: any} = {
+        "SubscriptionPlotting.ThemeEnum": SubscriptionPlotting.ThemeEnum,
+        "SubscriptionSchedDays.NameEnum": SubscriptionSchedDays.NameEnum,
+        "Trigger.TriggerTypeEnum": Trigger.TriggerTypeEnum,
+        "Trigger.TtlStateEnum": Trigger.TtlStateEnum,
 }
 
 let typeMap: {[index: string]: any} = {
     "Contact": Contact,
     "ContactRequest": ContactRequest,
+    "ErrorBadRequest": ErrorBadRequest,
     "Event": Event,
     "EventEventMessage": EventEventMessage,
     "EventEventMessageMaintenance": EventEventMessageMaintenance,
     "InlineResponse200": InlineResponse200,
     "InlineResponse2001": InlineResponse2001,
+    "InlineResponse20010": InlineResponse20010,
+    "InlineResponse20011": InlineResponse20011,
+    "InlineResponse20012": InlineResponse20012,
     "InlineResponse2002": InlineResponse2002,
     "InlineResponse2003": InlineResponse2003,
-    "InlineResponse2003List": InlineResponse2003List,
     "InlineResponse2004": InlineResponse2004,
+    "InlineResponse2004List": InlineResponse2004List,
     "InlineResponse2005": InlineResponse2005,
+    "InlineResponse2006": InlineResponse2006,
+    "InlineResponse2007": InlineResponse2007,
+    "InlineResponse2008": InlineResponse2008,
+    "InlineResponse2009": InlineResponse2009,
     "InlineResponse200Contacts": InlineResponse200Contacts,
-    "InlineResponse400": InlineResponse400,
     "InlineResponse404": InlineResponse404,
     "InlineResponse500": InlineResponse500,
+    "MaintenanceInfo": MaintenanceInfo,
+    "MetricState": MetricState,
+    "NotificationsList": NotificationsList,
+    "NotificationsListList": NotificationsListList,
+    "NotificationsListPlotting": NotificationsListPlotting,
     "NotifierState": NotifierState,
     "Subscription": Subscription,
     "SubscriptionPlotting": SubscriptionPlotting,
     "SubscriptionSched": SubscriptionSched,
     "SubscriptionSchedDays": SubscriptionSchedDays,
+    "TagStatistics": TagStatistics,
     "Trigger": Trigger,
+    "TriggerCheck": TriggerCheck,
     "User": User,
 }
 

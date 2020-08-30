@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Days** | [**[]SubscriptionSchedDays**](Subscription_sched_days.md) |  | [optional] 
-**TzOffset** | **int32** |  | [optional] 
+**TzOffset** | **int32** | Timezone offset in seconds (wrt GMT) | [optional] 
 **StartOffset** | **int32** |  | [optional] 
 **EndOffset** | **int32** |  | [optional] 
 

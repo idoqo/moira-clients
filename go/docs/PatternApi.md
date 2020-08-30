@@ -43,7 +43,7 @@ No authorization required
 
 ## GetAllPatterns
 
-> InlineResponse2003 GetAllPatterns(ctx, )
+> InlineResponse2004 GetAllPatterns(ctx, )
 
 Get all patterns
 
@@ -53,7 +53,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2003**](inline_response_200_3.md)
+[**InlineResponse2004**](inline_response_200_4.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: applicaton/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

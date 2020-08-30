@@ -83,7 +83,7 @@ No authorization required
 
 ## GetAllPatterns
 
-> InlineResponse2003 GetAllPatterns ()
+> InlineResponse2004 GetAllPatterns ()
 
 Get all patterns
 
@@ -108,7 +108,7 @@ namespace Example
             try
             {
                 // Get all patterns
-                InlineResponse2003 result = apiInstance.GetAllPatterns();
+                InlineResponse2004 result = apiInstance.GetAllPatterns();
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -128,7 +128,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: applicaton/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

@@ -2,9 +2,9 @@
 <!--
 Moira Alert
 
-This is an API description for Moira Alert project. Please check https://github.com/moira-alert
+This is an API description for [Moira Alert project](https://moira.readthedocs.io/en/latest/overview.html). Please check <https://github.com/moira-alert/>
 
-The version of the OpenAPI document: 2.5.1.47
+The version of the OpenAPI document: 2.5.1.48
 
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -12,7 +12,7 @@ The version of the OpenAPI document: 2.5.1.47
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D76DF47-2708-48B1-981D-F0E33CF31C7A}</ProjectGuid>
+    <ProjectGuid>{9945DF50-FCC6-4932-98C6-60B68852C8CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Org.OpenAPITools</RootNamespace>

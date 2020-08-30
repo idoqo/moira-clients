@@ -1,20 +1,35 @@
 openapi: 3.0.0
 info:
-  description: This is an API description for Moira Alert project. Please check https://github.com/moira-alert
+  description: This is an API description for [Moira Alert project](https://moira.readthedocs.io/en/latest/overview.html).
+    Please check <https://github.com/moira-alert/>
   license:
     name: MIT
   title: Moira Alert
-  version: 2.5.1.47
+  version: 2.5.1.48
 servers:
 - description: Localhost server
   url: http://localhost:8080/api
 tags:
-- description: Runtime configuration of the API
+- description: APIs for interacting with the Moira runtime configuration
   name: config
-- description: Triggers Collection Methods
-  name: triggers
-- description: One Trigger Methods
+- description: APIs for working with contacts stored in the Moira database.
+  name: contact
+- description: APIs for interacting with notification events
+  name: event
+- description: interact with Moira states/health status
+  name: health
+- description: manage notifications that are currently in queue
+  name: notifications
+- description: APIs for interacting with graphite patterns in Moira
+  name: pattern
+- description: APIs for managing a user's subscription(s)
+  name: subscription
+- description: APIs for managing tags (a grouping of tags and subscriptions)
+  name: tag
+- description: APIs for interacting with Moira triggers
   name: trigger
+- description: APIs for interacting with on-disk Moira users
+  name: user
 paths:
   /config:
     get:
@@ -41,7 +56,7 @@ paths:
           description: Contacts fetched successfully
       summary: Gets all Moira contacts.
       tags:
-      - contacts
+      - contact
     put:
       operationId: CreateNewContact
       requestBody:
@@ -53,19 +68,28 @@ paths:
       responses:
         "200":
           content:
-            applicaton/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Contact'
           description: Contact created successfully.
         "400":
           content:
             application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
               schema:
-                $ref: '#/components/schemas/inline_response_400'
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
           description: Bad request from client
       summary: Creates a new contact notification for the current user.
       tags:
-      - contacts
+      - contact
   /contact/{contactId}:
     delete:
       operationId: DeleteContact
@@ -83,6 +107,27 @@ paths:
       responses:
         "200":
           description: Contact has been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
       summary: Deletes notification contact for the current user and remove the contact
         ID from all subscriptions.
       tags:
@@ -116,9 +161,24 @@ paths:
         "400":
           content:
             application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
               schema:
-                $ref: '#/components/schemas/inline_response_400'
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
           description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
       summary: Updates an existing notification contact to the values passed in the
         request body.
       tags:
@@ -140,6 +200,27 @@ paths:
       responses:
         "200":
           description: Test successful.
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
       summary: Push a test notification to verify that the contact is properly set
         up.
       tags:
@@ -153,7 +234,7 @@ paths:
       summary: Deletes all notification events
       tags:
       - event
-  /event/{triggerId}:
+  /event/{triggerID}:
     get:
       operationId: GetTriggerEvents
       parameters:
@@ -193,6 +274,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/inline_response_200_2'
           description: Events fetched successfully.
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
       summary: Gets all trigger events for current page and their count
       tags:
       - event
@@ -203,6 +299,17 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                error:
+                  description: Put the service in an ERROR state
+                  value:
+                    state: ERROR
+                    message: Moira has been turned off for maintenance
+                ok:
+                  description: Put the service in an OK state
+                  value:
+                    state: OK
+                    description: ""
               schema:
                 $ref: '#/components/schemas/NotifierState'
           description: Notifier state retrieved
@@ -215,15 +322,16 @@ paths:
         content:
           application/json:
             examples:
-              error:
-                description: Put the service in an ERROR state
-                value:
-                  state: ERROR
-                  message: Moira has been turned off for maintenance
               ok:
-                description: Put the service in an OK state
+                summary: change the notifier state to OK
                 value:
                   state: OK
+                  message: ""
+              error:
+                summary: put the notifier service in an ERROR state
+                value:
+                  state: ERROR
+                  message: Turned off for maintenance
             schema:
               $ref: '#/components/schemas/NotifierState'
         required: true
@@ -231,21 +339,142 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                error:
+                  description: Put the service in an ERROR state
+                  value:
+                    state: ERROR
+                    message: Moira has been turned off for maintenance
+                ok:
+                  description: Put the service in an OK state
+                  value:
+                    state: OK
+                    description: ""
               schema:
                 $ref: '#/components/schemas/NotifierState'
           description: Update state of the Moira service
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
       summary: Update notifier state
       tags:
       - health
+  /notification:
+    delete:
+      operationId: DeleteNotification
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: true
+        in: query
+        name: notificationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+          description: notification have been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: delete a notification by id
+      tags:
+      - notifications
+    get:
+      operationId: GetNotifications
+      parameters:
+      - example: 1
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - example: 15
+        explode: true
+        in: query
+        name: end
+        required: false
+        schema:
+          default: -1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsList'
+          description: Notifications fetched successfully
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: gets a paginated list of notifications, all notifications are fetched
+        if end = -1 and start = 0
+      tags:
+      - notifications
+  /notification/all:
+    delete:
+      operationId: DeleteAllNotification
+      responses:
+        "200":
+          description: all notificiations have been deleted
+      summary: deletes all available notifications
+      tags:
+      - notifications
   /pattern:
     get:
       operationId: GetAllPatterns
       responses:
         "200":
           content:
-            applicaton/json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_3'
+                $ref: '#/components/schemas/inline_response_200_4'
           description: Patterns fetched successfully
       summary: Get all patterns
       tags:
@@ -269,7 +498,260 @@ paths:
       summary: Deletes a Moira pattern
       tags:
       - pattern
+  /tag:
+    get:
+      operationId: GetTags
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+          description: Tags fetched successfully
+      summary: get all tags
+      tags:
+      - tag
+  /tag/{tag}:
+    delete:
+      operationId: DeleteTag
+      parameters:
+      - description: name of the tag
+        example: cpu
+        explode: false
+        in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Tag has been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                tagInUse:
+                  description: no trigger with the ID was found
+                  value:
+                    status: Invalid request
+                    error: this tag is assigned to 1 triggers. Remove tag from triggers
+                      first
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Could not delete tag
+      summary: remove a tag
+      tags:
+      - tag
+  /tag/stats:
+    get:
+      operationId: GetTagsSubscriptions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+          description: Successful
+      summary: get all tags and subscriptions
+      tags:
+      - tag
+  /subscription:
+    get:
+      operationId: GetSubscriptions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_7'
+          description: subscriptions fetched successfully
+      summary: get all subscriptions
+      tags:
+      - subscription
+    put:
+      operationId: CreateSubscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: subscription created
+        "400":
+          content:
+            application/json:
+              examples:
+                missingField:
+                  description: a required field isn't in the request body
+                  value:
+                    status: Invalid request
+                    message: subscription must have tags
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Invalid request data
+      summary: create a new subscription
+      tags:
+      - subscription
+  /subscription/{subscriptionId}:
+    delete:
+      operationId: DeleteSubscription
+      parameters:
+      - example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: subscription deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: deletes a subscription
+      tags:
+      - subscription
+    put:
+      operationId: UpdateSubscription
+      parameters:
+      - example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: subscription updated
+        "400":
+          content:
+            application/json:
+              examples:
+                missingField:
+                  description: a required field isn't in the request body
+                  value:
+                    status: Invalid request
+                    message: subscription must have tags
+                subscriptionNotFound:
+                  description: no subscription with the given ID was found
+                  value:
+                    status: Invalid request
+                    message: subscription with ID '00' does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: invalid request data
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: update a subscription
+      tags:
+      - subscription
+  /subscription/{subscriptionId}/test:
+    put:
+      operationId: TestSubscriptionNotification
+      parameters:
+      - example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: test notification sent successfully
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: send test notification for a subscription
+      tags:
+      - subscription
   /trigger:
+    get:
+      operationId: GetTriggers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_8'
+          description: fetched all triggers
+      summary: get all triggers
+      tags:
+      - trigger
     put:
       operationId: CreateTrigger
       requestBody:
@@ -283,18 +765,143 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_4'
+                $ref: '#/components/schemas/inline_response_200_9'
           description: Trigger created
         "400":
           content:
             application/json:
+              examples:
+                targetRequired:
+                  description: no value passed for 'target' field
+                  value:
+                    status: Invalid request
+                    error: targets is required
               schema:
-                $ref: '#/components/schemas/inline_response_400'
-          description: Bad request from client
-      summary: Create new trigger
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Failed to create trigger due to invalid request body
+      summary: create new trigger
       tags:
-      - triggers
+      - trigger
+  /trigger/page:
+    get:
+      deprecated: true
+      operationId: SearchTriggersPage
+      parameters:
+      - description: Restricts the result to errors only
+        example: false
+        explode: true
+        in: query
+        name: onlyProblems
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Defines the number of the displayed page. E.g, page=2 would display
+          the 2nd page.
+        example: 1
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: query to perform a search for
+        example: cpu
+        explode: true
+        in: query
+        name: text
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_10'
+          description: fetched matching triggers
+      summary: Search triggers. Deprecated, use the `search` endpoint instead
+      tags:
+      - trigger
+  /trigger/search:
+    get:
+      operationId: SearchTriggers
+      parameters:
+      - description: Restricts the result to errors only
+        example: false
+        explode: true
+        in: query
+        name: onlyProblems
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Defines the number of the displayed page. E.g, page=2 would display
+          the 2nd page.
+        example: 1
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: query to perform a search for
+        example: cpu
+        explode: true
+        in: query
+        name: text
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_10'
+          description: fetched matching triggers
+      summary: Search triggers. Replaces the deprecated `page` path
+      tags:
+      - trigger
   /trigger/{triggerID}:
+    delete:
+      operationId: DeleteTrigger
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Trigger has been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: remove a trigger
+      tags:
+      - trigger
     get:
       operationId: GetTrigger
       parameters:
@@ -315,6 +922,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Trigger'
           description: Trigger data
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
         "404":
           content:
             application/json:
@@ -348,15 +970,177 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_4'
+                $ref: '#/components/schemas/inline_response_200_9'
           description: Trigger updated
         "400":
           content:
             application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
               schema:
-                $ref: '#/components/schemas/inline_response_400'
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
           description: Bad request from client
       summary: Update existing trigger
+      tags:
+      - trigger
+  /trigger/{triggerID}/metrics:
+    delete:
+      operationId: DeleteTriggerMetric
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Name of the target metric
+        example: DevOps.my_server.hdd.freespace_mbytes
+        explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: Trigger metric has been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: deletes metric from last check and all trigger pattern metrics
+      tags:
+      - trigger
+    get:
+      operationId: GetTriggerMetrics
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The start period of metrics to get
+        example: -1hour
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The end period of metrics to get
+        example: now
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    properties:
+                      step:
+                        type: integer
+                      ts:
+                        type: integer
+                      value:
+                        type: number
+                    type: object
+                  type: array
+                type: object
+          description: Metrics for trigger
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+          description: Server error
+      summary: Get metrics associated with certain trigger
+      tags:
+      - trigger
+  /trigger/{triggerID}/metrics/nodata:
+    delete:
+      operationId: DeleteTriggerNoDataMetrics
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: NODATA metrics have been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: deletes all metrics from last data which are in NODATA state. It also
+        deletes all trigger patterns of those metrics
       tags:
       - trigger
   /trigger/{triggerID}/render:
@@ -408,6 +1192,27 @@ paths:
                 format: binary
                 type: string
           description: Plot for trigger
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
         "500":
           content:
             application/json:
@@ -417,9 +1222,9 @@ paths:
       summary: Get rendered plot for trigger
       tags:
       - trigger
-  /trigger/{triggerID}/metrics:
-    get:
-      operationId: GetTriggerMetrics
+  /trigger/{triggerID}/setMaintenance:
+    put:
+      operationId: SetTriggerMaintenance
       parameters:
       - description: The ID of updated trigger
         example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
@@ -431,50 +1236,169 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The start period of metrics to get
-        example: -1hour
-        explode: true
-        in: query
-        name: from
-        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - properties:
+                  trigger:
+                    description: Unix timestamp for when the maintenance should be
+                      over
+                    example: 1594225165
+                    type: integer
+                type: object
+              - properties:
+                  metrics:
+                    description: JSON object (i.e key value pair) of the metric and
+                      the unix time to end the scheduled maintenance
+                    example: '{"devops.*": 1594225165}'
+                    type: object
+                type: object
+        required: true
+      responses:
+        "200":
+          description: trigger or metric have been scheduled for maintenance
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: sets metrics and the trigger itself to maintenance mode
+      tags:
+      - trigger
+  /trigger/{triggerID}/state:
+    get:
+      operationId: GetTriggerState
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
         schema:
+          format: uuid
           type: string
-        style: form
-      - description: The end period of metrics to get
-        example: now
-        explode: true
-        in: query
-        name: to
-        required: false
-        schema:
-          type: string
-        style: form
+        style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                additionalProperties:
-                  items:
-                    additionalProperties: false
-                    properties:
-                      step:
-                        type: integer
-                      ts:
-                        type: integer
-                      value:
-                        type: number
-                    type: object
-                  type: array
-                type: object
-          description: Metrics for trigger
-        "500":
+                $ref: '#/components/schemas/TriggerCheck'
+          description: trigger state fetched successfully
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+      summary: Get the trigger state as at last check
+      tags:
+      - trigger
+  /trigger/{triggerID}/throttling:
+    delete:
+      operationId: DeleteTriggerThrottling
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: trigger throttling has been deleted
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
-          description: Server error
-      summary: Get metrics associated with certain trigger
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: Deletes throttling for a trigger
+      tags:
+      - trigger
+    get:
+      operationId: GetTriggerThrottling
+      parameters:
+      - description: The ID of updated trigger
+        example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+        explode: false
+        in: path
+        name: triggerID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_11'
+          description: trigger throttle info retrieved
+        "400":
+          content:
+            application/json:
+              examples:
+                missingID:
+                  description: no resource with the provided ID was found
+                  value:
+                    status: invalid request
+                    error: resource with the ID does not exist
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+            text/html:
+              schema:
+                type: string
+          description: Bad request from client
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+          description: Trigger not found
+      summary: Get a trigger with its throttling i.e its next allowed message time
       tags:
       - trigger
   /user:
@@ -498,7 +1422,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_5'
+                $ref: '#/components/schemas/inline_response_200_12'
           description: Settings fetched successfully.
       summary: Get the user's contacts and subscriptions.
       tags:
@@ -526,6 +1450,37 @@ components:
       schema:
         type: string
       style: form
+    metricName:
+      description: Name of the target metric
+      example: DevOps.my_server.hdd.freespace_mbytes
+      explode: true
+      in: query
+      name: name
+      required: true
+      schema:
+        type: string
+      style: form
+    notificationId:
+      description: The ID of updated trigger
+      example: 5A8AF369-86D2-44DD-B514-D47995ED6AF7
+      explode: true
+      in: query
+      name: notificationId
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: form
+    onlyProblems:
+      description: Restricts the result to errors only
+      example: false
+      explode: true
+      in: query
+      name: onlyProblems
+      required: false
+      schema:
+        type: boolean
+      style: form
     page:
       description: Defines the number of the displayed page. E.g, page=2 would display
         the 2nd page.
@@ -537,6 +1492,16 @@ components:
       schema:
         type: integer
       style: form
+    pattern:
+      description: Trigger pattern to operate on.
+      example: DevOps.my_server.hdd.freespace_mbytes
+      explode: false
+      in: path
+      name: pattern
+      required: true
+      schema:
+        type: string
+      style: simple
     size:
       description: Number of items to be displayed on one page.
       example: 15
@@ -547,6 +1512,46 @@ components:
       schema:
         type: integer
       style: form
+    start:
+      example: 1
+      explode: true
+      in: query
+      name: start
+      required: false
+      schema:
+        default: 0
+        type: integer
+      style: form
+    end:
+      example: 15
+      explode: true
+      in: query
+      name: end
+      required: false
+      schema:
+        default: -1
+        type: integer
+      style: form
+    subscriptionId:
+      example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+      explode: false
+      in: path
+      name: subscriptionId
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    tag:
+      description: name of the tag
+      example: cpu
+      explode: false
+      in: path
+      name: tag
+      required: true
+      schema:
+        type: string
+      style: simple
     targetID:
       description: The ID of updated target to print plot for
       example: t1
@@ -554,6 +1559,16 @@ components:
       in: query
       name: targetID
       required: false
+      schema:
+        type: string
+      style: form
+    text:
+      description: query to perform a search for
+      example: cpu
+      explode: true
+      in: query
+      name: text
+      required: true
       schema:
         type: string
       style: form
@@ -578,22 +1593,21 @@ components:
         format: uuid
         type: string
       style: simple
-    pattern:
-      description: Trigger pattern to operate on.
-      example: DevOps.my_server.hdd.freespace_mbytes
-      explode: false
-      in: path
-      name: pattern
-      required: true
-      schema:
-        type: string
-      style: simple
   responses:
     BadRequest:
       content:
         application/json:
+          examples:
+            missingID:
+              description: no resource with the provided ID was found
+              value:
+                status: invalid request
+                error: resource with the ID does not exist
           schema:
-            $ref: '#/components/schemas/inline_response_400'
+            $ref: '#/components/schemas/ErrorBadRequest'
+        text/html:
+          schema:
+            type: string
       description: Bad request from client
     NotFound:
       content:
@@ -708,39 +1722,45 @@ components:
           $ref: '#/components/schemas/Event_event_message'
       type: object
     Subscription:
-      additionalProperties: false
       example:
-        ignore_warnings: true
-        throttling: true
-        ignore_recoverings: true
+        ignore_warnings: false
+        throttling: false
+        ignore_recoverings: false
         sched:
-          endOffset: 2
-          startOffset: 5
-          tzOffset: 5
+          endOffset: 1439
+          startOffset: 0
+          tzOffset: -60
           days:
-          - name: name
+          - name: Mon
             enabled: true
-          - name: name
+          - name: Mon
             enabled: true
-        any_tags: true
+        any_tags: false
         plotting:
-          theme: theme
+          theme: dark
           enabled: true
-        id: id
+        id: 292516ed-4924-4154-a62c-ebe312431fce
         user: user
         contacts:
-        - contacts
-        - contacts
+        - acd2db98-1659-4a2f-b227-52d71f6e3ba1
         enabled: true
         tags:
-        - tags
-        - tags
+        - server
+        - cpu
       properties:
         contacts:
+          description: ID of contacts that are part of this subscription
+          example:
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
           items:
+            format: uuid
             type: string
           type: array
         tags:
+          description: The tags for this subscription
+          example:
+          - server
+          - cpu
           items:
             type: string
           type: array
@@ -749,109 +1769,497 @@ components:
         plotting:
           $ref: '#/components/schemas/Subscription_plotting'
         id:
+          description: ID of this subscription
+          example: 292516ed-4924-4154-a62c-ebe312431fce
           type: string
         enabled:
+          description: If false, notifications due for thsi subscription will not
+            be sent
+          example: true
           type: boolean
         any_tags:
+          example: false
           type: boolean
         ignore_warnings:
+          description: If true, notifications will not be sent for warning values.
+          example: false
           type: boolean
         ignore_recoverings:
+          example: false
           type: boolean
         throttling:
+          example: false
           type: boolean
         user:
+          description: ID of the user that created the subscription
           type: string
       type: object
-    Trigger:
-      additionalProperties: false
+    TagStatistics:
       example:
-        error_value: 6.027456183070403
+        subscriptions:
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          any_tags: false
+          plotting:
+            theme: dark
+            enabled: true
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          user: user
+          contacts:
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+          enabled: true
+          tags:
+          - server
+          - cpu
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          any_tags: false
+          plotting:
+            theme: dark
+            enabled: true
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          user: user
+          contacts:
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+          enabled: true
+          tags:
+          - server
+          - cpu
+        name: cpu
+        triggers:
+        - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+      properties:
+        name:
+          description: name of the tag
+          example: cpu
+          type: string
+        triggers:
+          description: array of trigger IDs that have this tag
+          items:
+            example: bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+            type: string
+          type: array
+        subscriptions:
+          description: subscriptions for this tag
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+      type: object
+    Trigger:
+      example:
+        error_value: 1000
         expression: expression
-        trigger_type: trigger_type
+        trigger_type: rising
         patterns:
-        - patterns
-        - patterns
-        is_remote: true
-        mute_new_metrics: true
-        ttl_state: ttl_state
+        - ""
+        is_remote: false
+        mute_new_metrics: false
+        ttl_state: NODATA
         targets:
-        - targets
-        - targets
-        ttl: 1
+        - devOps.my_server.hdd.freespace_mbytes
+        ttl: 600
         tags:
-        - tags
-        - tags
-        throttling: 7
+        - server
+        - disk
+        throttling: 0
         sched:
-          endOffset: 2
-          startOffset: 5
-          tzOffset: 5
+          endOffset: 1439
+          startOffset: 0
+          tzOffset: -60
           days:
-          - name: name
+          - name: Mon
             enabled: true
-          - name: name
+          - name: Mon
             enabled: true
-        warn_value: 0.8008281904610115
-        name: name
-        id: id
-        desc: desc
+        warn_value: 5000
+        name: Not enough disk space left
+        id: 292516ed-4924-4154-a62c-ebe312431fce
+        desc: check the size of /var/log
       properties:
         id:
+          description: ID of the trigger
+          example: 292516ed-4924-4154-a62c-ebe312431fce
+          format: uuid
           type: string
         name:
+          description: name of the trigger
+          example: Not enough disk space left
           type: string
         desc:
+          description: informative description of the trigger
+          example: check the size of /var/log
           type: string
         targets:
+          description: graphite metric to cause this trigger
+          example:
+          - devOps.my_server.hdd.freespace_mbytes
           items:
             type: string
           type: array
         warn_value:
-          type: number
+          description: value at which Moira should send a WARNING alert
+          example: 5000
+          type: integer
         error_value:
-          type: number
+          description: value at which Moira should send an ERROR alert
+          example: 1000
+          type: integer
         trigger_type:
+          description: Value is either 'rising' or 'falling'. Dictates when alerts
+            are sent for `warn_value` and `error_value`
+          enum:
+          - rising
+          - falling
+          example: rising
           type: string
         tags:
+          description: the tags associated with this trigger. New tags are automatically
+            created
+          example:
+          - server
+          - disk
           items:
             type: string
           type: array
         ttl_state:
+          description: state to put the metric in if Moira doesn't receive new data
+            for it from graphite. See <https://moira.readthedocs.io/en/latest/development/architecture.html?highlight=ttl#state/>
+          enum:
+          - OK
+          - WARN
+          - ERROR
+          - NODATA
+          - EXCEPTION
+          example: NODATA
           type: string
         ttl:
+          description: number of seconds to wait for metric update from Graphite before
+            changing the metric state
+          example: 600
           type: integer
         sched:
           $ref: '#/components/schemas/Subscription_sched'
         expression:
           type: string
         patterns:
+          description: optional Graphite pattern is a single dot-separated metric
+            name, possibly containing one or more wildcards
+          example:
+          - ""
           items:
             type: string
           type: array
         is_remote:
+          description: dictates if trigger should be added to Graphite instead of
+            Redis. See <https://moira.readthedocs.io/en/latest/installation/configuration.html#remote-triggers-checker/>
+          example: false
           type: boolean
         mute_new_metrics:
+          description: if true, Moira will notify you each time the metric state changes,
+            e.g NODATA -> OK
+          example: false
           type: boolean
         throttling:
+          description: See <https://moira.readthedocs.io/en/latest/user_guide/throttling.html/>
+          example: 0
           type: integer
+      required:
+      - desc
+      - error_value
+      - mute_new_metrics
+      - name
+      - ttl
+      - ttl_state
+      type: object
+    TriggerCheck:
+      additionalProperties: false
+      example:
+        msg: msg
+        score: 100
+        maintenance_info:
+          setup_time: 6
+          setup_user: setup_user
+          remove_user: remove_user
+          remove_time: 1
+        trigger_id: trigger_id
+        metrics:
+          maintenance_info:
+            setup_time: 6
+            setup_user: setup_user
+            remove_user: remove_user
+            remove_time: 1
+          state: OK
+          suppressed: false
+          event_timestamp: 1590741878
+          value: 70
+          maintenance: 0
+          suppressed_state: suppressed_state
+          timestamp: 1590741878
+        state: OK
+        suppressed: true
+        event_timestamp: 1590741878
+        maintenance: 5
+        last_successful_check_timestamp: 1590741916
+        suppressed_state: suppressed_state
+        timestamp: 1590741916
+      properties:
+        metrics:
+          $ref: '#/components/schemas/MetricState'
+        score:
+          example: 100
+          type: integer
+        state:
+          example: OK
+          type: string
+        maintenance:
+          type: integer
+        maintenance_info:
+          $ref: '#/components/schemas/MaintenanceInfo'
+        timestamp:
+          example: 1590741916
+          type: integer
+        event_timestamp:
+          example: 1590741878
+          type: integer
+        last_successful_check_timestamp:
+          example: 1590741916
+          type: integer
+        suppressed:
+          type: boolean
+        suppressed_state:
+          type: string
+        msg:
+          type: string
+        trigger_id:
+          type: string
+      type: object
+    MaintenanceInfo:
+      example:
+        setup_time: 6
+        setup_user: setup_user
+        remove_user: remove_user
+        remove_time: 1
+      properties:
+        setup_user:
+          type: string
+        setup_time:
+          type: integer
+        remove_user:
+          type: string
+        remove_time:
+          type: integer
+      type: object
+    MetricState:
+      additionalProperties: false
+      example:
+        maintenance_info:
+          setup_time: 6
+          setup_user: setup_user
+          remove_user: remove_user
+          remove_time: 1
+        state: OK
+        suppressed: false
+        event_timestamp: 1590741878
+        value: 70
+        maintenance: 0
+        suppressed_state: suppressed_state
+        timestamp: 1590741878
+      properties:
+        event_timestamp:
+          example: 1590741878
+          type: integer
+        state:
+          example: OK
+          type: string
+        suppressed:
+          example: false
+          type: boolean
+        suppressed_state:
+          type: string
+        timestamp:
+          example: 1590741878
+          type: integer
+        value:
+          example: 70
+          type: number
+        maintenance:
+          type: integer
+        maintenance_info:
+          $ref: '#/components/schemas/MaintenanceInfo'
+      type: object
+    NotificationsList:
+      example:
+        total: 0
+        list:
+        - send_fail: 0
+          contact:
+            id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+            type: mail
+            user: user
+            value: devops@example.com
+          plotting:
+            theme: theme
+            enabled: true
+          trigger:
+            error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
+          event:
+            msg: msg
+            metric: carbon.agents.*.metricsReceived
+            contactId: contactId
+            sub_id: sub_id
+            trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+            old_state: ERROR
+            state: OK
+            event_message:
+              interval: 1
+              maintenance:
+                setup_time: 0
+                setup_user: setup_user
+                remove_user: remove_user
+                remove_time: 6
+            value: 70
+            trigger_event: true
+            timestamp: 1590741878
+          throttled: false
+          timestamp: 1594471927
+        - send_fail: 0
+          contact:
+            id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+            type: mail
+            user: user
+            value: devops@example.com
+          plotting:
+            theme: theme
+            enabled: true
+          trigger:
+            error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
+          event:
+            msg: msg
+            metric: carbon.agents.*.metricsReceived
+            contactId: contactId
+            sub_id: sub_id
+            trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+            old_state: ERROR
+            state: OK
+            event_message:
+              interval: 1
+              maintenance:
+                setup_time: 0
+                setup_user: setup_user
+                remove_user: remove_user
+                remove_time: 6
+            value: 70
+            trigger_event: true
+            timestamp: 1590741878
+          throttled: false
+          timestamp: 1594471927
+      properties:
+        total:
+          type: integer
+        list:
+          items:
+            $ref: '#/components/schemas/NotificationsList_list'
+          type: array
       type: object
     NotifierState:
       example:
-        error:
-          state: OK
+        state: OK
+        message: message
       properties:
         state:
-          description: value for OK state
+          description: New state of the notifier service. Should be either OK or ERROR
+          example: OK
           type: string
         message:
-          description: Detailed description of the current state. This field is non-existent
-            if the state is OK
+          description: Optional description for the state change
+          type: string
+      type: object
+    ErrorBadRequest:
+      properties:
+        status:
+          description: The corresponding error status
+          type: string
+        error:
+          description: Message telling why the error occurred
           type: string
       type: object
     inline_response_200_contacts:
       example:
-        help: '@MoiraBot requires admin privileges on your target channel.'
         label: Telegram
         type: telegram
       properties:
@@ -863,19 +2271,13 @@ components:
           description: Human readable label of the contact
           example: Telegram
           type: string
-        help:
-          description: Help text relevant to the contact type
-          example: '@MoiraBot requires admin privileges on your target channel.'
-          type: string
     inline_response_200:
       example:
         remoteAllowed: false
         contacts:
-        - help: '@MoiraBot requires admin privileges on your target channel.'
-          label: Telegram
+        - label: Telegram
           type: telegram
-        - help: '@MoiraBot requires admin privileges on your target channel.'
-          label: Telegram
+        - label: Telegram
           type: telegram
       properties:
         remoteAllowed:
@@ -904,14 +2306,13 @@ components:
           items:
             $ref: '#/components/schemas/Contact'
           type: array
-    inline_response_400:
+    inline_response_404:
       properties:
         status:
-          description: The error status
-          example: Invalid request
+          example: Resource not found
           type: string
         error:
-          description: A bit more descriptive error message
+          example: resource with ID '66741a8c-c2ba-4357-a2c9-ee78e0e7' does not exist
           type: string
     inline_response_200_2:
       example:
@@ -971,7 +2372,77 @@ components:
           items:
             $ref: '#/components/schemas/Event'
           type: array
-    inline_response_200_3_list:
+    inline_response_200_3:
+      example:
+        result: 0
+      properties:
+        result:
+          example: 0
+          type: integer
+    inline_response_200_4_list:
+      example:
+        pattern: Devops.my_server.*
+        metrics:
+        - DevOps.my_server.hdd.freespace_mbytes
+        - DevOps.my_server.hdd.usedspace_mbytes
+        - DevOps.my_server.db.*
+        triggers:
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
       properties:
         metrics:
           example:
@@ -988,14 +2459,389 @@ components:
           items:
             $ref: '#/components/schemas/Trigger'
           type: array
-    inline_response_200_3:
+    inline_response_200_4:
+      example:
+        list:
+        - pattern: Devops.my_server.*
+          metrics:
+          - DevOps.my_server.hdd.freespace_mbytes
+          - DevOps.my_server.hdd.usedspace_mbytes
+          - DevOps.my_server.db.*
+          triggers:
+          - error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
+          - error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
+        - pattern: Devops.my_server.*
+          metrics:
+          - DevOps.my_server.hdd.freespace_mbytes
+          - DevOps.my_server.hdd.usedspace_mbytes
+          - DevOps.my_server.db.*
+          triggers:
+          - error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
+          - error_value: 1000
+            expression: expression
+            trigger_type: rising
+            patterns:
+            - ""
+            is_remote: false
+            mute_new_metrics: false
+            ttl_state: NODATA
+            targets:
+            - devOps.my_server.hdd.freespace_mbytes
+            ttl: 600
+            tags:
+            - server
+            - disk
+            throttling: 0
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            warn_value: 5000
+            name: Not enough disk space left
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            desc: check the size of /var/log
       properties:
         list:
           description: List of fetched patterns
           items:
-            $ref: '#/components/schemas/inline_response_200_3_list'
+            $ref: '#/components/schemas/inline_response_200_4_list'
           type: array
-    inline_response_200_4:
+    inline_response_200_5:
+      example:
+        list:
+        - cpu
+        - cpu
+      properties:
+        list:
+          description: List of all the tags
+          items:
+            example: cpu
+            type: string
+          type: array
+    inline_response_200_6:
+      example:
+        list:
+        - subscriptions:
+          - ignore_warnings: false
+            throttling: false
+            ignore_recoverings: false
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            any_tags: false
+            plotting:
+              theme: dark
+              enabled: true
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            user: user
+            contacts:
+            - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+            enabled: true
+            tags:
+            - server
+            - cpu
+          - ignore_warnings: false
+            throttling: false
+            ignore_recoverings: false
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            any_tags: false
+            plotting:
+              theme: dark
+              enabled: true
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            user: user
+            contacts:
+            - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+            enabled: true
+            tags:
+            - server
+            - cpu
+          name: cpu
+          triggers:
+          - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+          - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+        - subscriptions:
+          - ignore_warnings: false
+            throttling: false
+            ignore_recoverings: false
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            any_tags: false
+            plotting:
+              theme: dark
+              enabled: true
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            user: user
+            contacts:
+            - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+            enabled: true
+            tags:
+            - server
+            - cpu
+          - ignore_warnings: false
+            throttling: false
+            ignore_recoverings: false
+            sched:
+              endOffset: 1439
+              startOffset: 0
+              tzOffset: -60
+              days:
+              - name: Mon
+                enabled: true
+              - name: Mon
+                enabled: true
+            any_tags: false
+            plotting:
+              theme: dark
+              enabled: true
+            id: 292516ed-4924-4154-a62c-ebe312431fce
+            user: user
+            contacts:
+            - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+            enabled: true
+            tags:
+            - server
+            - cpu
+          name: cpu
+          triggers:
+          - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+          - bcba82f5-48cf-44c0-b7d6-e1d32c64a88c
+      properties:
+        list:
+          description: list of available Moira tags, their triggers and their subscriptions
+          items:
+            $ref: '#/components/schemas/TagStatistics'
+          type: array
+    inline_response_200_7:
+      example:
+        list:
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          any_tags: false
+          plotting:
+            theme: dark
+            enabled: true
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          user: user
+          contacts:
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+          enabled: true
+          tags:
+          - server
+          - cpu
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          any_tags: false
+          plotting:
+            theme: dark
+            enabled: true
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          user: user
+          contacts:
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
+          enabled: true
+          tags:
+          - server
+          - cpu
+      properties:
+        list:
+          description: list of all the available subscriptions
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+    inline_response_200_8:
+      example:
+        list:
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
+      properties:
+        list:
+          description: list of available triggers
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+    inline_response_200_9:
       example:
         id: trigger_id
         message: trigger created
@@ -1006,14 +2852,86 @@ components:
         message:
           example: trigger created
           type: string
-    inline_response_404:
+    inline_response_200_10:
+      example:
+        total: 5
+        size: 10
+        page: 0
+        list:
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
+        - error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
       properties:
-        status:
-          example: Resource not found
-          type: string
-        error:
-          example: trigger not found
-          type: string
+        page:
+          description: current item page
+          example: 0
+          type: number
+        size:
+          description: number of triggers shown per page
+          example: 10
+          type: number
+        total:
+          description: total number of matching results
+          example: 5
+          type: number
+        list:
+          description: list of matching triggers
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
     inline_response_500:
       properties:
         status:
@@ -1022,59 +2940,65 @@ components:
         error:
           example: 'no points found to render trigger: 5A8AF369-86D2-44DD-B514-D47995ED6AF7'
           type: string
-    inline_response_200_5:
+    inline_response_200_11:
+      example:
+        throttling: 0
+      properties:
+        throttling:
+          description: unix timestamp to show next allowed time, defaults to 0
+          example: 0
+          type: integer
+    inline_response_200_12:
       example:
         subscriptions:
-        - ignore_warnings: true
-          throttling: true
-          ignore_recoverings: true
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
           sched:
-            endOffset: 2
-            startOffset: 5
-            tzOffset: 5
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
             days:
-            - name: name
+            - name: Mon
               enabled: true
-            - name: name
+            - name: Mon
               enabled: true
-          any_tags: true
+          any_tags: false
           plotting:
-            theme: theme
+            theme: dark
             enabled: true
-          id: id
+          id: 292516ed-4924-4154-a62c-ebe312431fce
           user: user
           contacts:
-          - contacts
-          - contacts
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
           enabled: true
           tags:
-          - tags
-          - tags
-        - ignore_warnings: true
-          throttling: true
-          ignore_recoverings: true
+          - server
+          - cpu
+        - ignore_warnings: false
+          throttling: false
+          ignore_recoverings: false
           sched:
-            endOffset: 2
-            startOffset: 5
-            tzOffset: 5
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
             days:
-            - name: name
+            - name: Mon
               enabled: true
-            - name: name
+            - name: Mon
               enabled: true
-          any_tags: true
+          any_tags: false
           plotting:
-            theme: theme
+            theme: dark
             enabled: true
-          id: id
+          id: 292516ed-4924-4154-a62c-ebe312431fce
           user: user
           contacts:
-          - contacts
-          - contacts
+          - acd2db98-1659-4a2f-b227-52d71f6e3ba1
           enabled: true
           tags:
-          - tags
-          - tags
+          - server
+          - cpu
         login: petr
         contacts:
         - id: 1dd38765-c5be-418d-81fa-7a5f879c2315
@@ -1130,22 +3054,35 @@ components:
           type: integer
     Subscription_sched_days:
       example:
-        name: name
+        name: Mon
         enabled: true
       properties:
         enabled:
+          description: Indicates if notifications should be sent on this day of the
+            week.
+          example: true
           type: boolean
         name:
+          description: Shortened name of the weekday
+          enum:
+          - Mon
+          - Tue
+          - Wed
+          - Thu
+          - Fri
+          - Sat
+          - Sun
+          example: Mon
           type: string
     Subscription_sched:
       example:
-        endOffset: 2
-        startOffset: 5
-        tzOffset: 5
+        endOffset: 1439
+        startOffset: 0
+        tzOffset: -60
         days:
-        - name: name
+        - name: Mon
           enabled: true
-        - name: name
+        - name: Mon
           enabled: true
       properties:
         days:
@@ -1153,12 +3090,31 @@ components:
             $ref: '#/components/schemas/Subscription_sched_days'
           type: array
         tzOffset:
+          description: Timezone offset in seconds (wrt GMT)
+          example: -60
           type: integer
         startOffset:
+          example: 0
           type: integer
         endOffset:
+          example: 1439
           type: integer
     Subscription_plotting:
+      example:
+        theme: dark
+        enabled: true
+      properties:
+        enabled:
+          example: true
+          type: boolean
+        theme:
+          description: Theme of the chart. Should be either 'light' or 'dark'
+          enum:
+          - light
+          - dark
+          example: dark
+          type: string
+    NotificationsList_plotting:
       example:
         theme: theme
         enabled: true
@@ -1167,3 +3123,84 @@ components:
           type: boolean
         theme:
           type: string
+    NotificationsList_list:
+      example:
+        send_fail: 0
+        contact:
+          id: 1dd38765-c5be-418d-81fa-7a5f879c2315
+          type: mail
+          user: user
+          value: devops@example.com
+        plotting:
+          theme: theme
+          enabled: true
+        trigger:
+          error_value: 1000
+          expression: expression
+          trigger_type: rising
+          patterns:
+          - ""
+          is_remote: false
+          mute_new_metrics: false
+          ttl_state: NODATA
+          targets:
+          - devOps.my_server.hdd.freespace_mbytes
+          ttl: 600
+          tags:
+          - server
+          - disk
+          throttling: 0
+          sched:
+            endOffset: 1439
+            startOffset: 0
+            tzOffset: -60
+            days:
+            - name: Mon
+              enabled: true
+            - name: Mon
+              enabled: true
+          warn_value: 5000
+          name: Not enough disk space left
+          id: 292516ed-4924-4154-a62c-ebe312431fce
+          desc: check the size of /var/log
+        event:
+          msg: msg
+          metric: carbon.agents.*.metricsReceived
+          contactId: contactId
+          sub_id: sub_id
+          trigger_id: 5ff37996-8927-4cab-8987-970e80d8e0a8
+          old_state: ERROR
+          state: OK
+          event_message:
+            interval: 1
+            maintenance:
+              setup_time: 0
+              setup_user: setup_user
+              remove_user: remove_user
+              remove_time: 6
+          value: 70
+          trigger_event: true
+          timestamp: 1590741878
+        throttled: false
+        timestamp: 1594471927
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        plotting:
+          $ref: '#/components/schemas/NotificationsList_plotting'
+        throttled:
+          description: boolean flag to check if a notification is throttled or not
+          example: false
+          type: boolean
+        send_fail:
+          description: count of failed attempts to send the notification
+          example: 0
+          type: integer
+        timestamp:
+          description: unix timestamp of the time the notification was created
+          example: 1594471927
+          type: integer

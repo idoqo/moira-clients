@@ -68,7 +68,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_patterns**
-> InlineResponse2003 get_all_patterns()
+> InlineResponse2004 get_all_patterns()
 
 Get all patterns
 
@@ -105,7 +105,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -114,7 +114,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: applicaton/json
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

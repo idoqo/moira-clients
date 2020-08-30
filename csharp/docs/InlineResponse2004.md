@@ -5,8 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [optional] 
-**Message** | **string** |  | [optional] 
+**List** | [**List&lt;InlineResponse2004List&gt;**](InlineResponse2004List.md) | List of fetched patterns | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

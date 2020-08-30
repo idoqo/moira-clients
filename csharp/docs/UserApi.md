@@ -80,7 +80,7 @@ No authorization required
 
 ## GetUserSettings
 
-> InlineResponse2005 GetUserSettings ()
+> InlineResponse20012 GetUserSettings ()
 
 Get the user's contacts and subscriptions.
 
@@ -105,7 +105,7 @@ namespace Example
             try
             {
                 // Get the user's contacts and subscriptions.
-                InlineResponse2005 result = apiInstance.GetUserSettings();
+                InlineResponse20012 result = apiInstance.GetUserSettings();
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -125,7 +125,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse20012**](InlineResponse20012.md)
 
 ### Authorization
 

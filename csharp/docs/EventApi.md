@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost:8080/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteEvents**](EventApi.md#deleteevents) | **DELETE** /event/all | Deletes all notification events
-[**GetTriggerEvents**](EventApi.md#gettriggerevents) | **GET** /event/{triggerId} | Gets all trigger events for current page and their count
+[**GetTriggerEvents**](EventApi.md#gettriggerevents) | **GET** /event/{triggerID} | Gets all trigger events for current page and their count
 
 
 
@@ -141,12 +141,13 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/html, 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Events fetched successfully. |  -  |
+| **400** | Bad request from client |  -  |
 
 [[Back to top]](#)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)
